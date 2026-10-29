@@ -1,0 +1,23 @@
+# since i went.
+
+> A one-page calculator at https://sinceiwent.org. You enter your age and the age you went vegetarian or vegan, and it shows how many animals, and how much CO₂e, land, animal feed and water, you have spared so far and will spare over your life.
+
+## Yearly figures used (per person, compared with a typical meat eater)
+
+- Vegetarian: 22.7 land animals, 117.7 fish and shellfish, 1.64 tonnes of CO₂e, 2,930 m² of land, 820 kg of animal feed and 470,000 litres of water a year.
+- Vegan: 29.3 land animals, 117.7 fish and shellfish, 2.25 tonnes of CO₂e, 3,530 m² of land, 1,020 kg of animal feed and 560,000 litres of water a year.
+
+## How the figures are worked out
+
+- CO₂e and land come from the University of Oxford study by Scarborough et al. (2023). The typical meat eater sits halfway between the study's medium and high meat eaters: 8.64 kg CO₂e and 14.03 m² of land a day, per 2,000 kcal. Vegetarians in the study: 4.16 kg and 6.01 m². Vegans: 2.47 kg and 4.37 m².
+- Animal feed uses the feed needed per kilo of meat, eggs and milk from Alexander et al. (2016), applied to about 84 kg of meat a year, plus milk and eggs for vegans.
+- Lifetimes run to UK life expectancy at birth (ONS, 2017 to 2019): 79.4 for men and 83.1 for women. Visitors can change it.
+
+## Sources
+
+- Poore, J. and Nemecek, T. (2018). Reducing food's environmental impacts through producers and consumers. Science 360(6392): 987-992. University of Oxford.
+- Scarborough, P. et al. (2023). Vegans, vegetarians, fish-eaters and meat-eaters in the UK show discrepant environmental impacts. Nature Food 4: 565-574. University of Oxford.
+- UN FAO (FAOSTAT), via Our World in Data: animals slaughtered and fish caught each year.
+- Mekonnen, M. M. and Hoekstra, A. Y. (2012). A global assessment of the water footprint of farm animal products. Ecosystems 15: 401-415.
+- Alexander, P. et al. (2016). Human appropriation of land for food: the role of diet. Global Environmental Change 41: 88-98. Via Our World in Data.
+- Office for National Statistics (2020). National life tables, life expectancy in the UK: 2017 to 2019.

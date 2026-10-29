@@ -1,0 +1,4340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>since i went. Vegan &amp; Vegetarian Impact Calculator</title>
+  <meta name="description" content="See how many animals, beef burgers, tonnes of CO₂e, square metres of forest and litres of water you have spared since going vegetarian or vegan, and how much you will spare over your life. Based on University of Oxford and UN FAO data." />
+  <meta name="keywords" content="vegan calculator, vegetarian impact calculator, how many animals does a vegan save, since i went, vegan carbon footprint calculator, vegetarian vs vegan impact, lifetime animals saved" />
+  <meta name="theme-color" content="#1E5638" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <link rel="canonical" href="https://sinceiwent.org/" />
+
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:site_name" content="since i went." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://sinceiwent.org/" />
+  <meta property="og:title" content="since i went. See what going vegetarian or vegan spares" />
+  <meta property="og:description" content="Enter your age and the age you went vegetarian or vegan. Watch your line count every animal, burger, tonne of CO₂e, square metre of forest and litre of water you spare." />
+  <meta property="og:image" content="https://sinceiwent.org/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="since i went. A lifeline showing what going vegetarian or vegan spares" />
+
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="since i went. Vegan &amp; Vegetarian Impact Calculator" />
+  <meta name="twitter:description" content="Every year counts. See the animals, burgers, carbon, forest and water you spare over your life." />
+  <meta name="twitter:image" content="https://sinceiwent.org/og.png" />
+
+  <!-- Icons -->
+  <link rel="icon" href="/favicon.ico" sizes="48x48" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://sinceiwent.org/#website",
+        "name": "since i went.",
+        "alternateName": ["Since I Went", "sinceiwent.org"],
+        "url": "https://sinceiwent.org/",
+        "description": "A calculator that shows how many animals, and how much carbon, land and water, you spare by going vegetarian or vegan, so far and over your life.",
+        "publisher": { "@id": "https://sinceiwent.org/#organization" }
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://sinceiwent.org/#organization",
+        "name": "since i went.",
+        "url": "https://sinceiwent.org/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://sinceiwent.org/icon-512.png",
+          "width": 512,
+          "height": 512
+        }
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://sinceiwent.org/#app",
+        "name": "since i went. Vegan and vegetarian impact calculator",
+        "url": "https://sinceiwent.org/",
+        "image": "https://sinceiwent.org/og.png",
+        "applicationCategory": "EducationalApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires JavaScript",
+        "isAccessibleForFree": true,
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "Live count of the animals, CO2e, land, animal feed and water you have spared",
+          "Lifetime totals based on life expectancy",
+          "Vegetarian, vegan and meat eater lifetimes side by side",
+          "Shareable images for Instagram Stories, posts and X",
+          "Figures from University of Oxford studies and UN FAO data"
+        ]
+      }
+    ]
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cormorant+Infant:wght@500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #F4F1EA;
+      --bg-card: #ECE8DF;
+      --ink: #141413;
+      --ink-secondary: #585650;
+      --ink-muted: #8E8B82;
+      --hairline: rgba(20, 20, 19, 0.10);
+      --hairline-strong: rgba(20, 20, 19, 0.22);
+
+      --green-veg: #1E5638;
+      --green-vegan: #2B8A52;
+      --meat-red: #8E241B;
+      --active-accent: #1E5638;
+      --crimson-dot: #C83E31;
+
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      background-color: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    ::selection {
+      background: rgba(43, 138, 82, 0.15);
+      color: var(--ink);
+    }
+
+    /* Scroll track and fixed stage */
+    .scroll-track {
+      position: relative;
+      width: 100%;
+      height: 960vh;
+    }
+
+    .viewport-stage {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(ellipse at 50% 35%, rgba(255, 253, 248, 0.55) 0%, rgba(232, 227, 215, 0.35) 100%);
+      z-index: 1;
+    }
+
+    .paper-texture-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.85;
+      background-repeat: repeat;
+      background-size: 110px 110px;
+    }
+
+    /* Left column: the lifeline */
+    .line-zone {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 38%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 2;
+      will-change: opacity;
+    }
+
+    #threadCanvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* Right column: scenes fade in and out in place */
+    .content-zone {
+      position: absolute;
+      top: 0;
+      left: 40%;
+      right: 6%;
+      height: 100%;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .scene {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      will-change: opacity;
+    }
+
+    .scene.is-interactive {
+      pointer-events: auto;
+    }
+
+    .stagger-item {
+      opacity: 0;
+      will-change: opacity;
+    }
+
+    /* Scene 0: title */
+    .title-main {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(3.2rem, 5.6vw, 5.2rem);
+      letter-spacing: -0.02em;
+      line-height: 1.02;
+      color: var(--ink);
+    }
+
+    .title-sub {
+      margin-top: 20px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .title-sub::before {
+      content: '';
+      width: 24px;
+      height: 1px;
+      background: var(--ink-muted);
+      opacity: 0.5;
+    }
+
+    /* Scenes 1 and 2: statements */
+    .statement-kicker {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .kicker-num {
+      margin-right: 4px;
+    }
+
+    h2.statement-kicker {
+      font-weight: 400;
+      margin-top: 0;
+    }
+
+    .kicker-title {
+      font: inherit;
+      letter-spacing: inherit;
+      margin: 0;
+    }
+
+    .lead-star {
+      font-size: 0.55em;
+      vertical-align: super;
+      line-height: 0;
+      margin-left: 1px;
+      color: var(--ink-muted);
+    }
+
+    .source-note {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      letter-spacing: 0.03em;
+      color: var(--ink-muted);
+    }
+
+    .source-note a {
+      color: var(--ink-secondary);
+      text-decoration: none;
+      border-bottom: 1px solid var(--hairline-strong);
+    }
+
+    .source-note a:hover {
+      color: var(--active-accent);
+      border-bottom-color: var(--active-accent);
+    }
+
+    .live-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--active-accent);
+      display: inline-block;
+      animation: livePulse 2s infinite ease-in-out;
+    }
+
+    @keyframes livePulse {
+      0%, 100% { opacity: 0.35; transform: scale(0.9); }
+      50% { opacity: 1; transform: scale(1.15); }
+    }
+
+    .statement-body {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(2.0rem, 3.4vw, 3.2rem);
+      line-height: 1.38;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      max-width: 740px;
+      font-variant-numeric: lining-nums tabular-nums;
+      font-feature-settings: "lnum" 1, "tnum" 1;
+    }
+
+    .inline-choice-group {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 4px;
+      border-bottom: 1.5px solid var(--ink);
+      padding-bottom: 2px;
+      margin: 0 4px;
+      flex-wrap: wrap;
+    }
+
+    .choice-btn {
+      appearance: none;
+      background: none;
+      border: none;
+      font-family: inherit;
+      font-size: inherit;
+      font-weight: 500;
+      color: var(--ink-muted);
+      cursor: pointer;
+      padding: 0 5px;
+      transition: color 0.2s ease;
+    }
+
+    .choice-btn:hover {
+      color: var(--ink-secondary);
+    }
+
+    .choice-btn.active {
+      color: var(--ink);
+    }
+
+    .choice-btn.active-green {
+      color: var(--active-accent);
+    }
+
+    .choice-slash {
+      font-size: 0.70em;
+      color: var(--ink-muted);
+      opacity: 0.45;
+      user-select: none;
+    }
+
+    .inline-number-ctrl {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      border-bottom: 1.5px solid var(--ink);
+      padding: 0 4px 2px;
+      margin: 0 4px;
+      vertical-align: baseline;
+    }
+
+    .inline-number-ctrl.green-underline {
+      border-bottom-color: var(--active-accent);
+    }
+
+    .step-btn {
+      appearance: none;
+      background: transparent;
+      border: 1px solid var(--hairline-strong);
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 1;
+      color: var(--ink-secondary);
+      cursor: pointer;
+      transform: translateY(-3px);
+    }
+
+    .step-btn:hover {
+      border-color: var(--ink);
+      color: var(--ink);
+      background: rgba(20, 20, 19, 0.05);
+    }
+
+    /* Age inputs */
+    .editable-age-input {
+      appearance: none;
+      background: transparent;
+      border: none;
+      font-family: var(--font-mono);
+      font-size: 0.80em;
+      font-weight: 400;
+      color: var(--ink);
+      width: 2.6ch;
+      text-align: center;
+      outline: none;
+      cursor: text;
+      padding: 0;
+    }
+
+    .editable-age-input.green-text {
+      color: var(--active-accent);
+      font-weight: 500;
+    }
+
+    .editable-age-input.wide {
+      width: 4.2ch;
+    }
+
+    .statement-note {
+      margin-top: 20px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      color: var(--ink-muted);
+    }
+
+    /* Scenes 3 and 4: numbers */
+    .facts-header {
+      margin-bottom: 18px;
+      max-width: 780px;
+    }
+
+    .facts-lead {
+      font-family: var(--font-serif);
+      font-size: clamp(1.45rem, 2.15vw, 2.0rem);
+      font-weight: 400;
+      line-height: 1.32;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+      font-variant-numeric: lining-nums tabular-nums;
+      font-feature-settings: "lnum" 1, "tnum" 1;
+    }
+
+    .facts-lead strong {
+      font-weight: 500;
+      color: var(--active-accent);
+    }
+
+    .metrics-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px 28px;
+      max-width: 840px;
+      padding-top: 18px;
+      border-top: 1px solid var(--hairline-strong);
+    }
+
+    .metric-item {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .metric-number-row {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .metric-number {
+      font-family: var(--font-serif);
+      font-size: clamp(1.95rem, 2.9vw, 2.85rem);
+      font-weight: 500;
+      line-height: 0.98;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      font-variant-numeric: lining-nums tabular-nums;
+      font-feature-settings: "lnum" 1, "tnum" 1;
+    }
+
+    .metric-number .dec-part {
+      font-family: var(--font-mono);
+      font-size: 0.44em;
+      opacity: 0.68;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      margin-left: 1px;
+    }
+
+    .metric-number.accent-green {
+      color: var(--active-accent);
+    }
+
+    .metric-unit {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink-secondary);
+    }
+
+    .metric-label {
+      font-family: var(--font-sans);
+      font-size: 12.5px;
+      font-weight: 500;
+      line-height: 1.32;
+      color: var(--ink);
+    }
+
+    .metric-sub {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      line-height: 1.38;
+      color: var(--ink-muted);
+      letter-spacing: 0.01em;
+    }
+
+    /* Scene 4: photo cards. Hover shows the other photo and a fact. */
+    .photo-metrics-grid {
+      gap: 12px 14px;
+      padding-top: 14px;
+    }
+
+    .photo-metric-card {
+      position: relative;
+      height: 162px;
+      justify-content: flex-end;
+      padding: 12px 13px;
+      overflow: hidden;
+      background: #181817;
+      border: 1px solid rgba(20, 20, 19, 0.14);
+      cursor: pointer;
+    }
+
+    .metric-photo-wrap {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .metric-photo {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity 0.5s ease, transform 0.65s ease;
+    }
+
+    .metric-photo.photo-good {
+      filter: saturate(0.75) contrast(0.95) brightness(0.92) sepia(0.07);
+      opacity: 1;
+      z-index: 1;
+    }
+
+    .metric-photo.photo-bad {
+      filter: saturate(0.55) contrast(1.15) brightness(0.68);
+      opacity: 0;
+      z-index: 2;
+    }
+
+    .photo-metric-card.is-flipped .photo-bad {
+      opacity: 1;
+      transform: scale(1.04);
+    }
+
+    .metric-photo-scrim {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(14, 14, 13, 0.22) 0%, rgba(14, 14, 13, 0.68) 100%);
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .crosshair-mark {
+      position: absolute;
+      top: 7px;
+      right: 9px;
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      color: rgba(255, 255, 255, 0.65);
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    .other-side-badge {
+      position: absolute;
+      top: 8px;
+      left: 10px;
+      z-index: 6;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-family: var(--font-mono);
+      font-size: 8.5px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.92);
+      background: rgba(16, 16, 15, 0.78);
+      padding: 2px 6px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .other-side-badge::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--crimson-dot);
+    }
+
+    .hover-fact-overlay {
+      position: absolute;
+      left: 10px;
+      right: 10px;
+      top: 29px;
+      z-index: 6;
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      line-height: 1.35;
+      color: #F6F4EF;
+      background: rgba(14, 14, 13, 0.86);
+      border-left: 2px solid var(--crimson-dot);
+      padding: 5px 8px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .photo-metric-card.is-flipped .other-side-badge,
+    .photo-metric-card.is-flipped .hover-fact-overlay {
+      opacity: 1;
+    }
+
+    .photo-metric-card .metric-edge-box {
+      position: relative;
+      z-index: 5;
+    }
+
+    .photo-metric-card .metric-number {
+      color: #FFFFFF !important;
+      font-size: clamp(1.65rem, 2.3vw, 2.2rem);
+      text-shadow: 0 1px 10px rgba(0, 0, 0, 0.4);
+    }
+
+    .photo-metric-card .metric-unit {
+      color: rgba(255, 255, 255, 0.85) !important;
+    }
+
+    .photo-metric-card .metric-label {
+      color: #F4F1EA !important;
+      font-size: 12px;
+    }
+
+    .photo-metric-card .metric-sub {
+      color: rgba(244, 241, 234, 0.76) !important;
+      font-size: 9.5px;
+    }
+
+    /* Buttons */
+    .action-bar-wrap {
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid var(--hairline);
+      max-width: 840px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .share-btn-group {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      flex-wrap: wrap;
+    }
+
+    .editorial-btn {
+      appearance: none;
+      background: transparent;
+      border: 1px solid var(--hairline-strong);
+      padding: 7px 12px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .editorial-btn:hover {
+      border-color: var(--ink);
+      background: rgba(20, 20, 19, 0.05);
+    }
+
+    .editorial-btn.primary-outline {
+      border-color: var(--ink);
+      background: var(--ink);
+      color: var(--bg);
+      padding: 8px 14px;
+      font-size: 10.5px;
+    }
+
+    .editorial-btn.primary-outline:hover {
+      background: var(--active-accent);
+      border-color: var(--active-accent);
+      color: #FFFFFF;
+    }
+
+    .editorial-btn.ig-btn {
+      border-color: var(--active-accent);
+      color: var(--active-accent);
+      font-weight: 500;
+    }
+
+    .editorial-btn.ig-btn:hover {
+      background: var(--active-accent);
+      color: #FFFFFF;
+    }
+
+    .editorial-btn.is-active-green {
+      background: var(--green-vegan);
+      border-color: var(--green-vegan);
+      color: #FFFFFF;
+    }
+
+    .vegan-switch-delta {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--ink-secondary);
+      letter-spacing: 0.02em;
+    }
+
+    /* Scene 5: everything I spare */
+    .final-facts-scene {
+      position: absolute;
+      inset: 0;
+      padding: 28px 5.5vw 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 4;
+      will-change: opacity;
+    }
+
+    .final-facts-scene.is-interactive {
+      pointer-events: auto;
+    }
+
+    .final-facts-inner {
+      max-width: 1240px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .final-top-bar {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--ink);
+      margin-bottom: 14px;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .final-title {
+      font-family: var(--font-serif);
+      font-size: clamp(1.55rem, 2.2vw, 2.1rem);
+      font-weight: 400;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+    }
+
+    .final-profile-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--ink-secondary);
+      flex-wrap: wrap;
+    }
+
+    .mode-switch-btn {
+      appearance: none;
+      background: transparent;
+      border: 1px solid var(--hairline-strong);
+      padding: 5px 10px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--ink);
+      cursor: pointer;
+    }
+
+    .mode-switch-btn:hover {
+      border-color: var(--ink);
+    }
+
+    .mode-switch-btn.active-mode {
+      background: var(--active-accent);
+      border-color: var(--active-accent);
+      color: #FFFFFF;
+    }
+
+    .mode-switch-btn.meat-btn.active-mode {
+      background: var(--meat-red);
+      border-color: var(--meat-red);
+      color: #FFFFFF;
+    }
+
+    /* Scene 5 photo strip */
+    .bottom-photo-strip {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .bottom-photo-card {
+      position: relative;
+      height: 136px;
+      overflow: hidden;
+      background: #141413;
+      border: 1px solid var(--hairline-strong);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      cursor: pointer;
+    }
+
+    .bottom-photo-card img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity 0.5s ease, transform 0.65s ease;
+    }
+
+    .bottom-photo-card .b-img-bad {
+      opacity: 1;
+      filter: saturate(0.55) contrast(1.15) brightness(0.72);
+      z-index: 1;
+    }
+
+    .bottom-photo-card .b-img-good {
+      opacity: 0;
+      filter: saturate(0.80) contrast(0.95) brightness(0.95) sepia(0.06);
+      z-index: 2;
+    }
+
+    .bottom-photo-card.is-flipped .b-img-good {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+
+    /* Fact shown on hover or tap */
+    .bottom-card-fact {
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      right: 6px;
+      z-index: 4;
+      background: rgba(16, 16, 15, 0.86);
+      color: #F4F1EA;
+      font-family: var(--font-mono);
+      font-size: 8.5px;
+      line-height: 1.32;
+      padding: 4px 6px;
+      border-left: 2px solid var(--active-accent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .bottom-photo-card.is-flipped .bottom-card-fact {
+      opacity: 1;
+    }
+
+    .bottom-edge-box {
+      position: relative;
+      z-index: 3;
+      background: rgba(18, 18, 17, 0.92);
+      color: #F4F1EA;
+      padding: 5px 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .bottom-edge-num {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 500;
+      line-height: 1.02;
+      color: #FFFFFF;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+
+    .bottom-edge-label {
+      font-family: var(--font-mono);
+      font-size: 8px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: rgba(244, 241, 234, 0.72);
+    }
+
+    .final-columns {
+      display: grid;
+      grid-template-columns: 1.2fr 1.1fr 1fr;
+      gap: 24px;
+    }
+
+    .final-col-title {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--hairline-strong);
+      margin-bottom: 6px;
+    }
+
+    .fact-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .fact-table tr {
+      border-bottom: 1px solid var(--hairline);
+    }
+
+    .fact-table td {
+      padding: 5px 0;
+      font-size: 11.5px;
+      color: var(--ink-secondary);
+    }
+
+    .fact-table td.val {
+      text-align: right;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--ink);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .fact-table td.val.accent-col {
+      color: var(--active-accent);
+    }
+
+    .sources-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .sources-list li {
+      font-size: 10.8px;
+      line-height: 1.35;
+      color: #6E6C65;
+    }
+
+    .sources-list a {
+      color: #363430;
+      text-decoration: none;
+      border-bottom: 1px solid var(--hairline-strong);
+    }
+
+    .source-tag {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: var(--ink-muted);
+      margin-right: 4px;
+    }
+
+    /* Share button and "help me change" */
+    .final-bottom-cta-row {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid var(--hairline-strong);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .help-me-change-link {
+      text-decoration: none;
+      appearance: none;
+      background: none;
+      border: none;
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(1.75rem, 2.5vw, 2.35rem);
+      line-height: 1;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 2px 0;
+      border-bottom: 1px solid transparent;
+      transition: color 0.25s ease, border-color 0.25s ease;
+    }
+
+    .help-me-change-link .arrow {
+      font-style: normal;
+      font-size: 0.78em;
+      transition: transform 0.25s ease;
+    }
+
+    .help-me-change-link:hover {
+      color: var(--active-accent);
+      border-bottom-color: var(--active-accent);
+    }
+
+    .help-me-change-link:hover .arrow {
+      transform: translateX(6px);
+    }
+
+    /* Chapter links */
+    .chapter-nav {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid var(--hairline);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px 16px;
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+    .chapter-links {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px 22px;
+    }
+    .chapter-links a {
+      color: var(--ink-secondary);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+    .chapter-links a:hover {
+      color: var(--active-accent);
+      border-bottom-color: var(--active-accent);
+    }
+
+    /* Meat eater mode */
+    body.is-meat-mode .photo-metric-card .photo-good {
+      opacity: 0 !important;
+    }
+    body.is-meat-mode .photo-metric-card .photo-bad {
+      opacity: 1 !important;
+      filter: saturate(0.45) contrast(1.18) brightness(0.66);
+    }
+    body.is-meat-mode .photo-metric-card.is-flipped .photo-bad {
+      transform: scale(1.08);
+      filter: saturate(0.30) contrast(1.32) brightness(0.50) sepia(0.22);
+    }
+    body.is-meat-mode .bottom-photo-card.is-flipped .b-img-good {
+      opacity: 0 !important;
+    }
+    body.is-meat-mode .bottom-photo-card.is-flipped .b-img-bad {
+      transform: scale(1.07);
+      filter: saturate(0.32) contrast(1.30) brightness(0.54) sepia(0.20);
+    }
+
+    /* Colour dots */
+    .theme-dots-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .theme-color-dot {
+      appearance: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 1px solid rgba(20, 20, 19, 0.28);
+      cursor: pointer;
+      padding: 0;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+      position: relative;
+    }
+    .theme-color-dot:hover {
+      transform: scale(1.12);
+    }
+    .theme-color-dot.active {
+      box-shadow: 0 0 0 2.5px #F4F1EA, 0 0 0 4px #141413;
+      transform: scale(1.08);
+    }
+    .theme-color-dot.dot-white {
+      background: #F4F1EA;
+    }
+    .theme-color-dot.dot-black {
+      background: #161816;
+    }
+    .theme-color-dot.dot-forest {
+      background: #12281C;
+    }
+    .theme-color-dot.dot-tan {
+      background: #DED5C1;
+    }
+    .theme-color-dot.dot-gradient {
+      background: linear-gradient(135deg, #B8DFC2 0%, #EBF3EC 55%, #F4F1EA 100%);
+    }
+
+    /* Share carousel pop-up */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(14, 14, 13, 0.86);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .modal-backdrop.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .ig-studio-panel {
+      background: #F4F1EA;
+      border: 1px solid var(--ink);
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
+      max-width: 940px;
+      width: 100%;
+      padding: 28px 34px;
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      gap: 36px;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 16px;
+      right: 18px;
+      appearance: none;
+      background: none;
+      border: 1px solid var(--hairline-strong);
+      width: 28px;
+      height: 28px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      cursor: pointer;
+      color: var(--ink);
+    }
+
+    .ig-preview-stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 470px;
+    }
+
+    .ig-preview-frame {
+      position: relative;
+      width: 264px;
+      height: 469px;
+      border: 1px solid var(--hairline-strong);
+      background: #141413;
+      overflow: hidden;
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.18);
+      transition: width 0.25s ease, height 0.25s ease;
+    }
+
+    #igCanvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .ig-slide-dots {
+      display: flex;
+      gap: 6px;
+      margin-top: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .ig-slide-tab,
+    .ig-ratio-tab {
+      appearance: none;
+      border: 1px solid var(--hairline-strong);
+      background: transparent;
+      padding: 5px 8.5px;
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      cursor: pointer;
+      color: var(--ink-secondary);
+      transition: all 0.18s ease;
+      white-space: nowrap;
+    }
+
+    .ig-slide-tab.active,
+    .ig-ratio-tab.active {
+      background: var(--ink);
+      color: var(--bg);
+      border-color: var(--ink);
+    }
+
+    .ig-picker-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .ig-picker-label {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+
+    .ig-picker-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .ig-controls-col {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .ig-studio-title {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      font-weight: 400;
+      line-height: 1.05;
+      margin-top: -6px;
+    }
+
+    .ig-action-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    /* "help me change" pop-up */
+    .resources-panel {
+      background: #F4F1EA;
+      border: 1px solid var(--ink);
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
+      max-width: 960px;
+      width: 100%;
+      padding: 32px 36px;
+      position: relative;
+      z-index: 2;
+      max-height: 88vh;
+      overflow-y: auto;
+    }
+
+    .resources-header {
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 14px;
+      margin-bottom: 22px;
+    }
+
+    .resources-title {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(2rem, 3.2vw, 2.75rem);
+      font-weight: 400;
+    }
+
+    .resources-sub {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: var(--ink-secondary);
+      margin-top: 4px;
+      letter-spacing: 0.04em;
+    }
+
+    .resources-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px 30px;
+    }
+
+    .res-category-title {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--active-accent);
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--hairline-strong);
+    }
+
+    .res-item {
+      margin-bottom: 12px;
+    }
+
+    .res-item a {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid var(--hairline-strong);
+    }
+
+    .res-item a:hover {
+      color: var(--active-accent);
+      border-bottom-color: var(--active-accent);
+    }
+
+    .res-item p {
+      font-size: 12px;
+      line-height: 1.45;
+      color: var(--ink-secondary);
+      margin-top: 3px;
+    }
+
+    /* Progress dots and small screens */
+    .stage-progress {
+      position: fixed;
+      right: 22px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 10;
+    }
+
+    .prog-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--ink-muted);
+      opacity: 0.3;
+      cursor: pointer;
+      border: none;
+      padding: 0;
+    }
+
+    .prog-dot.active {
+      opacity: 1;
+      background: var(--active-accent);
+      transform: scale(1.35);
+    }
+
+    .scroll-hint {
+      position: fixed;
+      bottom: 20px;
+      left: 40vw;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    /* Small screens */
+    @media (max-width: 860px) {
+      .line-zone {
+        width: 14%;
+      }
+      .content-zone {
+        left: 15%;
+        right: 5%;
+        max-width: 80%;
+      }
+      .statement-kicker {
+        font-size: 9px;
+        letter-spacing: 0.1em;
+        margin-bottom: 10px;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .statement-body {
+        font-size: clamp(1.45rem, 5.2vw, 2.1rem);
+      }
+      .facts-header {
+        margin-bottom: 12px;
+      }
+      .facts-lead {
+        font-size: clamp(1.12rem, 4.1vw, 1.45rem);
+      }
+      .metrics-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px 10px;
+        padding-top: 12px;
+        max-width: 100%;
+      }
+      .metric-number {
+        font-size: clamp(1.18rem, 4.3vw, 1.65rem);
+      }
+      .metric-unit {
+        font-size: 8.5px;
+      }
+      .metric-label {
+        font-size: 11px;
+      }
+      .metric-sub {
+        font-size: 8.8px;
+      }
+      .photo-metric-card {
+        height: auto;
+        min-height: 128px;
+        padding: 8px 9px;
+      }
+      /* On a phone the fact needs the whole card, so the number steps aside while it shows */
+      .photo-metric-card .metric-edge-box {
+        transition: opacity 0.3s ease;
+      }
+      .photo-metric-card.is-flipped .metric-edge-box {
+        opacity: 0;
+      }
+      .hover-fact-overlay {
+        top: 28px;
+        font-size: 9.5px;
+      }
+      .action-bar-wrap {
+        margin-top: 12px;
+        padding-top: 10px;
+        gap: 8px;
+      }
+      .editorial-btn {
+        padding: 6px 9px;
+        font-size: 9px;
+      }
+      .editorial-btn.primary-outline {
+        padding: 7px 11px;
+        font-size: 9.5px;
+      }
+      .final-facts-scene {
+        padding: 16px 4.5vw;
+        overflow-y: auto;
+        justify-content: flex-start;
+      }
+      .bottom-photo-strip {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 6px;
+      }
+      .bottom-photo-card {
+        height: 92px;
+      }
+      .final-columns {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      .ig-studio-panel {
+        grid-template-columns: 1fr;
+        max-height: 92vh;
+        overflow-y: auto;
+        justify-items: center;
+      }
+      .ig-preview-frame {
+        width: 270px;
+        height: 338px;
+      }
+      .resources-grid {
+        grid-template-columns: 1fr;
+      }
+      .scroll-hint {
+        left: 15vw;
+      }
+      .stage-progress {
+        right: 8px;
+      }
+    }
+
+    /* Short phones (iPhone SE and similar): keep each chapter on one screen */
+    @media (max-width: 860px) and (max-height: 740px) {
+      .photo-metric-card {
+        min-height: 100px;
+      }
+      .photo-metric-card .metric-sub {
+        display: none;
+      }
+      .scroll-hint {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <noscript>
+    <p style="position:fixed;z-index:99;left:0;right:0;bottom:24px;text-align:center;font:13px/1.5 'JetBrains Mono',monospace;color:#585650;">Turn on JavaScript to draw your line.</p>
+  </noscript>
+
+  <!-- Scroll track -->
+  <div class="scroll-track" id="scrollTrack"></div>
+
+  <!-- Fixed stage -->
+  <main class="viewport-stage">
+
+    <!-- Paper texture -->
+    <div class="paper-texture-layer" id="paperTextureLayer"></div>
+
+    <!-- Lifeline -->
+    <div class="line-zone" id="lineZone">
+      <canvas id="threadCanvas"></canvas>
+    </div>
+
+    <!-- Scenes -->
+    <div class="content-zone">
+
+      <!-- 0: title -->
+      <section class="scene is-interactive" id="scene0">
+        <h1 class="title-main">since i went.</h1>
+        <p class="title-sub">scroll to draw your line</p>
+      </section>
+
+      <!-- 01: who i am -->
+      <section class="scene" id="scene1">
+        <h2 class="statement-kicker stagger-item" id="s1MetaTop"><span class="kicker-num" id="who-i-am">01</span> who i am</h2>
+        <p class="statement-body stagger-item" id="s1Main">
+          I am
+          <span class="inline-choice-group" role="group" aria-label="Select identity">
+            <button type="button" class="choice-btn active" data-sex="man">a man</button>
+            <span class="choice-slash">/</span>
+            <button type="button" class="choice-btn" data-sex="woman">a woman</button>
+            <span class="choice-slash">/</span>
+            <button type="button" class="choice-btn" data-sex="nonbinary">non-binary</button>
+          </span>.<br />
+          Today I am
+          <span class="inline-number-ctrl" title="Click -/+ or type your age directly">
+            <button type="button" class="step-btn" id="ageMinus" aria-label="Decrease current age">−</button>
+            <input type="text" class="editable-age-input" id="currentAgeInput" value="27" aria-label="Current age" />
+            <button type="button" class="step-btn" id="agePlus" aria-label="Increase current age">+</button>
+          </span>
+          years old.
+        </p>
+        <p class="statement-note stagger-item" id="s1MetaBot">type your age or click − / + · scroll to continue</p>
+      </section>
+
+      <!-- 02: the turning point -->
+      <section class="scene" id="scene2">
+        <h2 class="statement-kicker stagger-item" id="s2MetaTop"><span class="kicker-num" id="the-turning-point">02</span> the turning point</h2>
+        <p class="statement-body stagger-item" id="s2Main">
+          <span id="s2NormalWrap">
+            Since I went
+            <span class="inline-choice-group" role="group" aria-label="Select diet">
+              <button type="button" class="choice-btn active-green" data-diet="vegetarian">vegetarian</button>
+              <span class="choice-slash">/</span>
+              <button type="button" class="choice-btn" data-diet="vegan">vegan</button>
+            </span>
+          </span>
+          <span id="s2MeatWrap" style="display:none;">
+            Since I <strong style="color:var(--active-accent);font-weight:500;">stayed a meat eater</strong>
+          </span><br />
+          at the age of
+          <span class="inline-number-ctrl green-underline" title="Click -/+ or type the age directly">
+            <button type="button" class="step-btn" id="sinceAgeMinus" aria-label="Decrease age of change">−</button>
+            <input type="text" class="editable-age-input green-text" id="sinceAgeInput" value="18" aria-label="Age of change" />
+            <button type="button" class="step-btn" id="sinceAgePlus" aria-label="Increase age of change">+</button>
+          </span>.
+        </p>
+        <p class="statement-note stagger-item" id="s2MetaBot">9 years on this path so far</p>
+      </section>
+
+      <!-- 03: up to today -->
+      <section class="scene" id="scene3">
+        <div class="stagger-item" id="s3Head">
+          <div class="statement-kicker">
+            <h2 class="kicker-title"><span class="kicker-num" id="up-to-today">03</span> up to today</h2>
+            <span class="live-dot" title="Live"></span>
+            <span id="s3KickerStatus">live</span>
+          </div>
+          <div class="facts-header">
+            <p class="facts-lead" id="s3LeadParagraph">
+              In the <strong id="soFarYearsText">9 years</strong> since I went <span id="soFarDietText">vegetarian</span>, this is what I've spared:<sup class="lead-star">*</sup>
+            </p>
+          </div>
+        </div>
+
+        <div class="metrics-grid">
+          <div class="metric-item stagger-item" id="s3Card0">
+            <div class="metric-number-row">
+              <span class="metric-number accent-green" data-metric="soFarLand">204.662487</span>
+            </div>
+            <div class="metric-label" id="s3LabelLand">Land animals I've spared</div>
+            <div class="metric-sub" id="soFarLandSub">198 chickens · 1,620 beef burgers · 1,395 pork &amp; lamb meals</div>
+          </div>
+
+          <div class="metric-item stagger-item" id="s3Card1">
+            <div class="metric-number-row">
+              <span class="metric-number accent-green" data-metric="soFarMarine">1,059.312793</span>
+            </div>
+            <div class="metric-label" id="s3LabelMarine">Fishes &amp; marine lives I've spared</div>
+            <div class="metric-sub" id="soFarMarineSub">693 finfish · 366 shellfish (+1 every 3.1 days)</div>
+          </div>
+
+          <div class="metric-item stagger-item" id="s3Card2">
+            <div class="metric-number-row">
+              <span class="metric-number" data-metric="soFarCo2">14.760197</span>
+              <span class="metric-unit">tonnes</span>
+            </div>
+            <div class="metric-label" id="s3LabelCo2">CO₂e emissions I've prevented</div>
+            <div class="metric-sub" id="soFarCo2Sub">+4.49 kg CO₂e saved every day</div>
+          </div>
+
+          <div class="metric-item stagger-item" id="s3Card3">
+            <div class="metric-number-row">
+              <span class="metric-number" data-metric="soFarLandArea">26,370.31846</span>
+              <span class="metric-unit">m²</span>
+            </div>
+            <div class="metric-label" id="s3LabelHabitat">Forest &amp; grazing land I've spared</div>
+            <div class="metric-sub" id="soFarHabitatSub">2.64 hectares (+8.02 m² spared/day)</div>
+          </div>
+
+          <div class="metric-item stagger-item" id="s3Card4">
+            <div class="metric-number-row">
+              <span class="metric-number" data-metric="soFarGrain">7,380.08912</span>
+              <span class="metric-unit">kg</span>
+            </div>
+            <div class="metric-label" id="s3LabelGrain">Animal feed I've saved</div>
+            <div class="metric-sub" id="soFarGrainSub">+2.25 kg of animal feed saved every day</div>
+          </div>
+
+          <div class="metric-item stagger-item" id="s3Card5">
+            <div class="metric-number-row">
+              <span class="metric-number" data-metric="soFarWater">4,230,051.084</span>
+              <span class="metric-unit">litres</span>
+            </div>
+            <div class="metric-label" id="s3LabelWater">Freshwater I've saved</div>
+            <div class="metric-sub" id="soFarWaterSub">+1,287 L/day (+0.015 L every second)</div>
+          </div>
+        </div>
+
+        <div class="action-bar-wrap stagger-item" id="s3Foot">
+          <div class="share-btn-group">
+            <button type="button" class="editorial-btn primary-outline open-ig-modal" data-ig-slide="0">
+              Share Carousel
+            </button>
+            <button type="button" class="editorial-btn" id="copySoFarBtn">
+              <span id="copySoFarLabel">Copy my stats</span>
+            </button>
+          </div>
+          <p class="source-note">* Based on University of Oxford and UN FAO data · <a href="#sources" data-jump="0.98">sources</a></p>
+        </div>
+      </section>
+
+      <!-- 04: the rest of my life -->
+      <section class="scene" id="scene4">
+        <div class="stagger-item" id="s4Head">
+          <div class="statement-kicker">
+            <h2 class="kicker-title"><span class="kicker-num" id="the-rest-of-my-life">04</span> the rest of my life</h2>
+            <span id="s4KickerSub">· hover any photo to see the other side</span>
+          </div>
+          <div class="facts-header">
+            <p class="facts-lead" id="lifetimeLeadText">
+              Across my full life (<strong id="lifetimeYearsText">61.4 years</strong> <span id="lifetimeRangePrefix">from age <span id="lifetimeSinceAgeText">18</span></span> to
+              <span class="inline-number-ctrl green-underline" title="Click -/+ or type any final age">
+                <button type="button" class="step-btn" id="expMinus" aria-label="Decrease final age">−</button>
+                <input type="text" class="editable-age-input green-text wide" id="expectancyInput" value="79.4" aria-label="Final age" />
+                <button type="button" class="step-btn" id="expPlus" aria-label="Increase final age">+</button>
+              </span>), <span id="lifetimeVerbPhrase">this is what I will spare:</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="metrics-grid photo-metrics-grid">
+          <!-- Card 1 -->
+          <div class="metric-item photo-metric-card stagger-item" id="s4Card0">
+            <div class="metric-photo-wrap">
+              <img decoding="async" fetchpriority="low" class="metric-photo photo-good" src="assets/plates/good-1-cow.jpg" alt="Cow in misty pasture" />
+              <img decoding="async" fetchpriority="low" class="metric-photo photo-bad" src="assets/plates/bad-1-slaughter.jpg" alt="Slaughterhouse carcasses" />
+              <div class="metric-photo-scrim"></div>
+              <span class="crosshair-mark">+ 01</span>
+              <span class="other-side-badge">the reality</span>
+              <div class="hover-fact-overlay" id="s4Fact0">Over 80 billion land animals are slaughtered for food every year.</div>
+            </div>
+            <div class="metric-edge-box">
+              <div class="metric-number-row">
+                <span class="metric-number" data-metric="lifeLand">1,396</span>
+              </div>
+              <div class="metric-label" id="s4LabelLand">Land animals I will spare</div>
+              <div class="metric-sub" id="lifeLandSub">1,351 chickens · 11,052 beef burgers · 9,517 pork &amp; lamb meals</div>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="metric-item photo-metric-card stagger-item" id="s4Card1">
+            <div class="metric-photo-wrap">
+              <img decoding="async" fetchpriority="low" class="metric-photo photo-good" src="assets/plates/good-2-fish.jpg" alt="School of fish underwater" />
+              <img decoding="async" fetchpriority="low" class="metric-photo photo-bad" src="assets/plates/bad-2-fish-blood.jpg" alt="Fish catch on trawler deck" />
+              <div class="metric-photo-scrim"></div>
+              <span class="crosshair-mark">+ 02</span>
+              <span class="other-side-badge">the reality</span>
+              <div class="hover-fact-overlay" id="s4Fact1">Over a trillion wild fish are caught every year.</div>
+            </div>
+            <div class="metric-edge-box">
+              <div class="metric-number-row">
+                <span class="metric-number" data-metric="lifeMarine">7,227</span>
+              </div>
+              <div class="metric-label" id="s4LabelMarine">Marine animals I will spare</div>
+              <div class="metric-sub" id="lifeMarineSub">4,728 finfish · 2,499 shellfish</div>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="metric-item photo-metric-card stagger-item" id="s4Card2">
+            <div class="metric-photo-wrap">
+              <img decoding="async" fetchpriority="low" class="metric-photo photo-good" src="assets/plates/good-3-fog-chimney.jpg" alt="Morning mist over skyline" />
+              <img decoding="async" fetchpriority="low" class="metric-photo photo-bad" src="assets/plates/bad-3-toxic-fumes.jpg" alt="Heavy dark industrial smoke" />
+              <div class="metric-photo-scrim"></div>
+              <span class="crosshair-mark">+ 03</span>
+              <span class="other-side-badge">the reality</span>
+              <div class="hover-fact-overlay" id="s4Fact2">Livestock emits more greenhouse gas than all planes and ships combined.</div>
+            </div>
+            <div class="metric-edge-box">
+              <div class="metric-number-row">
+                <span class="metric-number" data-metric="lifeCo2">100.7</span>
+                <span class="metric-unit">tonnes</span>
+              </div>
+              <div class="metric-label" id="s4LabelCo2">Lifetime CO₂e I will prevent</div>
+              <div class="metric-sub" id="lifeFlightsSub">Equal to 112 transatlantic flights</div>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="metric-item photo-metric-card stagger-item" id="s4Card3">
+            <div class="metric-photo-wrap">
+              <img decoding="async" fetchpriority="low" class="metric-photo photo-good" src="assets/plates/good-4-meadow.jpg" alt="Misty morning meadow" />
+              <img decoding="async" fetchpriority="low" class="metric-photo photo-bad" src="assets/plates/bad-4-logging.jpg" alt="Clearcut felled forest" />
+              <div class="metric-photo-scrim"></div>
+              <span class="crosshair-mark">+ 04</span>
+              <span class="other-side-badge">the reality</span>
+              <div class="hover-fact-overlay" id="s4Fact3">Cattle ranching drives about 80% of Amazon deforestation.</div>
+            </div>
+            <div class="metric-edge-box">
+              <div class="metric-number-row">
+                <span class="metric-number" data-metric="lifeLandArea">179,902</span>
+                <span class="metric-unit">m²</span>
+              </div>
+              <div class="metric-label" id="s4LabelHabitat">Lifetime habitat I will spare</div>
+              <div class="metric-sub" id="lifeHabitatSub">18.0 hectares returned to nature</div>
+            </div>
+          </div>
+
+          <!-- Card 5 -->
+          <div class="metric-item photo-metric-card stagger-item" id="s4Card4">
+            <div class="metric-photo-wrap">
+              <img decoding="async" fetchpriority="low" class="metric-photo photo-good" src="assets/plates/good-5-grain.jpg" alt="Golden wheat grain close-up" />
+              <img decoding="async" fetchpriority="low" class="metric-photo photo-bad" src="assets/plates/bad-5-rabbit-grain.jpg" alt="Wild rabbit in harvested grain straw" />
+              <div class="metric-photo-scrim"></div>
+              <span class="crosshair-mark">+ 05</span>
+              <span class="other-side-badge">the reality</span>
+              <div class="hover-fact-overlay" id="s4Fact4">It takes about 25 kg of feed to produce 1 kg of beef.</div>
+            </div>
+            <div class="metric-edge-box">
+              <div class="metric-number-row">
+                <span class="metric-number" data-metric="lifeGrain">50,348</span>
+                <span class="metric-unit">kg</span>
+              </div>
+              <div class="metric-label" id="s4LabelGrain">Lifetime animal feed I will save</div>
+              <div class="metric-sub" id="lifeGrainSub">50.3 tonnes of animal feed</div>
+            </div>
+          </div>
+
+          <!-- Card 6 -->
+          <div class="metric-item photo-metric-card stagger-item" id="s4Card5">
+            <div class="metric-photo-wrap">
+              <img decoding="async" fetchpriority="low" class="metric-photo photo-good" src="assets/plates/good-6-misty-river.jpg" alt="Misty river in valley" />
+              <img decoding="async" fetchpriority="low" class="metric-photo photo-bad" src="assets/plates/bad-6-polluted-river.jpg" alt="Polluted wastewater discharge into river" />
+              <div class="metric-photo-scrim"></div>
+              <span class="crosshair-mark">+ 06</span>
+              <span class="other-side-badge">the reality</span>
+              <div class="hover-fact-overlay" id="s4Fact5">1 kg of beef takes 15,415 litres of water to produce.</div>
+            </div>
+            <div class="metric-edge-box">
+              <div class="metric-number-row">
+                <span class="metric-number" data-metric="lifeWater">28.86M</span>
+                <span class="metric-unit">litres</span>
+              </div>
+              <div class="metric-label" id="s4LabelWater">Lifetime freshwater I will save</div>
+              <div class="metric-sub" id="lifeWaterSub">11.5 Olympic swimming pools</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="action-bar-wrap stagger-item" id="s4Foot">
+          <div class="share-btn-group">
+            <button type="button" class="editorial-btn primary-outline" id="veganCompareBtn">
+              <span id="veganCompareBtnLabel">→ What would this look like if I was vegan?</span>
+            </button>
+            <button type="button" class="editorial-btn ig-btn open-ig-modal" data-ig-slide="2">
+              Share Carousel
+            </button>
+            <button type="button" class="editorial-btn" id="copyLifeBtn">
+              <span id="copyLifeLabel">Copy lifetime stats</span>
+            </button>
+          </div>
+          <span class="vegan-switch-delta" id="veganCompareDelta">Going vegan spares +401 more animals &amp; +37.5 tonnes CO₂e over my life</span>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- 05: everything I spare -->
+    <section class="final-facts-scene" id="scene5">
+      <div class="final-facts-inner">
+
+        <div class="final-top-bar stagger-item" id="s5Head">
+          <h2 class="final-title" id="finalMainHeading">Everything I spare</h2>
+          <div class="final-profile-pill">
+            <span id="finalSummaryTag">Man · Age 27 · Vegetarian since 18 (9 yrs so far · 61.4 yrs lifetime)</span>
+            <button type="button" class="mode-switch-btn active-mode" data-bottom-mode="mine" id="modeMineBtn">My Path</button>
+            <button type="button" class="mode-switch-btn" data-bottom-mode="vegan" id="modeVeganBtn">See as Vegan</button>
+            <button type="button" class="mode-switch-btn meat-btn" data-bottom-mode="meat" id="modeMeatBtn">See as a Meat Eater</button>
+          </div>
+        </div>
+
+        <!-- Photo strip -->
+        <div class="bottom-photo-strip" id="bottomPhotoStrip">
+          <div class="bottom-photo-card stagger-item" id="s5Photo0">
+            <img decoding="async" fetchpriority="low" class="b-img-bad" src="assets/plates/bad-1-slaughter.jpg" alt="Slaughterhouse carcasses" />
+            <img decoding="async" fetchpriority="low" class="b-img-good" src="assets/plates/good-1-cow.jpg" alt="Cow in misty pasture" />
+            <div class="bottom-card-fact">74% of farmed land animals live in factory farms.</div>
+            <div class="bottom-edge-box">
+              <span class="bottom-edge-num" data-bmetric="bLand">1,396</span>
+              <span class="bottom-edge-label" id="bLabelLand">Land Animals I Spare</span>
+            </div>
+          </div>
+
+          <div class="bottom-photo-card stagger-item" id="s5Photo1">
+            <img decoding="async" fetchpriority="low" class="b-img-bad" src="assets/plates/bad-2-fish-blood.jpg" alt="Fish catch on boat deck" />
+            <img decoding="async" fetchpriority="low" class="b-img-good" src="assets/plates/good-2-fish.jpg" alt="School of fish in ocean" />
+            <div class="bottom-card-fact">4.9 million km² of seabed is bottom-trawled every year.</div>
+            <div class="bottom-edge-box">
+              <span class="bottom-edge-num" data-bmetric="bMarine">7,227</span>
+              <span class="bottom-edge-label" id="bLabelMarine">Marine Lives I Spare</span>
+            </div>
+          </div>
+
+          <div class="bottom-photo-card stagger-item" id="s5Photo2">
+            <img decoding="async" fetchpriority="low" class="b-img-bad" src="assets/plates/bad-3-toxic-fumes.jpg" alt="Dark industrial smoke" />
+            <img decoding="async" fetchpriority="low" class="b-img-good" src="assets/plates/good-3-fog-chimney.jpg" alt="Morning mist sky" />
+            <div class="bottom-card-fact">Vegan diets cause a quarter of the emissions of high-meat diets.</div>
+            <div class="bottom-edge-box">
+              <span class="bottom-edge-num" data-bmetric="bCo2">100.7 t</span>
+              <span class="bottom-edge-label" id="bLabelCo2">CO₂e I Prevent</span>
+            </div>
+          </div>
+
+          <div class="bottom-photo-card stagger-item" id="s5Photo3">
+            <img decoding="async" fetchpriority="low" class="b-img-bad" src="assets/plates/bad-4-logging.jpg" alt="Clearcut felled forest" />
+            <img decoding="async" fetchpriority="low" class="b-img-good" src="assets/plates/good-4-meadow.jpg" alt="Foggy morning meadow" />
+            <div class="bottom-card-fact">A plant-based world would free 3.1 billion hectares of farmland.</div>
+            <div class="bottom-edge-box">
+              <span class="bottom-edge-num" data-bmetric="bHabitat">179,902 m²</span>
+              <span class="bottom-edge-label" id="bLabelHabitat">Habitat I Spare</span>
+            </div>
+          </div>
+
+          <div class="bottom-photo-card stagger-item" id="s5Photo4">
+            <img decoding="async" fetchpriority="low" class="b-img-bad" src="assets/plates/bad-5-rabbit-grain.jpg" alt="Wild rabbit in grain" />
+            <img decoding="async" fetchpriority="low" class="b-img-good" src="assets/plates/good-5-grain.jpg" alt="Golden wheat grain" />
+            <div class="bottom-card-fact">36% of the world's crop calories go to animal feed.</div>
+            <div class="bottom-edge-box">
+              <span class="bottom-edge-num" data-bmetric="bGrain">50,348 kg</span>
+              <span class="bottom-edge-label" id="bLabelGrain">Animal Feed I Save</span>
+            </div>
+          </div>
+
+          <div class="bottom-photo-card stagger-item" id="s5Photo5">
+            <img decoding="async" fetchpriority="low" class="b-img-bad" src="assets/plates/bad-6-polluted-river.jpg" alt="Polluted river discharge" />
+            <img decoding="async" fetchpriority="low" class="b-img-good" src="assets/plates/good-6-misty-river.jpg" alt="Misty valley river" />
+            <div class="bottom-card-fact">Manure and fertiliser runoff from farms creates ocean dead zones.</div>
+            <div class="bottom-edge-box">
+              <span class="bottom-edge-num" data-bmetric="bWater">28.86M L</span>
+              <span class="bottom-edge-label" id="bLabelWater">Freshwater I Save</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="final-columns">
+          <!-- Animals and meals -->
+          <div class="stagger-item" id="s5Col0">
+            <div class="final-col-title" id="col1Title">Animals &amp; meals spared · so far / lifetime</div>
+            <table class="fact-table">
+              <tbody>
+                <tr>
+                  <td>Chickens &amp; poultry</td>
+                  <td class="val accent-col" id="tblChickens">198 / 1,351 birds (21.6k meals)</td>
+                </tr>
+                <tr>
+                  <td>Beef burgers &amp; cattle cuts</td>
+                  <td class="val accent-col" id="tblCattle">1,620 / 11,052 burgers (2,763 lbs beef)</td>
+                </tr>
+                <tr>
+                  <td>Pork chops, bacon &amp; pigs</td>
+                  <td class="val accent-col" id="tblPigs">1,080 / 7,368 meals (26 whole pigs)</td>
+                </tr>
+                <tr>
+                  <td>Lamb &amp; sheep cuts</td>
+                  <td class="val accent-col" id="tblSheep">315 / 2,149 meals (14 sheep/lambs)</td>
+                </tr>
+                <tr>
+                  <td>Wild &amp; farmed finfish</td>
+                  <td class="val accent-col" id="tblFinfish">693 / 4,728 fish</td>
+                </tr>
+                <tr>
+                  <td>Shellfish &amp; crustaceans</td>
+                  <td class="val accent-col" id="tblShellfish">366 / 2,499 shellfish</td>
+                </tr>
+                <tr>
+                  <td><strong id="tblTotalLabel">Total animals &amp; meat meals</strong></td>
+                  <td class="val accent-col" id="tblTotalAnimals"><strong>1,264 / 8,623 lives (42.2k meals)</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Carbon, land and water -->
+          <div class="stagger-item" id="s5Col1">
+            <div class="final-col-title" id="col2Title">Carbon, land &amp; water saved · so far / lifetime</div>
+            <table class="fact-table">
+              <tbody>
+                <tr>
+                  <td>Greenhouse gas (CO₂e)</td>
+                  <td class="val" id="tblCo2">14.8 t / 100.7 t</td>
+                </tr>
+                <tr>
+                  <td>Forest &amp; grazing land</td>
+                  <td class="val" id="tblLand">26,370 m² / 179,902 m²</td>
+                </tr>
+                <tr>
+                  <td>Animal feed</td>
+                  <td class="val" id="tblGrain">7,380 kg / 50,348 kg</td>
+                </tr>
+                <tr>
+                  <td>Freshwater footprint</td>
+                  <td class="val" id="tblWater">4.23M L / 28.86M L</td>
+                </tr>
+                <tr>
+                  <td>Annual land &amp; CO₂e rate</td>
+                  <td class="val" id="tblAnnualRate">2,930 m² &amp; 1.64 t CO₂e / yr</td>
+                </tr>
+                <tr>
+                  <td>Target lifespan horizon</td>
+                  <td class="val" id="tblExpectancy">79.4 years (editable)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Sources -->
+          <div class="stagger-item" id="s5Col2">
+            <div class="final-col-title" id="sources">Sources</div>
+            <ul class="sources-list">
+              <li>
+                <span class="source-tag">01</span>
+                University of Oxford: <a href="https://ora.ox.ac.uk/objects/uuid:b0b53649-5e93-4415-bf07-6b0b1227172f" target="_blank" rel="noopener">Poore &amp; Nemecek (2018)</a>,
+                <em>Science</em>. The environmental impact of food, from 38,700 farms in 119 countries.
+              </li>
+              <li>
+                <span class="source-tag">02</span>
+                University of Oxford: <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10365988/" target="_blank" rel="noopener">Scarborough et al. (2023)</a>,
+                <em>Nature Food</em>. The diets of 55,504 people. Used for CO₂e and land, against a typical meat eater (between the study's medium and high meat eaters).
+              </li>
+              <li>
+                <span class="source-tag">03</span>
+                <a href="https://ourworldindata.org/meat-production" target="_blank" rel="noopener">UN FAO, via Our World in Data</a>.
+                How many animals are slaughtered each year.
+              </li>
+              <li>
+                <span class="source-tag">04</span>
+                <a href="https://ourworldindata.org/fish-and-overfishing" target="_blank" rel="noopener">UN FAO, via Our World in Data</a>.
+                Wild-caught and farmed fish.
+              </li>
+              <li>
+                <span class="source-tag">05</span>
+                <a href="https://doi.org/10.1007/s10021-011-9517-8" target="_blank" rel="noopener">Mekonnen &amp; Hoekstra (2012)</a>,
+                <em>Ecosystems</em>. The water footprint of farm animal products.
+              </li>
+              <li>
+                <span class="source-tag">06</span>
+                <a href="https://ourworldindata.org/grapher/feed-required-to-produce-one-kilogram-of-meat-or-dairy-product" target="_blank" rel="noopener">Alexander et al. (2016), via Our World in Data</a>.
+                Feed needed per kilo of meat, eggs and milk.
+              </li>
+              <li>
+                <span class="source-tag">07</span>
+                <a href="https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/lifeexpectancies/bulletins/nationallifetablesunitedkingdom/2017to2019" target="_blank" rel="noopener">Office for National Statistics</a>.
+                UK life expectancy, 2017 to 2019.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Share and "help me change" -->
+        <div class="final-bottom-cta-row stagger-item" id="s5Foot">
+          <div class="share-btn-group">
+            <button type="button" class="editorial-btn primary-outline open-ig-modal" data-ig-slide="0">
+              Share Carousel
+            </button>
+          </div>
+
+          <a href="#help-me-change" class="help-me-change-link" id="openResourcesBtn">
+            <span>help me change</span>
+            <span class="arrow">→</span>
+          </a>
+        </div>
+
+        <!-- Chapters -->
+        <nav class="chapter-nav stagger-item" id="s5Colophon" aria-label="Chapters">
+          <span>sinceiwent.org · every year counts</span>
+          <div class="chapter-links">
+            <a href="#who-i-am" data-jump="0.18">01 who i am</a>
+            <a href="#the-turning-point" data-jump="0.35">02 the turning point</a>
+            <a href="#up-to-today" data-jump="0.60">03 up to today</a>
+            <a href="#the-rest-of-my-life" data-jump="0.82">04 the rest of my life</a>
+          </div>
+        </nav>
+
+      </div>
+    </section>
+
+    <!-- Progress dots -->
+    <nav class="stage-progress" aria-label="Scroll sections">
+      <button type="button" class="prog-dot" data-jump="0.00" title="since i went."></button>
+      <button type="button" class="prog-dot" data-jump="0.18" title="who i am"></button>
+      <button type="button" class="prog-dot" data-jump="0.35" title="the turning point"></button>
+      <button type="button" class="prog-dot" data-jump="0.60" title="up to today"></button>
+      <button type="button" class="prog-dot" data-jump="0.82" title="the rest of my life"></button>
+      <button type="button" class="prog-dot" data-jump="0.98" title="everything I spare"></button>
+    </nav>
+
+    <div class="scroll-hint" id="scrollHint">scroll ↓</div>
+  </main>
+
+  <!-- Share carousel pop-up -->
+  <div class="modal-backdrop" id="igModalBackdrop" aria-hidden="true">
+    <div class="ig-studio-panel" role="dialog" aria-label="Instagram Carousel Generator">
+      <button type="button" class="modal-close-btn" id="closeIgModalBtn" aria-label="Close">✕</button>
+
+      <div class="ig-preview-stage">
+        <div class="ig-preview-frame" id="igPreviewFrame">
+          <canvas id="igCanvas" width="1080" height="1920"></canvas>
+        </div>
+        <div class="ig-slide-dots">
+          <button type="button" class="ig-slide-tab active" data-slide-idx="0">01. Lifeline</button>
+          <button type="button" class="ig-slide-tab" data-slide-idx="1">02. So Far</button>
+          <button type="button" class="ig-slide-tab" data-slide-idx="2">03. Lifetime</button>
+          <button type="button" class="ig-slide-tab" data-slide-idx="3">04. Receipt</button>
+        </div>
+      </div>
+
+      <div class="ig-controls-col">
+        <div class="statement-kicker">sinceiwent.org</div>
+        <h3 class="ig-studio-title">Share Your Impact</h3>
+
+        <div class="ig-picker-group">
+          <span class="ig-picker-label">Format</span>
+          <div class="ig-picker-row">
+            <button type="button" class="ig-ratio-tab active" data-ratio="stories">Stories (9:16)</button>
+            <button type="button" class="ig-ratio-tab" data-ratio="post">Post (4:5)</button>
+            <button type="button" class="ig-ratio-tab" data-ratio="square">Square (1:1)</button>
+            <button type="button" class="ig-ratio-tab" data-ratio="landscape">Landscape (16:9)</button>
+          </div>
+        </div>
+
+        <div class="ig-picker-group">
+          <span class="ig-picker-label">Color</span>
+          <div class="theme-dots-row">
+            <button type="button" class="theme-color-dot dot-white active" data-theme-idx="0" title="Alabaster White" aria-label="Alabaster White theme"></button>
+            <button type="button" class="theme-color-dot dot-black" data-theme-idx="1" title="Darkroom Black" aria-label="Darkroom Black theme"></button>
+            <button type="button" class="theme-color-dot dot-forest" data-theme-idx="2" title="Deep Forest Green" aria-label="Deep Forest Green theme"></button>
+            <button type="button" class="theme-color-dot dot-tan" data-theme-idx="3" title="Warm Tan" aria-label="Warm Tan theme"></button>
+            <button type="button" class="theme-color-dot dot-gradient" data-theme-idx="4" title="Soft Sage Gradient" aria-label="Soft Sage Gradient theme"></button>
+          </div>
+        </div>
+
+        <div class="ig-action-stack">
+          <button type="button" class="editorial-btn primary-outline" id="downloadCurrentSlideBtn">
+            ↓ Download Slide
+          </button>
+          <button type="button" class="editorial-btn ig-btn" id="downloadAllSlidesBtn">
+            ↓ Download All 4
+          </button>
+          <button type="button" class="editorial-btn" id="nativeShareSlideBtn">
+            Share
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- "help me change" pop-up -->
+  <div class="modal-backdrop" id="resourcesModalBackdrop" aria-hidden="true">
+    <div class="resources-panel" id="help-me-change" role="dialog" aria-label="help me change">
+      <button type="button" class="modal-close-btn" id="closeResourcesModalBtn" aria-label="Close">✕</button>
+
+      <div class="resources-header">
+        <h3 class="resources-title">help me change</h3>
+        <p class="resources-sub">Free places to start.</p>
+      </div>
+
+      <div class="resources-grid">
+        <div>
+          <div class="res-category-title">Try it</div>
+          <div class="res-item">
+            <a href="https://challenge22.com/" target="_blank" rel="noopener">Challenge 22 ↗</a>
+            <p>Free 22-day challenge with a mentor and dietitians.</p>
+          </div>
+          <div class="res-item">
+            <a href="https://veganuary.com/try-vegan/" target="_blank" rel="noopener">Veganuary ↗</a>
+            <p>Free 31-day pledge with daily emails and recipes.</p>
+          </div>
+        </div>
+
+        <div>
+          <div class="res-category-title">Eat</div>
+          <div class="res-item">
+            <a href="https://www.happycow.net/" target="_blank" rel="noopener">HappyCow ↗</a>
+            <p>Vegan places to eat near you. Use the vegan filter.</p>
+          </div>
+          <div class="res-item">
+            <a href="https://www.vegansociety.com/resources/nutrition-and-health" target="_blank" rel="noopener">The Vegan Society ↗</a>
+            <p>How to eat well on plants, from B12 to iron.</p>
+          </div>
+          <div class="res-item">
+            <a href="https://foodispower.org/chocolate-list/" target="_blank" rel="noopener">Food Empowerment Project ↗</a>
+            <p>Vegan chocolate, checked for child labour.</p>
+          </div>
+        </div>
+
+        <div>
+          <div class="res-category-title">Why</div>
+          <div class="res-item">
+            <a href="https://www.youtube.com/watch?v=THIODWTqx5E" target="_blank" rel="noopener">Farm to Fridge ↗</a>
+            <p>Eleven minutes inside the farms most food comes from.</p>
+          </div>
+          <div class="res-item">
+            <a href="https://www.dominionmovement.com/" target="_blank" rel="noopener">Dominion ↗</a>
+            <p>The full documentary, free to watch.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* Paper texture */
+    (function generatePaperTexture() {
+      const pCanvas = document.createElement('canvas');
+      pCanvas.width = 220;
+      pCanvas.height = 220;
+      const pCtx = pCanvas.getContext('2d');
+      const imgData = pCtx.createImageData(220, 220);
+      const data = imgData.data;
+
+      let seed = 4219;
+      function rand() {
+        seed = (seed * 16807) % 2147483647;
+        return (seed - 1) / 2147483646;
+      }
+
+      for (let i = 0; i < data.length; i += 4) {
+        const r = rand();
+        if (r < 0.28) {
+          data[i] = 28; data[i + 1] = 26; data[i + 2] = 22;
+          data[i + 3] = Math.round(rand() * 9);
+        } else if (r > 0.72) {
+          data[i] = 255; data[i + 1] = 253; data[i + 2] = 247;
+          data[i + 3] = Math.round(rand() * 14);
+        } else {
+          data[i + 3] = 0;
+        }
+      }
+      pCtx.putImageData(imgData, 0, 0);
+      const layer = document.getElementById('paperTextureLayer');
+      if (layer) {
+        layer.style.backgroundImage = `url(${pCanvas.toDataURL('image/png')})`;
+      }
+    })();
+
+    /* Photos flip on hover with a mouse, or on tap on a phone. */
+    const CAN_HOVER = window.matchMedia('(hover: hover)').matches;
+    const FLIP_VERB = CAN_HOVER ? 'hover' : 'tap';
+    const photoCards = document.querySelectorAll('.photo-metric-card, .bottom-photo-card');
+    photoCards.forEach((card) => {
+      if (CAN_HOVER) {
+        card.addEventListener('mouseenter', () => card.classList.add('is-flipped'));
+        card.addEventListener('mouseleave', () => card.classList.remove('is-flipped'));
+      } else {
+        card.addEventListener('click', () => {
+          const turnOn = !card.classList.contains('is-flipped');
+          photoCards.forEach((c) => c.classList.remove('is-flipped'));
+          if (turnOn) card.classList.add('is-flipped');
+        });
+      }
+    });
+
+    /* State and per-person yearly rates. A year is 365.25 days (31,557,600 seconds). */
+    const SECONDS_PER_YEAR = 31557600;
+
+    const LIFE_EXPECTANCY_DEFAULTS = {
+      man: 79.4,
+      woman: 83.1,
+      nonbinary: 81.3
+    };
+
+    const state = {
+      sex: 'man',           // 'man' | 'woman' | 'nonbinary'
+      currentAge: 27,       // years old today (standard default: 27)
+      sinceAge: 18,         // age went vegetarian/vegan
+      finalAge: 79.4,       // editable target lifespan age in Beat 4
+      diet: 'vegetarian',   // 'vegetarian' | 'vegan'
+      previewVegan: false,  // toggled in Beat 4
+      bottomMode: 'mine',   // 'mine' | 'vegan' | 'meat' (Full-site Meat Eater mode when 'meat')
+      igSlideIndex: 0,
+      igRatio: 'stories',   // 'stories' (1080x1920) | 'post' (1080x1350) | 'square' (1080x1080) | 'landscape' (1920x1080)
+      igThemeIndex: 0,      // 0..4 (5 distinct visual carousel themes)
+      sessionStartMs: performance.now()
+    };
+
+    // Yearly figures per person, compared with a typical meat eater.
+    // CO2e and land: Scarborough et al. 2023 (University of Oxford), against a meat eater halfway
+    // between the study's medium and high meat eaters (8.64 kg CO2e and 14.03 m2 a day).
+    // Animals: UN FAO. Water: Mekonnen & Hoekstra 2012. Feed: Alexander et al. 2016 feed per kg,
+    // applied to the meat (about 84 kg a year), milk and eggs in this model.
+    const RATES = {
+      vegetarian: {
+        chickens: 22.0,
+        pigs: 0.42,
+        sheep: 0.23,
+        cattle: 0.09,
+        burgers: 180,       // ~180 quarter-pound beef burgers/steaks spared per year
+        porkMeals: 120,     // ~120 pork/bacon/sausage meals spared per year
+        lambMeals: 35,      // ~35 lamb/mutton meals spared per year
+        chickenMeals: 352,  // ~352 chicken/poultry meals spared per year
+        finfish: 77.0,
+        shellfish: 40.7,
+        co2Tonnes: 1.64,
+        landM2: 2930,
+        grainKg: 820,
+        waterLitres: 470000
+      },
+      vegan: {
+        chickens: 28.4,
+        pigs: 0.45,
+        sheep: 0.26,
+        cattle: 0.15,
+        burgers: 215,       // includes dairy beef/veal & cull cow burgers
+        porkMeals: 125,
+        lambMeals: 40,
+        chickenMeals: 454,
+        finfish: 77.0,
+        shellfish: 40.7,
+        co2Tonnes: 2.25,
+        landM2: 3530,
+        grainKg: 1020,
+        waterLitres: 560000
+      },
+      meat: {
+        // Typical meat eater, per year
+        chickens: 28.4,
+        pigs: 0.45,
+        sheep: 0.26,
+        cattle: 0.15,
+        burgers: 215,
+        porkMeals: 125,
+        lambMeals: 40,
+        chickenMeals: 454,
+        finfish: 77.0,
+        shellfish: 40.7,
+        co2Tonnes: 2.25,
+        landM2: 3530,
+        grainKg: 1020,
+        waterLitres: 560000
+      }
+    };
+
+    function getStep4Diet() {
+      return state.previewVegan ? 'vegan' : state.diet;
+    }
+
+    function getStep5Diet() {
+      if (state.bottomMode === 'meat') return 'meat';
+      if (state.bottomMode === 'vegan') return 'vegan';
+      return getStep4Diet();
+    }
+
+    function computeMetrics(dietKey, years) {
+      const r = RATES[dietKey];
+      const y = Math.max(0, years);
+      const landRate = r.chickens + r.pigs + r.sheep + r.cattle;
+      const marineRate = r.finfish + r.shellfish;
+
+      const chickens = Math.round(r.chickens * y);
+      const pigs = Math.max(0, Math.round(r.pigs * y));
+      const sheep = Math.max(0, Math.round(r.sheep * y));
+      const cattle = Math.max(0, Math.round(r.cattle * y));
+      const landAnimalsExact = landRate * y;
+      const landAnimals = Math.round(landAnimalsExact);
+
+      const burgers = Math.round(r.burgers * y);
+      const porkMeals = Math.round(r.porkMeals * y);
+      const lambMeals = Math.round(r.lambMeals * y);
+      const chickenMeals = Math.round(r.chickenMeals * y);
+      const totalMeatMeals = burgers + porkMeals + lambMeals + chickenMeals;
+
+      const finfish = Math.round(r.finfish * y);
+      const shellfish = Math.round(r.shellfish * y);
+      const marineAnimalsExact = marineRate * y;
+      const marineAnimals = Math.round(marineAnimalsExact);
+
+      return {
+        years: y,
+        chickens,
+        pigs,
+        sheep,
+        cattle,
+        burgers,
+        porkMeals,
+        lambMeals,
+        chickenMeals,
+        totalMeatMeals,
+        landAnimals,
+        landAnimalsExact,
+        landPerSec: landRate / SECONDS_PER_YEAR,
+        finfish,
+        shellfish,
+        marineAnimals,
+        marineAnimalsExact,
+        marinePerSec: marineRate / SECONDS_PER_YEAR,
+        totalAnimals: landAnimals + marineAnimals,
+        co2: r.co2Tonnes * y,
+        co2PerSec: r.co2Tonnes / SECONDS_PER_YEAR,
+        landM2: r.landM2 * y,
+        landM2PerSec: r.landM2 / SECONDS_PER_YEAR,
+        grainKg: r.grainKg * y,
+        grainPerSec: r.grainKg / SECONDS_PER_YEAR,
+        waterLitres: r.waterLitres * y,
+        waterPerSec: r.waterLitres / SECONDS_PER_YEAR,
+        annualCo2: r.co2Tonnes,
+        annualLand: r.landM2
+      };
+    }
+
+    /* Number animation. Scene 3 ticks up live; scenes 4 and 5 count up and stop. */
+    const s3Anim = {
+      soFarLand: 0, soFarMarine: 0, soFarCo2: 0, soFarLandArea: 0, soFarGrain: 0, soFarWater: 0
+    };
+    const s3Target = { ...s3Anim };
+    const s3PerSec = { ...s3Anim };
+    const s3CardVisible = [false, false, false, false, false, false];
+    const s3Keys = ['soFarLand', 'soFarMarine', 'soFarCo2', 'soFarLandArea', 'soFarGrain', 'soFarWater'];
+
+    const s4Anim = {
+      lifeLand: 0, lifeMarine: 0, lifeCo2: 0, lifeLandArea: 0, lifeGrain: 0, lifeWater: 0
+    };
+    const s4Target = { ...s4Anim };
+    const s4CardVisible = [false, false, false, false, false, false];
+    const s4Keys = ['lifeLand', 'lifeMarine', 'lifeCo2', 'lifeLandArea', 'lifeGrain', 'lifeWater'];
+
+    const s5Anim = {
+      bLand: 0, bMarine: 0, bCo2: 0, bHabitat: 0, bGrain: 0, bWater: 0
+    };
+    const s5Target = { ...s5Anim };
+    const s5PhotoVisible = [false, false, false, false, false, false];
+    const s5Keys = ['bLand', 'bMarine', 'bCo2', 'bHabitat', 'bGrain', 'bWater'];
+
+    function formatS3RealTime(key, val) {
+      // One extra decimal place so every number visibly ticks up.
+      let decimals = 6;
+      if (key === 'soFarLandArea' || key === 'soFarGrain') decimals = 5;
+      if (key === 'soFarWater') decimals = 3; // Litres with thousandths (.894 L, ticking ~15x/sec)
+      const fixed = val.toFixed(decimals);
+      const parts = fixed.split('.');
+      const intFormatted = parseInt(parts[0], 10).toLocaleString('en-US');
+      return `${intFormatted}<span class="dec-part">.${parts[1]}</span>`;
+    }
+
+    function formatS4Static(key, val) {
+      if (key === 'lifeCo2') return val.toFixed(1);
+      if (key === 'lifeWater') return (val / 1e6).toFixed(2) + 'M';
+      return Math.round(val).toLocaleString('en-US');
+    }
+
+    function formatS5Bottom(key, val) {
+      if (key === 'bCo2') return val.toFixed(1) + ' t';
+      if (key === 'bHabitat') return Math.round(val).toLocaleString('en-US') + ' m²';
+      if (key === 'bGrain') return Math.round(val).toLocaleString('en-US') + ' kg';
+      if (key === 'bWater') return (val / 1e6).toFixed(2) + 'M L';
+      return Math.round(val).toLocaleString('en-US');
+    }
+
+    function updateAllTickers(timeMs) {
+      const elapsedSec = Math.max(0, (timeMs - state.sessionStartMs) / 1000);
+
+      // Scene 3: live totals, with a small floor so the last decimal always moves
+      s3Keys.forEach((key) => {
+        const minVisualRate = (key === 'soFarLand' || key === 'soFarCo2') ? 0.0000042 : 0;
+        const rate = Math.max(s3PerSec[key], minVisualRate);
+        const trueLiveVal = s3Target[key] + rate * elapsedSec;
+        const curr = s3Anim[key];
+        const diff = trueLiveVal - curr;
+        if (Math.abs(diff) > Math.max(0.0000005, trueLiveVal * 0.002)) {
+          s3Anim[key] = curr + diff * 0.055;
+        } else {
+          s3Anim[key] = trueLiveVal;
+        }
+        const el = document.querySelector(`[data-metric="${key}"]`);
+        if (el) el.innerHTML = formatS3RealTime(key, s3Anim[key]);
+      });
+
+      // Scene 4: count to the lifetime total and stop
+      s4Keys.forEach((key) => {
+        const targ = s4Target[key];
+        const curr = s4Anim[key];
+        const diff = targ - curr;
+        if (Math.abs(diff) > 0.05) {
+          s4Anim[key] = curr + diff * 0.06;
+        } else {
+          s4Anim[key] = targ;
+        }
+        const el = document.querySelector(`[data-metric="${key}"]`);
+        if (el) el.textContent = formatS4Static(key, s4Anim[key]);
+      });
+
+      // Scene 5: count to the total and stop
+      s5Keys.forEach((key) => {
+        const targ = s5Target[key];
+        const curr = s5Anim[key];
+        const diff = targ - curr;
+        if (Math.abs(diff) > 0.05) {
+          s5Anim[key] = curr + diff * 0.065;
+        } else {
+          s5Anim[key] = targ;
+        }
+        const el = document.querySelector(`[data-bmetric="${key}"]`);
+        if (el) el.textContent = formatS5Bottom(key, s5Anim[key]);
+      });
+    }
+
+    function recalculateAll(resetPreview = false) {
+      if (resetPreview) {
+        state.previewVegan = false;
+        if (state.bottomMode !== 'meat') state.bottomMode = 'mine';
+      }
+
+      const isMeatMode = state.bottomMode === 'meat';
+      document.body.classList.toggle('is-meat-mode', isMeatMode);
+
+      const activeDiet = state.diet;
+      const step4Diet = isMeatMode ? 'meat' : getStep4Diet();
+      const step5Diet = getStep5Diet();
+
+      // Meat eater mode turns the accent colour dark red (#8E241B) everywhere
+      let accentHex = (step4Diet === 'vegan' || activeDiet === 'vegan') ? '#2B8A52' : '#1E5638';
+      if (isMeatMode) {
+        accentHex = '#8E241B';
+      }
+      document.documentElement.style.setProperty('--active-accent', accentHex);
+
+      const yearsSoFar = Math.max(0, state.currentAge - state.sinceAge);
+      const expectancy = Math.max(state.currentAge, state.finalAge);
+      const totalLifeYears = Math.max(yearsSoFar, +(expectancy - state.sinceAge).toFixed(1));
+
+      // In Meat Eater mode, Scene 3 shows what you've consumed so far in your life (currentAge years),
+      // and Scene 4 shows what you will cause across your full life (expectancy years).
+      const s3EffectiveDiet = isMeatMode ? 'meat' : activeDiet;
+      const s3EffectiveYears = isMeatMode ? state.currentAge : yearsSoFar;
+      const s4EffectiveYears = isMeatMode ? expectancy : totalLifeYears;
+
+      const soFar = computeMetrics(s3EffectiveDiet, s3EffectiveYears);
+      const life = computeMetrics(step4Diet, s4EffectiveYears);
+
+      const dayFrac = ((Date.now() % 86400000) / 1000);
+      s3Target.soFarLand = soFar.landAnimalsExact + soFar.landPerSec * dayFrac;
+      s3Target.soFarMarine = soFar.marineAnimalsExact + soFar.marinePerSec * dayFrac;
+      s3Target.soFarCo2 = soFar.co2 + soFar.co2PerSec * dayFrac;
+      s3Target.soFarLandArea = soFar.landM2 + soFar.landM2PerSec * dayFrac;
+      s3Target.soFarGrain = soFar.grainKg + soFar.grainPerSec * dayFrac;
+      s3Target.soFarWater = soFar.waterLitres + soFar.waterPerSec * dayFrac;
+
+      s3PerSec.soFarLand = soFar.landPerSec;
+      s3PerSec.soFarMarine = soFar.marinePerSec;
+      s3PerSec.soFarCo2 = soFar.co2PerSec;
+      s3PerSec.soFarLandArea = soFar.landM2PerSec;
+      s3PerSec.soFarGrain = soFar.grainPerSec;
+      s3PerSec.soFarWater = soFar.waterPerSec;
+
+      s4Target.lifeLand = life.landAnimals;
+      s4Target.lifeMarine = life.marineAnimals;
+      s4Target.lifeCo2 = life.co2;
+      s4Target.lifeLandArea = life.landM2;
+      s4Target.lifeGrain = life.grainKg;
+      s4Target.lifeWater = life.waterLitres;
+
+      // Update inputs & text in Scenes 1, 2, 3, 4
+      const curAgeIn = document.getElementById('currentAgeInput');
+      if (document.activeElement !== curAgeIn) curAgeIn.value = state.currentAge;
+      const sinceAgeIn = document.getElementById('sinceAgeInput');
+      if (document.activeElement !== sinceAgeIn) sinceAgeIn.value = state.sinceAge;
+      const expIn = document.getElementById('expectancyInput');
+      if (document.activeElement !== expIn) expIn.value = expectancy.toFixed(1);
+
+      // Scene 2 text updates for Meat Eater Mode vs Vegetarian/Vegan Mode
+      const s2NormalWrap = document.getElementById('s2NormalWrap');
+      const s2MeatWrap = document.getElementById('s2MeatWrap');
+      const s2MetaBot = document.getElementById('s2MetaBot');
+      if (isMeatMode) {
+        if (s2NormalWrap) s2NormalWrap.style.display = 'none';
+        if (s2MeatWrap) s2MeatWrap.style.display = 'inline';
+        if (s2MetaBot) s2MetaBot.textContent = `${yearsSoFar} years since age ${state.sinceAge} · ${state.currentAge} years as a meat eater so far`;
+      } else {
+        if (s2NormalWrap) s2NormalWrap.style.display = 'inline';
+        if (s2MeatWrap) s2MeatWrap.style.display = 'none';
+        if (s2MetaBot) s2MetaBot.textContent = `${yearsSoFar} ${yearsSoFar === 1 ? 'year' : 'years'} on this path so far`;
+      }
+
+      // Scene 3 text updates for Meat Eater Mode vs Spared Mode
+      const s3Lead = document.getElementById('s3LeadParagraph');
+      const s3Rate = RATES[isMeatMode ? 'meat' : activeDiet];
+      const perDay = (v, d = 2) => (v / 365.25).toFixed(d);
+      const daysPerSeaAnimal = (365.25 / (s3Rate.finfish + s3Rate.shellfish)).toFixed(1);
+      if (isMeatMode) {
+        s3Lead.innerHTML = `So far in my life (<strong id="soFarYearsText">${state.currentAge} years</strong> as a meat eater), this is what I've consumed:<sup class="lead-star">*</sup>`;
+        document.getElementById('s3LabelLand').textContent = "Land animals I've consumed";
+        document.getElementById('s3LabelMarine').textContent = "Fishes & marine lives I've consumed";
+        document.getElementById('s3LabelCo2').textContent = "CO₂e emissions I've caused";
+        document.getElementById('s3LabelHabitat').textContent = "Forest & grazing land I've used";
+        document.getElementById('s3LabelGrain').textContent = "Animal feed I've used";
+        document.getElementById('s3LabelWater').textContent = "Freshwater I've used";
+        document.getElementById('soFarLandSub').textContent =
+          `${soFar.chickens.toLocaleString()} chickens · ${soFar.burgers.toLocaleString()} beef burgers · ${(soFar.porkMeals + soFar.lambMeals).toLocaleString()} pork & lamb meals eaten`;
+        document.getElementById('soFarMarineSub').textContent =
+          `${soFar.finfish.toLocaleString()} finfish · ${soFar.shellfish.toLocaleString()} shellfish consumed`;
+        document.getElementById('soFarCo2Sub').textContent =
+          `+${perDay(s3Rate.co2Tonnes * 1000)} kg CO₂e emitted every day`;
+        document.getElementById('soFarHabitatSub').textContent =
+          `${(soFar.landM2 / 10000).toFixed(2)} hectares occupied for grazing & feed`;
+        document.getElementById('soFarGrainSub').textContent =
+          `+${perDay(s3Rate.grainKg)} kg of animal feed used every day`;
+        document.getElementById('soFarWaterSub').textContent =
+          `+${Math.round(soFar.waterPerSec * 86400).toLocaleString()} L/day (+${soFar.waterPerSec.toFixed(3)} L every second)`;
+      } else {
+        s3Lead.innerHTML = `In the <strong id="soFarYearsText">${yearsSoFar} ${yearsSoFar === 1 ? 'year' : 'years'}</strong> since I went <span id="soFarDietText">${activeDiet}</span>, this is what I've spared:<sup class="lead-star">*</sup>`;
+        document.getElementById('s3LabelLand').textContent = "Land animals I've spared";
+        document.getElementById('s3LabelMarine').textContent = "Fishes & marine lives I've spared";
+        document.getElementById('s3LabelCo2').textContent = "CO₂e emissions I've prevented";
+        document.getElementById('s3LabelHabitat').textContent = "Forest & grazing land I've spared";
+        document.getElementById('s3LabelGrain').textContent = "Animal feed I've saved";
+        document.getElementById('s3LabelWater').textContent = "Freshwater I've saved";
+        document.getElementById('soFarLandSub').textContent =
+          `${soFar.chickens.toLocaleString()} chickens · ${soFar.burgers.toLocaleString()} beef burgers · ${(soFar.porkMeals + soFar.lambMeals).toLocaleString()} pork & lamb meals`;
+        document.getElementById('soFarMarineSub').textContent =
+          `${soFar.finfish.toLocaleString()} finfish · ${soFar.shellfish.toLocaleString()} shellfish (+1 every ${daysPerSeaAnimal} days)`;
+        document.getElementById('soFarCo2Sub').textContent =
+          `+${perDay(s3Rate.co2Tonnes * 1000)} kg CO₂e saved every day`;
+        document.getElementById('soFarHabitatSub').textContent =
+          `${(soFar.landM2 / 10000).toFixed(2)} hectares (+${perDay(s3Rate.landM2)} m² spared/day)`;
+        document.getElementById('soFarGrainSub').textContent =
+          `+${perDay(s3Rate.grainKg)} kg of animal feed saved every day`;
+        document.getElementById('soFarWaterSub').textContent =
+          `+${Math.round(soFar.waterPerSec * 86400).toLocaleString()} L/day (+${soFar.waterPerSec.toFixed(3)} L every second)`;
+      }
+
+      // Scene 4 text & photo labels for Meat Eater Mode vs Spared Mode
+      if (isMeatMode) {
+        document.getElementById('s4KickerSub').textContent = `· ${FLIP_VERB} a photo for the facts`;
+        document.getElementById('lifetimeYearsText').textContent = `${expectancy.toFixed(1)} years`;
+        document.getElementById('lifetimeRangePrefix').innerHTML = `from birth`;
+        document.getElementById('lifetimeVerbPhrase').textContent = 'this is what I will cause:';
+        document.getElementById('s4LabelLand').textContent = 'Land animals I will consume';
+        document.getElementById('s4LabelMarine').textContent = 'Marine animals I will consume';
+        document.getElementById('s4LabelCo2').textContent = 'Lifetime CO₂e I will cause';
+        document.getElementById('s4LabelHabitat').textContent = 'Lifetime habitat I will occupy';
+        document.getElementById('s4LabelGrain').textContent = 'Lifetime animal feed I will use';
+        document.getElementById('s4LabelWater').textContent = 'Lifetime freshwater I will use';
+        document.getElementById('lifeLandSub').textContent =
+          `${life.chickens.toLocaleString()} chickens · ${life.burgers.toLocaleString()} beef burgers · ${(life.porkMeals + life.lambMeals).toLocaleString()} pork & lamb meals`;
+        document.getElementById('lifeMarineSub').textContent =
+          `${life.finfish.toLocaleString()} finfish · ${life.shellfish.toLocaleString()} shellfish consumed`;
+        document.getElementById('lifeFlightsSub').textContent =
+          `Equal to ${Math.round(life.co2 / 0.9)} transatlantic flights emitted`;
+        document.getElementById('lifeHabitatSub').textContent =
+          `${(life.landM2 / 10000).toFixed(1)} hectares cleared for grazing & feed`;
+        document.getElementById('lifeGrainSub').textContent =
+          `${(life.grainKg / 1000).toFixed(1)} tonnes of animal feed`;
+        document.getElementById('lifeWaterSub').textContent =
+          `${(life.waterLitres / 2500000).toFixed(1)} Olympic swimming pools used`;
+      } else {
+        document.getElementById('s4KickerSub').textContent = `· ${FLIP_VERB} any photo to see the other side`;
+        document.getElementById('lifetimeYearsText').textContent = `${totalLifeYears.toFixed(1)} years`;
+        document.getElementById('lifetimeRangePrefix').innerHTML = `from age <span id="lifetimeSinceAgeText">${state.sinceAge}</span>`;
+        document.getElementById('lifetimeVerbPhrase').textContent = 'this is what I will spare:';
+        document.getElementById('s4LabelLand').textContent = 'Land animals I will spare';
+        document.getElementById('s4LabelMarine').textContent = 'Marine animals I will spare';
+        document.getElementById('s4LabelCo2').textContent = 'Lifetime CO₂e I will prevent';
+        document.getElementById('s4LabelHabitat').textContent = 'Lifetime habitat I will spare';
+        document.getElementById('s4LabelGrain').textContent = 'Lifetime animal feed I will save';
+        document.getElementById('s4LabelWater').textContent = 'Lifetime freshwater I will save';
+        document.getElementById('lifeLandSub').textContent =
+          `${life.chickens.toLocaleString()} chickens · ${life.burgers.toLocaleString()} beef burgers · ${(life.porkMeals + life.lambMeals).toLocaleString()} pork & lamb meals`;
+        document.getElementById('lifeMarineSub').textContent =
+          `${life.finfish.toLocaleString()} finfish · ${life.shellfish.toLocaleString()} shellfish`;
+        document.getElementById('lifeFlightsSub').textContent =
+          `Equal to ${Math.round(life.co2 / 0.9)} transatlantic flights`;
+        document.getElementById('lifeHabitatSub').textContent =
+          `${(life.landM2 / 10000).toFixed(1)} hectares returned to nature`;
+        document.getElementById('lifeGrainSub').textContent =
+          `${(life.grainKg / 1000).toFixed(1)} tonnes of animal feed`;
+        document.getElementById('lifeWaterSub').textContent =
+          `${(life.waterLitres / 2500000).toFixed(1)} Olympic swimming pools`;
+      }
+
+      // Scene 4 Vegan / Mode toggle button
+      const veganBtn = document.getElementById('veganCompareBtn');
+      const veganBtnLabel = document.getElementById('veganCompareBtnLabel');
+      const veganDelta = document.getElementById('veganCompareDelta');
+
+      const lifeVeg = computeMetrics('vegetarian', totalLifeYears);
+      const lifeVegan = computeMetrics('vegan', totalLifeYears);
+      const diffAnimals = lifeVegan.landAnimals - lifeVeg.landAnimals;
+      const diffCo2 = (lifeVegan.co2 - lifeVeg.co2).toFixed(1);
+
+      if (isMeatMode) {
+        veganBtn.classList.remove('is-active-green');
+        veganBtnLabel.textContent = '← Switch back to my vegetarian / vegan path';
+        veganDelta.textContent = `Switching back spares ${lifeVeg.landAnimals.toLocaleString()} land animals & ${lifeVeg.co2.toFixed(1)} tonnes CO₂e`;
+      } else if (state.diet === 'vegan') {
+        veganBtn.classList.add('is-active-green');
+        veganBtnLabel.textContent = '✓ Viewing as vegan (click to compare vegetarian)';
+        veganDelta.textContent = `Vegan spares +${diffAnimals.toLocaleString()} more land animals & +${diffCo2} t CO₂e than vegetarian`;
+      } else if (state.previewVegan) {
+        veganBtn.classList.add('is-active-green');
+        veganBtnLabel.textContent = '✓ Showing what this looks like as a vegan (click to reset)';
+        veganDelta.textContent = `+${diffAnimals.toLocaleString()} additional land animals & +${diffCo2} tonnes CO₂e spared as vegan`;
+      } else {
+        veganBtn.classList.remove('is-active-green');
+        veganBtnLabel.textContent = '→ What would this look like if I was vegan?';
+        veganDelta.textContent = `Going vegan spares +${diffAnimals.toLocaleString()} more animals & +${diffCo2} tonnes CO₂e over my life`;
+      }
+
+      // Scene 5: My Path, See as Vegan, See as a Meat Eater
+      const s5YearsSoFar = isMeatMode ? state.currentAge : yearsSoFar;
+      const s5YearsLife = isMeatMode ? expectancy : totalLifeYears;
+      const s5SoFar = computeMetrics(step5Diet, s5YearsSoFar);
+      const s5Life = computeMetrics(step5Diet, s5YearsLife);
+
+      s5Target.bLand = s5Life.landAnimals;
+      s5Target.bMarine = s5Life.marineAnimals;
+      s5Target.bCo2 = s5Life.co2;
+      s5Target.bHabitat = s5Life.landM2;
+      s5Target.bGrain = s5Life.grainKg;
+      s5Target.bWater = s5Life.waterLitres;
+
+      const sexLabel = state.sex === 'man' ? 'Man' : (state.sex === 'woman' ? 'Woman' : 'Non-binary');
+
+      if (isMeatMode) {
+        document.getElementById('finalMainHeading').textContent =
+          "If I'd stayed a meat eater";
+        document.getElementById('finalSummaryTag').textContent =
+          `${sexLabel} · Age ${state.currentAge} · Standard Meat Diet from birth to ${expectancy.toFixed(1)} yrs`;
+        document.getElementById('bLabelLand').textContent = 'Land Animals Consumed';
+        document.getElementById('bLabelMarine').textContent = 'Marine Lives Consumed';
+        document.getElementById('bLabelCo2').textContent = 'CO₂e Emitted';
+        document.getElementById('bLabelHabitat').textContent = 'Habitat Occupied';
+        document.getElementById('bLabelGrain').textContent = 'Animal Feed Used';
+        document.getElementById('bLabelWater').textContent = 'Freshwater Used';
+        document.getElementById('col1Title').textContent = 'Animals & meals eaten · so far / lifetime';
+        document.getElementById('col2Title').textContent = 'Carbon, land & water used · so far / lifetime';
+      } else {
+        const dLabel = step5Diet === 'vegan' ? 'Vegan' : 'Vegetarian';
+        document.getElementById('finalMainHeading').textContent =
+          'Everything I spare';
+        document.getElementById('finalSummaryTag').textContent =
+          `${sexLabel} · Age ${state.currentAge} · ${dLabel} since ${state.sinceAge} (${yearsSoFar} yrs so far · ${totalLifeYears.toFixed(1)} yrs lifetime)`;
+        document.getElementById('bLabelLand').textContent = 'Land Animals I Spare';
+        document.getElementById('bLabelMarine').textContent = 'Marine Lives I Spare';
+        document.getElementById('bLabelCo2').textContent = 'CO₂e I Prevent';
+        document.getElementById('bLabelHabitat').textContent = 'Habitat I Spare';
+        document.getElementById('bLabelGrain').textContent = 'Animal Feed I Save';
+        document.getElementById('bLabelWater').textContent = 'Freshwater I Save';
+        document.getElementById('col1Title').textContent = 'Animals & meals spared · so far / lifetime';
+        document.getElementById('col2Title').textContent = 'Carbon, land & water saved · so far / lifetime';
+      }
+
+      const beefLbs = Math.round(s5Life.burgers * 0.25);
+      document.getElementById('tblChickens').textContent =
+        `${s5SoFar.chickens.toLocaleString()} / ${s5Life.chickens.toLocaleString()} birds (${(s5Life.chickenMeals / 1000).toFixed(1)}k meals)`;
+      document.getElementById('tblCattle').textContent =
+        `${s5SoFar.burgers.toLocaleString()} / ${s5Life.burgers.toLocaleString()} burgers (${beefLbs.toLocaleString()} lbs beef)`;
+      document.getElementById('tblPigs').textContent =
+        `${s5SoFar.porkMeals.toLocaleString()} / ${s5Life.porkMeals.toLocaleString()} meals (${s5Life.pigs} whole pigs)`;
+      document.getElementById('tblSheep').textContent =
+        `${s5SoFar.lambMeals.toLocaleString()} / ${s5Life.lambMeals.toLocaleString()} meals (${s5Life.sheep} sheep/lambs)`;
+      document.getElementById('tblFinfish').textContent =
+        `${s5SoFar.finfish.toLocaleString()} / ${s5Life.finfish.toLocaleString()} fish`;
+      document.getElementById('tblShellfish').textContent =
+        `${s5SoFar.shellfish.toLocaleString()} / ${s5Life.shellfish.toLocaleString()} shellfish`;
+      document.getElementById('tblTotalAnimals').innerHTML =
+        `<strong>${s5SoFar.totalAnimals.toLocaleString()} / ${s5Life.totalAnimals.toLocaleString()} lives (${(s5Life.totalMeatMeals / 1000).toFixed(1)}k meals)</strong>`;
+
+      document.getElementById('tblCo2').textContent = `${s5SoFar.co2.toFixed(1)} t / ${s5Life.co2.toFixed(1)} t`;
+      document.getElementById('tblLand').textContent = `${Math.round(s5SoFar.landM2).toLocaleString()} m² / ${Math.round(s5Life.landM2).toLocaleString()} m²`;
+      document.getElementById('tblGrain').textContent = `${Math.round(s5SoFar.grainKg).toLocaleString()} kg / ${Math.round(s5Life.grainKg).toLocaleString()} kg`;
+      document.getElementById('tblWater').textContent = `${(s5SoFar.waterLitres / 1e6).toFixed(2)}M L / ${(s5Life.waterLitres / 1e6).toFixed(2)}M L`;
+      document.getElementById('tblAnnualRate').textContent =
+        `${s5Life.annualLand.toLocaleString()} m² & ${s5Life.annualCo2.toFixed(2)} t CO₂e / yr`;
+      document.getElementById('tblExpectancy').textContent = `${expectancy.toFixed(1)} years (editable)`;
+
+      // Sync bottom mode button active states
+      document.querySelectorAll('[data-bottom-mode]').forEach((btn) => {
+        btn.classList.toggle('active-mode', btn.getAttribute('data-bottom-mode') === state.bottomMode);
+      });
+    }
+
+    /* Controls, age inputs, modes and pop-ups */
+    // Identity toggle (a man / a woman / non-binary)
+    document.querySelectorAll('[data-sex]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        state.sex = btn.getAttribute('data-sex');
+        state.finalAge = LIFE_EXPECTANCY_DEFAULTS[state.sex];
+        document.querySelectorAll('[data-sex]').forEach((b) => b.classList.toggle('active', b === btn));
+        recalculateAll(false);
+      });
+    });
+
+    // Diet toggle
+    function setDietButtonState() {
+      document.querySelectorAll('[data-diet]').forEach((b) => {
+        b.classList.toggle('active-green', b.getAttribute('data-diet') === state.diet);
+      });
+    }
+
+    document.querySelectorAll('[data-diet]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        state.diet = btn.getAttribute('data-diet');
+        setDietButtonState();
+        recalculateAll(true);
+      });
+    });
+
+    // Helper for typeable age inputs
+    function bindTypeableAge(inputId, minusId, plusId, minVal, maxVal, getter, setter) {
+      const inp = document.getElementById(inputId);
+      inp.addEventListener('focus', () => inp.select());
+      inp.addEventListener('input', () => {
+        const v = parseFloat(inp.value);
+        if (!isNaN(v) && v >= minVal && v <= maxVal) {
+          setter(v);
+          recalculateAll(false);
+        }
+      });
+      inp.addEventListener('blur', () => {
+        recalculateAll(false);
+      });
+      document.getElementById(minusId).addEventListener('click', () => {
+        setter(Math.max(minVal, getter() - 1));
+        recalculateAll(false);
+      });
+      document.getElementById(plusId).addEventListener('click', () => {
+        setter(Math.min(maxVal, getter() + 1));
+        recalculateAll(false);
+      });
+    }
+
+    bindTypeableAge(
+      'currentAgeInput', 'ageMinus', 'agePlus', 1, 115,
+      () => state.currentAge,
+      (v) => {
+        state.currentAge = Math.round(v);
+        if (state.sinceAge > state.currentAge) state.sinceAge = state.currentAge;
+        if (state.finalAge < state.currentAge) state.finalAge = state.currentAge;
+      }
+    );
+
+    bindTypeableAge(
+      'sinceAgeInput', 'sinceAgeMinus', 'sinceAgePlus', 0, 115,
+      () => state.sinceAge,
+      (v) => {
+        state.sinceAge = Math.min(state.currentAge, Math.max(0, Math.round(v)));
+      }
+    );
+
+    bindTypeableAge(
+      'expectancyInput', 'expMinus', 'expPlus', 15, 120,
+      () => state.finalAge,
+      (v) => {
+        state.finalAge = Math.max(state.currentAge, +v.toFixed(1));
+      }
+    );
+
+    // Scene 4 vegan comparison / meat eater reset button.
+    // Numbers glide from their current value to the new one (no dip and re-count).
+    document.getElementById('veganCompareBtn').addEventListener('click', () => {
+      if (state.bottomMode === 'meat') {
+        state.bottomMode = 'mine';
+        state.previewVegan = false;
+      } else if (state.diet === 'vegan') {
+        state.diet = 'vegetarian';
+        state.previewVegan = false;
+        setDietButtonState();
+      } else {
+        state.previewVegan = !state.previewVegan;
+      }
+      recalculateAll(false);
+    });
+
+    // Scene 5 mode switchers (My Path / See as Vegan / See as a Meat Eater)
+    document.querySelectorAll('[data-bottom-mode]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        state.bottomMode = btn.getAttribute('data-bottom-mode');
+        if (state.bottomMode === 'vegan') state.previewVegan = true;
+        if (state.bottomMode === 'mine') state.previewVegan = false;
+        recalculateAll(false);
+      });
+    });
+
+    // Copy & Share buttons
+    function buildShareText(isLifetime = false) {
+      const yearsSoFar = Math.max(0, state.currentAge - state.sinceAge);
+      const totalLifeYears = Math.max(yearsSoFar, +(state.finalAge - state.sinceAge).toFixed(1));
+      if (!isLifetime) {
+        const m = computeMetrics(state.diet, yearsSoFar);
+        return `In the ${yearsSoFar} years since I went ${state.diet} at age ${state.sinceAge}, I've spared ${m.landAnimals.toLocaleString()} land animals (${m.burgers.toLocaleString()} beef burgers), ${m.marineAnimals.toLocaleString()} marine animals, ${m.co2.toFixed(1)} tonnes of CO₂e, and ${(m.waterLitres / 1e6).toFixed(2)}M litres of freshwater. sinceiwent.org`;
+      } else {
+        const d = getStep4Diet();
+        const m = computeMetrics(d, totalLifeYears);
+        return `Across my full life (${totalLifeYears.toFixed(1)} years ${d}), I will spare ${m.landAnimals.toLocaleString()} land animals (${m.burgers.toLocaleString()} beef burgers), ${m.marineAnimals.toLocaleString()} marine animals, ${m.co2.toFixed(1)} tonnes of CO₂e, and ${Math.round(m.landM2).toLocaleString()} m² of habitat. sinceiwent.org`;
+      }
+    }
+
+    function copyTextWithFeedback(text, labelId, defaultLabel) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).catch(() => {});
+      }
+      const el = document.getElementById(labelId);
+      if (el) {
+        el.textContent = '✓ Copied to clipboard';
+        setTimeout(() => { el.textContent = defaultLabel; }, 2200);
+      }
+    }
+
+    document.getElementById('copySoFarBtn')?.addEventListener('click', () => {
+      copyTextWithFeedback(buildShareText(false), 'copySoFarLabel', 'Copy my stats');
+    });
+    document.getElementById('copyLifeBtn')?.addEventListener('click', () => {
+      copyTextWithFeedback(buildShareText(true), 'copyLifeLabel', 'Copy lifetime stats');
+    });
+
+    // Progress dots, chapter links and the sources link scroll to their part of the page
+    document.addEventListener('click', (e) => {
+      const el = e.target.closest('[data-jump]');
+      if (!el) return;
+      e.preventDefault();
+      const p = parseFloat(el.getAttribute('data-jump'));
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      window.scrollTo({ top: p * maxScroll, behavior: 'smooth' });
+      if (el.hash) history.replaceState(null, '', el.hash);
+    });
+
+    /* Share carousel: four formats, five colours */
+    const igModal = document.getElementById('igModalBackdrop');
+    const igCanvas = document.getElementById('igCanvas');
+    const igPreviewFrame = document.getElementById('igPreviewFrame');
+    const igCtx = igCanvas.getContext('2d');
+
+    // Photos used behind the dark colour option
+    const igBgImagesGood = [];
+    const igBgImagesBad = [];
+    [
+      'assets/plates/good-1-cow.jpg',
+      'assets/plates/good-2-fish.jpg',
+      'assets/plates/good-4-meadow.jpg',
+      'assets/plates/good-6-misty-river.jpg'
+    ].forEach((src, i) => {
+      const im = new Image();
+      im.onload = () => {
+        if (igModal.classList.contains('is-open') && state.igThemeIndex === 1) {
+          renderIgSlide(state.igSlideIndex);
+        }
+      };
+      im.src = src;
+      igBgImagesGood[i] = im;
+    });
+    [
+      'assets/plates/bad-1-slaughter.jpg',
+      'assets/plates/bad-2-fish-blood.jpg',
+      'assets/plates/bad-4-logging.jpg',
+      'assets/plates/bad-6-polluted-river.jpg'
+    ].forEach((src, i) => {
+      const im = new Image();
+      im.onload = () => {
+        if (igModal.classList.contains('is-open') && state.igThemeIndex === 1) {
+          renderIgSlide(state.igSlideIndex);
+        }
+      };
+      im.src = src;
+      igBgImagesBad[i] = im;
+    });
+
+    const RATIO_SPECS = {
+      stories:   { w: 1080, h: 1920, pw: 264, ph: 469, label: 'Stories (9:16)' },
+      post:      { w: 1080, h: 1350, pw: 316, ph: 395, label: 'Post (4:5)' },
+      square:    { w: 1080, h: 1080, pw: 344, ph: 344, label: 'Square (1:1)' },
+      landscape: { w: 1920, h: 1080, pw: 392, ph: 221, label: 'Landscape (16:9)' }
+    };
+
+    const THEME_PALETTES = [
+      // 00: Alabaster White
+      {
+        name: 'Alabaster White',
+        bg: '#F4F1EA', bg2: '#EAE5D9', ink: '#141413', sub: '#5A5851',
+        accent: '#1E5638', rule: 'rgba(20,20,19,0.14)', cardBg: 'rgba(20,20,19,0.025)'
+      },
+      // 01: Darkroom Black
+      {
+        name: 'Darkroom Black',
+        bg: '#161816', bg2: '#0E100E', ink: '#F5F2EB', sub: 'rgba(245,242,235,0.74)',
+        accent: '#7CD49E', rule: 'rgba(245,242,235,0.18)', cardBg: 'rgba(18,20,18,0.64)',
+        usePhotoBg: true
+      },
+      // 02: Deep Forest Green
+      {
+        name: 'Deep Forest Green',
+        bg: '#11261B', bg2: '#1B3D2B', ink: '#F6F3EC', sub: 'rgba(246,243,236,0.70)',
+        accent: '#8CE2AE', rule: 'rgba(140,226,174,0.20)', cardBg: 'rgba(255,255,255,0.045)',
+        hasGlowOrb: true
+      },
+      // 03: Warm Tan
+      {
+        name: 'Warm Tan',
+        bg: '#E6DEC8', bg2: '#DDD3BA', ink: '#161514', sub: '#57534A',
+        accent: '#1E5638', rule: 'rgba(22,21,20,0.16)', cardBg: 'rgba(255,255,255,0.38)'
+      },
+      // 04: Soft Sage Gradient
+      {
+        name: 'Soft Sage Gradient',
+        bg: '#F4F2EB', bg2: '#CFE5D4', ink: '#151816', sub: '#4E5750',
+        accent: '#1B5E3A', rule: 'rgba(27,94,58,0.15)', cardBg: 'rgba(255,255,255,0.52)',
+        hasAuraGradient: true
+      }
+    ];
+
+    function syncCarouselControls() {
+      document.querySelectorAll('.ig-slide-tab').forEach((t, i) => {
+        t.classList.toggle('active', i === state.igSlideIndex);
+      });
+      document.querySelectorAll('.ig-ratio-tab').forEach((t) => {
+        t.classList.toggle('active', t.getAttribute('data-ratio') === state.igRatio);
+      });
+      document.querySelectorAll('[data-theme-idx]').forEach((t) => {
+        t.classList.toggle('active', parseInt(t.getAttribute('data-theme-idx'), 10) === state.igThemeIndex);
+      });
+    }
+
+    // Carousel numbers use Cormorant Infant: the same design as Cormorant Garamond,
+    // but with full-height digits, so they match the numbers on the page.
+    const IG_NUM_FONT = '"Cormorant Infant", "Cormorant Garamond", Georgia, serif';
+    const IG_SERIF = '"Cormorant Garamond", Georgia, serif';
+    const IG_SANS = '"Inter", sans-serif';
+    const IG_MONO = '"JetBrains Mono", monospace';
+
+    function igUnitPx(numPx) {
+      return Math.max(15, Math.round(numPx * 0.17));
+    }
+
+    function measureStat(num, unit, numPx) {
+      igCtx.font = `500 ${numPx}px ${IG_NUM_FONT}`;
+      let w = igCtx.measureText(num).width;
+      if (unit) {
+        igCtx.font = `500 ${igUnitPx(numPx)}px ${IG_MONO}`;
+        w += numPx * 0.08 + igCtx.measureText(unit.toUpperCase()).width;
+      }
+      return w;
+    }
+
+    // A big number with its unit set small after it, like on the page.
+    function drawStat(num, unit, x, baseline, numPx, color, unitColor, align = 'left') {
+      const startX = align === 'right' ? x - measureStat(num, unit, numPx) : x;
+      igCtx.textAlign = 'left';
+      igCtx.font = `500 ${numPx}px ${IG_NUM_FONT}`;
+      igCtx.fillStyle = color;
+      igCtx.fillText(num, startX, baseline);
+      if (unit) {
+        const numW = igCtx.measureText(num).width;
+        igCtx.font = `500 ${igUnitPx(numPx)}px ${IG_MONO}`;
+        igCtx.fillStyle = unitColor;
+        igCtx.fillText(unit.toUpperCase(), startX + numW + numPx * 0.08, baseline);
+      }
+    }
+
+    // Largest size (up to startPx) at which every number fits in maxW.
+    function fitStatPx(items, startPx, maxW, minPx = 40) {
+      let px = Math.floor(startPx);
+      while (px > minPx && items.some((it) => measureStat(it.num, it.unit, px) > maxW)) px -= 2;
+      return px;
+    }
+
+    // Tallest number that still leaves room for its label and detail line in a cell.
+    function blockFitPx(cellH, labelPx, subPx) {
+      return Math.floor((cellH - labelPx * 0.95 - subPx * 1.9 - 28) / 1.2);
+    }
+
+    // Largest size (up to startPx) at which every line of text fits in maxW.
+    function fitTextPx(texts, weight, family, startPx, maxW, minPx = 14) {
+      let px = Math.floor(startPx);
+      const fits = () => {
+        igCtx.font = `${weight} ${px}px ${family}`;
+        return texts.every((t) => igCtx.measureText(t).width <= maxW);
+      };
+      while (px > minPx && !fits()) px -= 1;
+      return px;
+    }
+
+    // Rule, big number, label and a small detail line.
+    function drawStatBlock(st, x, y, w, numPx, labelPx, subPx, c) {
+      igCtx.strokeStyle = c.rule;
+      igCtx.lineWidth = 1.2;
+      igCtx.beginPath();
+      igCtx.moveTo(x, y);
+      igCtx.lineTo(x + w, y);
+      igCtx.stroke();
+
+      const numBase = y + numPx * 0.9;
+      drawStat(st.num, st.unit, x, numBase, numPx, st.accent ? c.accent : c.ink, c.sub);
+
+      // Leave room for the comma's tail, which drops well below the digits.
+      const labelBase = numBase + Math.round(numPx * 0.3 + labelPx * 0.95);
+      igCtx.font = `500 ${labelPx}px ${IG_SANS}`;
+      igCtx.fillStyle = c.ink;
+      igCtx.fillText(st.label, x, labelBase);
+
+      igCtx.font = `400 ${subPx}px ${IG_SANS}`;
+      igCtx.fillStyle = c.sub;
+      igCtx.fillText(st.sub, x, labelBase + subPx * 1.6);
+    }
+
+    // Landscape only: one lifeline runs left to right through all four slides, so they
+    // join into a single picture when placed side by side. It sits in its own lane
+    // (bandY) below the text, so it never crosses any words.
+    function drawLandscapeLifeline(slideIdx, W, bandY, contentX, contentRight, c, bgHex, isMeat) {
+      const A = 15;
+      const wavelength = 1180;
+      const xBirth = contentX + 34;
+      const xSplit = W * 0.56;
+      const xToday = W * 1.8;
+      const xEnd = W * 3 + contentRight - 34;
+      const offsetX = slideIdx * W;
+      const weave = (g) => {
+        const ease = Math.sin(Math.min(1, Math.max(0, (g - xBirth) / 340)) * Math.PI / 2);
+        return bandY + Math.sin(((g - xBirth) / wavelength) * Math.PI * 2) * A * ease;
+      };
+      const branch = (g) => weave(g) + (1 - Math.exp(-Math.max(0, g - xSplit) / 260)) * 30;
+      const taken = isMeat ? branch : weave;
+      const notTaken = isMeat ? weave : branch;
+      const from = Math.max(xBirth, offsetX - 24);
+      const to = Math.min(xEnd, offsetX + W + 24);
+
+      const trace = (fn, g0, g1) => {
+        if (g1 <= g0) return false;
+        const steps = Math.max(8, Math.ceil((g1 - g0) / 6));
+        igCtx.beginPath();
+        for (let i = 0; i <= steps; i++) {
+          const g = g0 + (i / steps) * (g1 - g0);
+          if (i === 0) igCtx.moveTo(g - offsetX, fn(g));
+          else igCtx.lineTo(g - offsetX, fn(g));
+        }
+        return true;
+      };
+      const onSlide = (g) => g - offsetX > -40 && g - offsetX < W + 40;
+      const label = (text, g, y, color) => {
+        igCtx.font = `400 17px ${IG_MONO}`;
+        igCtx.fillStyle = color;
+        igCtx.textAlign = 'center';
+        igCtx.fillText(text, g - offsetX, y - 26);
+        igCtx.textAlign = 'left';
+      };
+
+      igCtx.save();
+      igCtx.lineCap = 'round';
+      if (trace(notTaken, Math.max(xSplit, from), to)) {
+        igCtx.setLineDash([6, 8]);
+        igCtx.strokeStyle = c.rule;
+        igCtx.lineWidth = 2;
+        igCtx.stroke();
+        igCtx.setLineDash([]);
+      }
+      if (trace(weave, from, Math.min(xSplit, to))) {
+        igCtx.strokeStyle = c.ink;
+        igCtx.lineWidth = 3;
+        igCtx.stroke();
+      }
+      if (trace(taken, Math.max(xSplit, from), to)) {
+        igCtx.strokeStyle = c.accent;
+        igCtx.globalAlpha = 0.16;
+        igCtx.lineWidth = 12;
+        igCtx.stroke();
+        igCtx.globalAlpha = 1;
+        igCtx.lineWidth = 4;
+        igCtx.stroke();
+      }
+
+      if (onSlide(xBirth)) {
+        const y = weave(xBirth);
+        [[22, 1.2], [13, 1.5]].forEach(([r, lw]) => {
+          igCtx.beginPath();
+          igCtx.arc(xBirth - offsetX, y, r, 0, Math.PI * 2);
+          igCtx.strokeStyle = c.rule;
+          igCtx.lineWidth = lw;
+          igCtx.stroke();
+        });
+        igCtx.beginPath();
+        igCtx.arc(xBirth - offsetX, y, 6, 0, Math.PI * 2);
+        igCtx.fillStyle = c.ink;
+        igCtx.fill();
+      }
+      if (onSlide(xSplit)) {
+        const y = weave(xSplit);
+        igCtx.beginPath();
+        igCtx.arc(xSplit - offsetX, y, 8, 0, Math.PI * 2);
+        igCtx.fillStyle = c.accent;
+        igCtx.fill();
+        label(`${state.sinceAge}`, xSplit, y, c.accent);
+      }
+      if (onSlide(xToday)) {
+        const y = taken(xToday);
+        igCtx.beginPath();
+        igCtx.arc(xToday - offsetX, y, 7, 0, Math.PI * 2);
+        igCtx.fillStyle = bgHex;
+        igCtx.fill();
+        igCtx.strokeStyle = c.accent;
+        igCtx.lineWidth = 3;
+        igCtx.stroke();
+        label(`today, ${state.currentAge}`, xToday, y, c.sub);
+      }
+      if (onSlide(xEnd)) {
+        const y = taken(xEnd);
+        igCtx.beginPath();
+        igCtx.arc(xEnd - offsetX, y, 14, 0, Math.PI * 2);
+        igCtx.strokeStyle = c.accent;
+        igCtx.globalAlpha = 0.28;
+        igCtx.lineWidth = 1.5;
+        igCtx.stroke();
+        igCtx.globalAlpha = 1;
+        igCtx.beginPath();
+        igCtx.arc(xEnd - offsetX, y, 6, 0, Math.PI * 2);
+        igCtx.fillStyle = c.accent;
+        igCtx.fill();
+        label(`${state.finalAge.toFixed(1)}`, xEnd, y, c.accent);
+      }
+      igCtx.restore();
+    }
+
+    // Canvas text only uses a web font once it has loaded, so load them up front
+    // and redraw the open slide when they arrive.
+    const igFontsReady = Promise.all([
+      `500 100px ${IG_NUM_FONT}`,
+      `400 60px ${IG_SERIF}`,
+      `italic 400 60px ${IG_SERIF}`,
+      `400 24px ${IG_SANS}`,
+      `500 24px ${IG_SANS}`,
+      `400 20px ${IG_MONO}`,
+      `500 20px ${IG_MONO}`
+    ].map((f) => document.fonts.load(f).catch(() => null)));
+    igFontsReady.then(() => {
+      if (igModal.classList.contains('is-open')) renderIgSlide(state.igSlideIndex);
+    });
+
+    function renderIgSlide(slideIdx = state.igSlideIndex, forExport = false) {
+      state.igSlideIndex = slideIdx;
+      syncCarouselControls();
+
+      const rSpec = RATIO_SPECS[state.igRatio] || RATIO_SPECS.stories;
+      const W = rSpec.w;
+      const H = rSpec.h;
+
+      if (igPreviewFrame) {
+        igPreviewFrame.style.width = `${rSpec.pw}px`;
+        igPreviewFrame.style.height = `${rSpec.ph}px`;
+      }
+
+      // The preview renders at screen resolution so text stays sharp; downloads render at full size.
+      const renderScale = forExport ? 1 : (((window.devicePixelRatio || 1) * rSpec.pw) / W);
+      const targetW = Math.round(W * renderScale);
+      const targetH = Math.round(H * renderScale);
+      if (igCanvas.width !== targetW || igCanvas.height !== targetH) {
+        igCanvas.width = targetW;
+        igCanvas.height = targetH;
+      }
+      igCtx.setTransform(renderScale, 0, 0, renderScale, 0, 0);
+
+      const isLandscape = W > H;
+      const isStories = H > 1500;
+      const isSquare = W === H;
+
+      const isMeat = state.bottomMode === 'meat';
+      const theme = THEME_PALETTES[state.igThemeIndex] || THEME_PALETTES[0];
+      const inkHex = theme.ink;
+      const subHex = theme.sub;
+      const accentHex = isMeat ? (theme.bg.startsWith('#1') ? '#F07167' : '#8E241B') : theme.accent;
+      const ruleHex = theme.rule;
+
+      const yearsSoFar = Math.max(0, state.currentAge - state.sinceAge);
+      const expectancy = Math.max(state.currentAge, state.finalAge);
+      const totalLifeYears = Math.max(yearsSoFar, +(expectancy - state.sinceAge).toFixed(1));
+      const d = isMeat ? 'meat' : getStep4Diet();
+      const soFar = computeMetrics(isMeat ? 'meat' : state.diet, isMeat ? state.currentAge : yearsSoFar);
+      const life = computeMetrics(d, isMeat ? expectancy : totalLifeYears);
+
+      // 1. Background
+      igCtx.save();
+      igCtx.imageSmoothingEnabled = true;
+      igCtx.imageSmoothingQuality = 'high';
+      if (theme.usePhotoBg) {
+        igCtx.fillStyle = '#141614';
+        igCtx.fillRect(0, 0, W, H);
+        const bgPool = isMeat ? igBgImagesBad : igBgImagesGood;
+        const bgIm = bgPool[slideIdx % bgPool.length];
+        if (bgIm && bgIm.complete && bgIm.naturalWidth > 0) {
+          const scale = Math.max(W / bgIm.naturalWidth, H / bgIm.naturalHeight);
+          const dw = bgIm.naturalWidth * scale;
+          const dh = bgIm.naturalHeight * scale;
+          igCtx.globalAlpha = 0.45;
+          igCtx.drawImage(bgIm, (W - dw) * 0.5, (H - dh) * 0.5, dw, dh);
+          igCtx.globalAlpha = 1;
+        }
+        const scrim = igCtx.createLinearGradient(0, 0, 0, H);
+        scrim.addColorStop(0, 'rgba(14,16,14,0.68)');
+        scrim.addColorStop(0.5, 'rgba(14,16,14,0.52)');
+        scrim.addColorStop(1, 'rgba(12,14,12,0.88)');
+        igCtx.fillStyle = scrim;
+        igCtx.fillRect(0, 0, W, H);
+      } else if (theme.hasAuraGradient) {
+        const linG = igCtx.createLinearGradient(0, 0, W, H);
+        linG.addColorStop(0, '#D4E9D8');
+        linG.addColorStop(0.52, '#EBF3EC');
+        linG.addColorStop(1, '#F5F2EA');
+        igCtx.fillStyle = linG;
+        igCtx.fillRect(0, 0, W, H);
+
+        const rad1 = igCtx.createRadialGradient(W * 0.78, H * 0.22, 20, W * 0.78, H * 0.22, Math.max(W, H) * 0.65);
+        rad1.addColorStop(0, isMeat ? 'rgba(210,140,130,0.38)' : 'rgba(156,208,168,0.48)');
+        rad1.addColorStop(1, 'rgba(246,243,236,0)');
+        igCtx.fillStyle = rad1;
+        igCtx.fillRect(0, 0, W, H);
+      } else if (theme.hasGlowOrb) {
+        const lin = igCtx.createLinearGradient(0, 0, 0, H);
+        lin.addColorStop(0, theme.bg);
+        lin.addColorStop(1, theme.bg2);
+        igCtx.fillStyle = lin;
+        igCtx.fillRect(0, 0, W, H);
+
+        const orb = igCtx.createRadialGradient(W * 0.72, H * 0.32, 10, W * 0.72, H * 0.32, Math.max(W, H) * 0.52);
+        orb.addColorStop(0, isMeat ? 'rgba(190,60,50,0.26)' : 'rgba(104,197,142,0.22)');
+        orb.addColorStop(1, 'rgba(0,0,0,0)');
+        igCtx.fillStyle = orb;
+        igCtx.fillRect(0, 0, W, H);
+      } else {
+        igCtx.fillStyle = theme.bg;
+        igCtx.fillRect(0, 0, W, H);
+      }
+      igCtx.restore();
+
+      // 2. Frame. On landscape the lifeline runs through the sides into the next slide.
+      const pad = 52;
+      const bandY = H - 178;
+      igCtx.strokeStyle = ruleHex;
+      igCtx.lineWidth = 1.5;
+      if (isLandscape) {
+        const gapTop = bandY - 46;
+        const gapBottom = bandY + 54;
+        igCtx.beginPath();
+        igCtx.moveTo(pad, pad); igCtx.lineTo(W - pad, pad);
+        igCtx.moveTo(pad, H - pad); igCtx.lineTo(W - pad, H - pad);
+        [[pad, slideIdx > 0], [W - pad, slideIdx < 3]].forEach(([x, gap]) => {
+          igCtx.moveTo(x, pad);
+          if (gap) {
+            igCtx.lineTo(x, gapTop);
+            igCtx.moveTo(x, gapBottom);
+          }
+          igCtx.lineTo(x, H - pad);
+        });
+        igCtx.stroke();
+      } else {
+        igCtx.strokeRect(pad, pad, W - pad * 2, H - pad * 2);
+      }
+
+      // Top metadata bar
+      const contentX = pad + (isLandscape ? 54 : 46);
+      const contentRight = W - pad - (isLandscape ? 54 : 46);
+      const topMetaY = pad + (isStories ? 76 : 58);
+
+      igCtx.font = '500 20px "JetBrains Mono", monospace';
+      igCtx.fillStyle = subHex;
+      igCtx.textAlign = 'left';
+      const headerTag = isMeat
+        ? `MEAT EATER · AGE ${state.currentAge}`
+        : (slideIdx >= 2
+          ? `AGE ${state.sinceAge} → ${expectancy.toFixed(1)}`
+          : `AGE ${state.sinceAge} → ${state.currentAge}`);
+      igCtx.fillText(headerTag, contentX, topMetaY);
+
+      igCtx.textAlign = 'right';
+      igCtx.fillText(`0${slideIdx + 1} / 04`, contentRight, topMetaY);
+
+      // Top horizontal hairline under metadata
+      igCtx.strokeStyle = ruleHex;
+      igCtx.lineWidth = 1.2;
+      igCtx.beginPath();
+      igCtx.moveTo(contentX, topMetaY + 24);
+      igCtx.lineTo(contentRight, topMetaY + 24);
+      igCtx.stroke();
+
+      igCtx.textAlign = 'left';
+
+      // 3. Slide content. Every layout sizes its numbers to fill the space it has.
+      const footY = H - pad - 34;
+      const contentW = contentRight - contentX;
+      const colors = { ink: inkHex, sub: subHex, accent: accentHex, rule: ruleHex };
+      if (isLandscape) {
+        drawLandscapeLifeline(slideIdx, W, bandY, contentX, contentRight, colors, theme.bg, isMeat);
+      }
+
+      if (slideIdx === 0) {
+        // Slide 1: the lifeline on the left, the sentence and headline numbers on the right.
+        const lineCenterX = isLandscape ? contentX + 96 : contentX + 86;
+        const lineTopY = topMetaY + (isStories ? 116 : 74);
+        const lineBotY = H - pad - (isStories ? 160 : 108);
+        const totalLineH = lineBotY - lineTopY;
+        const waveAmp = isLandscape ? 34 : 30;
+        const uSplit = 0.34;
+
+        if (!isLandscape) {
+          // Same gentle S-curve as the line on the page
+          const weaveX = (u) => {
+            const env = Math.sin(Math.min(1, u * 3.2) * (Math.PI / 2));
+            const w1 = Math.sin(u * Math.PI * 2.5) * waveAmp * 0.78;
+            const w2 = Math.sin(u * Math.PI * 5.4 + 0.7) * waveAmp * 0.26;
+            return lineCenterX + (w1 + w2) * env;
+          };
+          const ghostX = (u) => {
+            const du = Math.max(0, u - uSplit);
+            const base = weaveX(u);
+            const offset = (1 - Math.exp(-du * 6.5)) * (waveAmp * 1.45) + du * 16;
+            return base - offset;
+          };
+
+          const birthX = weaveX(0);
+          const birthY = lineTopY;
+
+          // Black line from birth to the turning point
+          igCtx.beginPath();
+          const preSteps = 45;
+          for (let i = 0; i <= preSteps; i++) {
+            const u = (i / preSteps) * uSplit;
+            const x = weaveX(u);
+            const y = lineTopY + u * totalLineH;
+            if (i === 0) igCtx.moveTo(x, y);
+            else igCtx.lineTo(x, y);
+          }
+          igCtx.strokeStyle = inkHex;
+          igCtx.lineWidth = 3.2;
+          igCtx.lineCap = 'round';
+          igCtx.stroke();
+
+          // Birth dot with two rings
+          igCtx.beginPath();
+          igCtx.arc(birthX, birthY, 24, 0, Math.PI * 2);
+          igCtx.strokeStyle = ruleHex;
+          igCtx.lineWidth = 1.2;
+          igCtx.stroke();
+
+          igCtx.beginPath();
+          igCtx.arc(birthX, birthY, 14, 0, Math.PI * 2);
+          igCtx.strokeStyle = ruleHex;
+          igCtx.lineWidth = 1.5;
+          igCtx.stroke();
+
+          igCtx.beginPath();
+          igCtx.arc(birthX, birthY, 6.5, 0, Math.PI * 2);
+          igCtx.fillStyle = inkHex;
+          igCtx.fill();
+
+          // Dashed path not taken
+          igCtx.save();
+          igCtx.setLineDash([6, 8]);
+          igCtx.beginPath();
+          const ghostSteps = 50;
+          for (let i = 0; i <= ghostSteps; i++) {
+            const u = uSplit + (i / ghostSteps) * (0.88 - uSplit);
+            const x = isMeat ? weaveX(u) : ghostX(u);
+            const y = lineTopY + u * totalLineH;
+            if (i === 0) igCtx.moveTo(x, y);
+            else igCtx.lineTo(x, y);
+          }
+          igCtx.strokeStyle = ruleHex;
+          igCtx.lineWidth = 2.2;
+          igCtx.stroke();
+          igCtx.restore();
+
+          // Coloured path after the turning point, with a soft glow underneath
+          const postSteps = 65;
+          igCtx.save();
+          igCtx.beginPath();
+          for (let i = 0; i <= postSteps; i++) {
+            const u = uSplit + (i / postSteps) * (1 - uSplit);
+            const x = isMeat ? ghostX(u) : weaveX(u);
+            const y = lineTopY + u * totalLineH;
+            if (i === 0) igCtx.moveTo(x, y);
+            else igCtx.lineTo(x, y);
+          }
+          igCtx.strokeStyle = accentHex;
+          igCtx.globalAlpha = 0.16;
+          igCtx.lineWidth = 12;
+          igCtx.lineCap = 'round';
+          igCtx.stroke();
+          igCtx.restore();
+
+          igCtx.beginPath();
+          for (let i = 0; i <= postSteps; i++) {
+            const u = uSplit + (i / postSteps) * (1 - uSplit);
+            const x = isMeat ? ghostX(u) : weaveX(u);
+            const y = lineTopY + u * totalLineH;
+            if (i === 0) igCtx.moveTo(x, y);
+            else igCtx.lineTo(x, y);
+          }
+          igCtx.strokeStyle = accentHex;
+          igCtx.lineWidth = 4.2;
+          igCtx.lineCap = 'round';
+          igCtx.stroke();
+
+          // Turning point, today and the end of the line
+          const splitX = weaveX(uSplit);
+          const splitY = lineTopY + uSplit * totalLineH;
+          igCtx.beginPath();
+          igCtx.arc(splitX, splitY, 8.5, 0, Math.PI * 2);
+          igCtx.fillStyle = accentHex;
+          igCtx.fill();
+
+          igCtx.font = `400 16px ${IG_MONO}`;
+          igCtx.fillStyle = accentHex;
+          igCtx.fillText(`${state.sinceAge}`, splitX + 16, splitY + 5);
+
+          const uToday = 0.68;
+          const todayX = isMeat ? ghostX(uToday) : weaveX(uToday);
+          const todayY = lineTopY + uToday * totalLineH;
+          igCtx.beginPath();
+          igCtx.arc(todayX, todayY, 7, 0, Math.PI * 2);
+          igCtx.fillStyle = theme.bg;
+          igCtx.fill();
+          igCtx.strokeStyle = accentHex;
+          igCtx.lineWidth = 3;
+          igCtx.stroke();
+
+          igCtx.font = `400 15px ${IG_MONO}`;
+          igCtx.fillStyle = subHex;
+          igCtx.fillText(`${state.currentAge}`, todayX + 15, todayY + 5);
+
+          const tipX = isMeat ? ghostX(1) : weaveX(1);
+          const tipY = lineBotY;
+          igCtx.beginPath();
+          igCtx.arc(tipX, tipY, 14, 0, Math.PI * 2);
+          igCtx.strokeStyle = accentHex;
+          igCtx.globalAlpha = 0.28;
+          igCtx.lineWidth = 1.5;
+          igCtx.stroke();
+          igCtx.globalAlpha = 1;
+          igCtx.beginPath();
+          igCtx.arc(tipX, tipY, 6, 0, Math.PI * 2);
+          igCtx.fillStyle = accentHex;
+          igCtx.fill();
+        }
+
+        // The sentence: "since i went / vegan at age 18, / in 9 years, this is what I've spared:"
+        const textX = isLandscape ? contentX : lineCenterX + 102;
+        const textW = contentRight - textX;
+        const heroY = isLandscape ? topMetaY + 178 : lineTopY + (isStories ? 115 : 86);
+        const heroPx = isLandscape ? 120 : (isSquare ? 78 : (isStories ? 104 : 96));
+
+        igCtx.font = `italic 400 ${heroPx}px ${IG_SERIF}`;
+        igCtx.fillStyle = inkHex;
+        igCtx.fillText(isMeat ? 'since i stayed' : 'since i went', textX, heroY);
+
+        const subLine1 = isMeat
+          ? `a meat eater at age ${state.sinceAge},`
+          : `${state.diet} at age ${state.sinceAge},`;
+        const subLine2 = isMeat
+          ? `in my ${state.currentAge} years, this is what I've consumed:`
+          : `in ${yearsSoFar} years, this is what I've spared:`;
+        const sentencePx = fitTextPx(
+          [subLine1, subLine2], '400', IG_SERIF,
+          isSquare ? 34 : (isLandscape ? 46 : (isStories ? 44 : 40)), textW, 24
+        );
+        const sub1Y = heroY + (isStories ? 76 : (isLandscape ? 70 : 58));
+        const sub2Y = sub1Y + Math.round(sentencePx * 1.2);
+        igCtx.font = `400 ${sentencePx}px ${IG_SERIF}`;
+        igCtx.fillStyle = subHex;
+        igCtx.fillText(subLine1, textX, sub1Y);
+        igCtx.fillText(subLine2, textX, sub2Y);
+
+        const coverStats = [
+          {
+            num: soFar.totalAnimals.toLocaleString(), unit: '',
+            label: isMeat ? "Animals I've consumed so far" : "Animals I've spared so far",
+            sub: `${soFar.landAnimals.toLocaleString()} land animals · ${soFar.marineAnimals.toLocaleString()} fish & sea life`,
+            accent: true
+          },
+          {
+            num: soFar.burgers.toLocaleString(), unit: '',
+            label: isMeat ? 'Beef burgers & steaks eaten' : 'Beef burgers & steaks spared',
+            sub: `Plus ${(soFar.porkMeals + soFar.lambMeals).toLocaleString()} pork & lamb meals`,
+            accent: false
+          },
+          {
+            num: soFar.co2.toFixed(1), unit: 'tonnes',
+            label: isMeat ? 'CO₂e emitted so far' : 'CO₂e prevented',
+            sub: `Equal to ${Math.round(soFar.co2 / 0.9)} transatlantic flights`,
+            accent: true
+          },
+          {
+            num: `${(soFar.waterLitres / 1e6).toFixed(2)}M`, unit: 'litres',
+            label: isMeat ? 'Freshwater used' : 'Freshwater saved',
+            sub: `Plus ${Math.round(soFar.landM2).toLocaleString()} m² of forest & habitat`,
+            accent: false
+          }
+        ];
+
+        // Landscape: four numbers across. Square: 2 x 2. Tall: stacked.
+        const list = (isLandscape || isSquare || isStories) ? coverStats : coverStats.slice(0, 3);
+        const cols = isLandscape ? 4 : (isSquare ? 2 : 1);
+        const rows = Math.ceil(list.length / cols);
+        const gapX = isLandscape ? 48 : 40;
+        const statsTop = sub2Y + (isStories ? 80 : (isLandscape ? 96 : 56));
+        const statsBottom = isLandscape ? bandY - 64 : footY - (isStories ? 64 : 48);
+        const cellW = (textW - (cols - 1) * gapX) / cols;
+        const cellH = (statsBottom - statsTop) / rows;
+        const maxNumPx = isStories ? 170 : (isLandscape ? 150 : (isSquare ? 124 : 140));
+        const labelPx = fitTextPx(list.map((s) => s.label), '500', IG_SANS,
+          isStories ? 30 : (isLandscape ? 25 : (isSquare ? 22 : 26)), cellW, 16);
+        const subPx = fitTextPx(list.map((s) => s.sub), '400', IG_SANS,
+          Math.round(labelPx * 0.8), cellW, 14);
+        const numPx = fitStatPx(list, Math.min(maxNumPx, blockFitPx(cellH, labelPx, subPx)), cellW, 48);
+
+        list.forEach((st, idx) => {
+          const c = idx % cols;
+          const r = Math.floor(idx / cols);
+          drawStatBlock(st, textX + c * (cellW + gapX), statsTop + r * cellH, cellW, numPx, labelPx, subPx, colors);
+        });
+
+      } else if (slideIdx === 1 || slideIdx === 2) {
+        // Slides 2 and 3: six numbers, so far or across the whole life.
+        const isLife = slideIdx === 2;
+        const m = isLife ? life : soFar;
+        const headY = topMetaY + (isStories ? 110 : 84);
+
+        const titleStr = isLife
+          ? (isMeat ? 'Across my whole life, I will consume:' : 'Across my whole life, I will spare:')
+          : (isMeat ? `In my ${state.currentAge} years, I've consumed:` : `In ${yearsSoFar} years ${state.diet}, I've spared:`);
+        const titlePx = fitTextPx([titleStr], '400', IG_SERIF,
+          isStories ? 66 : (isLandscape ? 62 : (isSquare ? 50 : 56)), contentW, 32);
+        igCtx.font = `400 ${titlePx}px ${IG_SERIF}`;
+        igCtx.fillStyle = inkHex;
+        igCtx.fillText(titleStr, contentX, headY);
+
+        const items = [
+          {
+            num: m.landAnimals.toLocaleString(), unit: '', accent: true,
+            label: isMeat ? 'Land animals eaten' : 'Land animals spared',
+            sub: `${m.chickens.toLocaleString()} chickens · ${m.burgers.toLocaleString()} burgers`
+          },
+          {
+            num: m.marineAnimals.toLocaleString(), unit: '', accent: true,
+            label: isMeat ? 'Fish & sea animals eaten' : 'Fish & sea animals spared',
+            sub: `${m.finfish.toLocaleString()} fish · ${m.shellfish.toLocaleString()} shellfish`
+          },
+          {
+            num: m.co2.toFixed(1), unit: 'tonnes', accent: false,
+            label: isMeat ? 'CO₂e caused' : 'CO₂e prevented',
+            sub: `Equal to ${Math.round(m.co2 / 0.9)} flights`
+          },
+          {
+            num: Math.round(m.landM2).toLocaleString(), unit: 'm²', accent: false,
+            label: isMeat ? 'Land & forest used' : 'Land & forest spared',
+            sub: `${(m.landM2 / 10000).toFixed(2)} hectares`
+          },
+          {
+            num: Math.round(m.grainKg).toLocaleString(), unit: 'kg', accent: false,
+            label: isMeat ? 'Animal feed used' : 'Animal feed saved',
+            sub: `${(m.grainKg / 1000).toFixed(1)} tonnes of feed`
+          },
+          {
+            num: `${(m.waterLitres / 1e6).toFixed(2)}M`, unit: 'litres', accent: false,
+            label: isMeat ? 'Freshwater used' : 'Freshwater saved',
+            sub: `${(m.waterLitres / 2500000).toFixed(1)} Olympic pools`
+          }
+        ];
+
+        const gridTop = headY + (isStories ? 72 : 50);
+        const gridBottom = isLandscape ? bandY - 64 : footY - (isStories ? 64 : 46);
+
+        if (isStories) {
+          // Tall story: one number per row, label beside it, so nothing sits in empty boxes.
+          const rowH = (gridBottom - gridTop) / items.length;
+          const labelColMin = 300;
+          const gutter = 48;
+          const numPx = fitStatPx(items, Math.min(168, rowH * 0.62), contentW - labelColMin - gutter, 60);
+          const numColW = Math.max(...items.map((it) => measureStat(it.num, it.unit, numPx)));
+          const labelX = contentX + numColW + gutter;
+          const labelW = contentRight - labelX;
+          const labelPx = fitTextPx(items.map((it) => it.label), '500', IG_SANS, 30, labelW, 18);
+          const subPx = fitTextPx(items.map((it) => it.sub), '400', IG_SANS, Math.round(labelPx * 0.8), labelW, 15);
+
+          items.forEach((it, idx) => {
+            const y = gridTop + idx * rowH;
+            igCtx.strokeStyle = ruleHex;
+            igCtx.lineWidth = 1.2;
+            igCtx.beginPath();
+            igCtx.moveTo(contentX, y);
+            igCtx.lineTo(contentRight, y);
+            igCtx.stroke();
+
+            const mid = y + rowH / 2;
+            drawStat(it.num, it.unit, contentX, mid + numPx * 0.34, numPx, it.accent ? accentHex : inkHex, subHex);
+
+            const labelBase = mid - subPx * 0.35;
+            igCtx.font = `500 ${labelPx}px ${IG_SANS}`;
+            igCtx.fillStyle = inkHex;
+            igCtx.fillText(it.label, labelX, labelBase);
+            igCtx.font = `400 ${subPx}px ${IG_SANS}`;
+            igCtx.fillStyle = subHex;
+            igCtx.fillText(it.sub, labelX, labelBase + subPx * 1.7);
+          });
+        } else {
+          // Post, square and landscape: an open grid with a fine rule above each number.
+          const cols = isLandscape ? 3 : 2;
+          const rows = Math.ceil(items.length / cols);
+          const gapX = isLandscape ? 56 : 40;
+          const cellW = (contentW - (cols - 1) * gapX) / cols;
+          const cellH = (gridBottom - gridTop) / rows;
+          const labelPx = fitTextPx(items.map((it) => it.label), '500', IG_SANS,
+            isLandscape ? 27 : (isSquare ? 23 : 25), cellW, 16);
+          const subPx = fitTextPx(items.map((it) => it.sub), '400', IG_SANS, Math.round(labelPx * 0.8), cellW, 14);
+          const numPx = fitStatPx(items, Math.min(isLandscape ? 170 : 150, blockFitPx(cellH, labelPx, subPx)), cellW, 44);
+
+          items.forEach((it, idx) => {
+            const c = idx % cols;
+            const r = Math.floor(idx / cols);
+            drawStatBlock(it, contentX + c * (cellW + gapX), gridTop + r * cellH, cellW, numPx, labelPx, subPx, colors);
+          });
+        }
+
+      } else {
+        // Slide 4: everything in one table, so far next to lifetime.
+        const headY = topMetaY + (isStories ? 110 : 84);
+        igCtx.font = `italic 400 ${isStories ? 72 : (isSquare ? 56 : 64)}px ${IG_SERIF}`;
+        igCtx.fillStyle = inkHex;
+        igCtx.fillText(isMeat ? 'Everything I consume' : 'Everything I spare', contentX, headY);
+
+        // Units live in the labels so the numbers can stay large and clean.
+        const fmtN = (v) => Math.round(v).toLocaleString();
+        const ledgerRows = [
+          { label: 'Chickens', a: [fmtN(soFar.chickens), ''], b: [fmtN(life.chickens), ''] },
+          { label: 'Beef burgers & steaks', a: [fmtN(soFar.burgers), ''], b: [fmtN(life.burgers), ''] },
+          { label: 'Pork & lamb meals', a: [fmtN(soFar.porkMeals + soFar.lambMeals), ''], b: [fmtN(life.porkMeals + life.lambMeals), ''] },
+          { label: 'Fish & shellfish', a: [fmtN(soFar.marineAnimals), ''], b: [fmtN(life.marineAnimals), ''] },
+          { label: 'CO₂e (tonnes)', a: [soFar.co2.toFixed(1), ''], b: [life.co2.toFixed(1), ''] },
+          { label: 'Land & forest (m²)', a: [fmtN(soFar.landM2), ''], b: [fmtN(life.landM2), ''] },
+          { label: 'Freshwater (litres)', a: [`${(soFar.waterLitres / 1e6).toFixed(2)}M`, ''], b: [`${(life.waterLitres / 1e6).toFixed(2)}M`, ''] }
+        ];
+        // Landscape has two tables side by side, so animal feed joins to make four rows each.
+        if (isLandscape) {
+          ledgerRows.splice(6, 0, { label: 'Animal feed (kg)', a: [fmtN(soFar.grainKg), ''], b: [fmtN(life.grainKg), ''] });
+        }
+
+        const accentRows = [0, 1];
+        const tables = isLandscape
+          ? [ledgerRows.slice(0, 4), ledgerRows.slice(4)]
+          : [ledgerRows];
+        const tableGap = 80;
+        const tableW = (contentW - (tables.length - 1) * tableGap) / tables.length;
+        const headerY = headY + (isStories ? 78 : 58);
+        const listTop = headerY + (isStories ? 26 : 20);
+        const listBot = isLandscape ? bandY - 60 : footY - (isStories ? 64 : 48);
+        const rowsPerTable = Math.max(...tables.map((t) => t.length));
+        const rowH = (listBot - listTop) / rowsPerTable;
+        const colGap = isStories ? 36 : 32;
+
+        // One size for every value: as big as the row height and the width allow.
+        const allA = ledgerRows.map((r) => ({ num: r.a[0], unit: r.a[1] }));
+        const allB = ledgerRows.map((r) => ({ num: r.b[0], unit: r.b[1] }));
+        let labelPx = isStories ? 28 : (isLandscape ? 26 : (isSquare ? 20 : 24));
+        let numPx = Math.floor(Math.min(isStories ? 76 : 68, rowH * 0.5));
+        const widthNeeded = (px, lpx) => {
+          igCtx.font = `400 ${lpx}px ${IG_SANS}`;
+          const labelW = Math.max(...ledgerRows.map((r) => igCtx.measureText(r.label).width));
+          const aW = Math.max(...allA.map((v) => measureStat(v.num, v.unit, px)));
+          const bW = Math.max(...allB.map((v) => measureStat(v.num, v.unit, px)));
+          return { total: labelW + aW + bW + colGap * 2, aW, bW };
+        };
+        while (numPx > 28 && widthNeeded(numPx, labelPx).total > tableW) {
+          numPx -= 2;
+          if (labelPx > 17) labelPx -= 0.5;
+        }
+        const { aW, bW } = widthNeeded(numPx, labelPx);
+
+        tables.forEach((rowsArr, ti) => {
+          const x0 = contentX + ti * (tableW + tableGap);
+          const x1 = x0 + tableW;
+          const bRight = x1;
+          const aRight = x1 - bW - colGap;
+
+          igCtx.font = `500 ${isStories ? 19 : 17}px ${IG_MONO}`;
+          igCtx.fillStyle = subHex;
+          igCtx.textAlign = 'right';
+          igCtx.fillText('SO FAR', aRight, headerY);
+          igCtx.fillText('LIFETIME', bRight, headerY);
+          igCtx.textAlign = 'left';
+
+          rowsArr.forEach((r, idx) => {
+            const globalIdx = ledgerRows.indexOf(r);
+            const y = listTop + idx * rowH;
+            igCtx.strokeStyle = ruleHex;
+            igCtx.lineWidth = 1;
+            igCtx.beginPath();
+            igCtx.moveTo(x0, y);
+            igCtx.lineTo(x1, y);
+            igCtx.stroke();
+
+            const base = y + rowH * 0.5 + numPx * 0.34;
+            igCtx.font = `400 ${labelPx}px ${IG_SANS}`;
+            igCtx.fillStyle = subHex;
+            igCtx.fillText(r.label, x0, base);
+
+            const valColor = accentRows.includes(globalIdx) ? accentHex : inkHex;
+            drawStat(r.a[0], r.a[1], aRight, base, numPx, valColor, subHex, 'right');
+            drawStat(r.b[0], r.b[1], bRight, base, numPx, valColor, subHex, 'right');
+          });
+        });
+      }
+
+      // Footer: site address and sources
+      igCtx.textAlign = 'left';
+      igCtx.font = '500 24px "JetBrains Mono", monospace';
+      igCtx.fillStyle = accentHex;
+      igCtx.fillText('sinceiwent.org', contentX, footY);
+
+      igCtx.textAlign = 'right';
+      igCtx.font = '400 19px "JetBrains Mono", monospace';
+      igCtx.fillStyle = subHex;
+      igCtx.fillText('Sources: Oxford University · UN FAO', contentRight, footY);
+    }
+
+    document.querySelectorAll('.open-ig-modal').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const idx = parseInt(btn.getAttribute('data-ig-slide') || '0', 10);
+        renderIgSlide(idx);
+        igModal.classList.add('is-open');
+        igModal.setAttribute('aria-hidden', 'false');
+      });
+    });
+
+    // Format and colour controls
+    document.querySelectorAll('.ig-ratio-tab').forEach((tab) => {
+      tab.addEventListener('click', () => {
+        state.igRatio = tab.getAttribute('data-ratio') || 'stories';
+        renderIgSlide(state.igSlideIndex);
+      });
+    });
+
+    document.querySelectorAll('[data-theme-idx]').forEach((dot) => {
+      dot.addEventListener('click', () => {
+        state.igThemeIndex = parseInt(dot.getAttribute('data-theme-idx') || '0', 10);
+        renderIgSlide(state.igSlideIndex);
+      });
+    });
+
+    document.getElementById('closeIgModalBtn').addEventListener('click', () => {
+      igModal.classList.remove('is-open');
+      igModal.setAttribute('aria-hidden', 'true');
+    });
+
+    document.querySelectorAll('.ig-slide-tab').forEach((tab) => {
+      tab.addEventListener('click', () => {
+        renderIgSlide(parseInt(tab.getAttribute('data-slide-idx'), 10));
+      });
+    });
+
+    function downloadCanvasSlide(slideIdx) {
+      renderIgSlide(slideIdx, true);
+      const link = document.createElement('a');
+      link.download = `sinceiwent-${state.igRatio}-theme0${state.igThemeIndex + 1}-slide0${slideIdx + 1}.png`;
+      link.href = igCanvas.toDataURL('image/png');
+      link.click();
+      renderIgSlide(slideIdx, false);
+    }
+
+    document.getElementById('downloadCurrentSlideBtn').addEventListener('click', () => {
+      downloadCanvasSlide(state.igSlideIndex);
+    });
+
+    document.getElementById('downloadAllSlidesBtn').addEventListener('click', () => {
+      const current = state.igSlideIndex;
+      [0, 1, 2, 3].forEach((idx, i) => {
+        setTimeout(() => {
+          downloadCanvasSlide(idx);
+          if (i === 3) renderIgSlide(current);
+        }, i * 320);
+      });
+    });
+
+    document.getElementById('nativeShareSlideBtn').addEventListener('click', () => {
+      renderIgSlide(state.igSlideIndex, true);
+      igCanvas.toBlob(async (blob) => {
+        renderIgSlide(state.igSlideIndex, false);
+        if (!blob) return;
+        const file = new File([blob], `sinceiwent-${state.igRatio}-0${state.igSlideIndex + 1}.png`, { type: 'image/png' });
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          try {
+            await navigator.share({
+              files: [file],
+              title: 'since i went.',
+              text: buildShareText(false)
+            });
+            return;
+          } catch (_) {}
+        }
+        downloadCanvasSlide(state.igSlideIndex);
+      }, 'image/png');
+    });
+
+    // "help me change" pop-up
+    const resModal = document.getElementById('resourcesModalBackdrop');
+    document.getElementById('openResourcesBtn').addEventListener('click', (e) => {
+      e.preventDefault();
+      resModal.classList.add('is-open');
+      resModal.setAttribute('aria-hidden', 'false');
+      history.replaceState(null, '', '#help-me-change');
+    });
+    document.getElementById('closeResourcesModalBtn').addEventListener('click', () => {
+      resModal.classList.remove('is-open');
+      resModal.setAttribute('aria-hidden', 'true');
+      if (location.hash === '#help-me-change') history.replaceState(null, '', location.pathname + location.search);
+    });
+    [igModal, resModal].forEach((backdrop) => {
+      backdrop.addEventListener('click', (e) => {
+        if (e.target === backdrop) {
+          backdrop.classList.remove('is-open');
+          backdrop.setAttribute('aria-hidden', 'true');
+        }
+      });
+    });
+
+    /* Scroll: the parts of each scene fade in one after another */
+    let targetProgress = 0;
+    let smoothProgress = 0;
+    let lockedQueryProgress = null;
+
+    function updateTargetScroll() {
+      if (lockedQueryProgress !== null && window.scrollY === 0) {
+        targetProgress = lockedQueryProgress;
+        return;
+      }
+      lockedQueryProgress = null;
+      const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      targetProgress = Math.min(1, Math.max(0, window.scrollY / maxScroll));
+    }
+
+    window.addEventListener('scroll', updateTargetScroll, { passive: true });
+    window.addEventListener('resize', () => {
+      updateTargetScroll();
+      resizeCanvas();
+    });
+
+    function smoothstep(edge0, edge1, x) {
+      const t = Math.min(1, Math.max(0, (x - edge0) / (edge1 - edge0)));
+      return t * t * (3 - 2 * t);
+    }
+
+    function sceneEnvelope(p, in0, in1, out0, out1) {
+      if (p <= in0 || p >= out1) return 0;
+      if (p >= in1 && p <= out0) return 1;
+      if (p < in1) return smoothstep(in0, in1, p);
+      return 1 - smoothstep(out0, out1, p);
+    }
+
+    const scenes = [
+      { id: 'scene0', in0: -0.01, in1: 0.00, out0: 0.05, out1: 0.10 },
+      { id: 'scene1', in0: 0.09,  in1: 0.12, out0: 0.22, out1: 0.27 },
+      { id: 'scene2', in0: 0.26,  in1: 0.29, out0: 0.39, out1: 0.44 },
+      { id: 'scene3', in0: 0.43,  in1: 0.46, out0: 0.64, out1: 0.69 },
+      { id: 'scene4', in0: 0.68,  in1: 0.71, out0: 0.85, out1: 0.89 },
+      { id: 'scene5', in0: 0.88,  in1: 0.91, out0: 1.01, out1: 1.05 }
+    ];
+
+    function setStaggerOpacity(id, op) {
+      const el = document.getElementById(id);
+      if (el) el.style.opacity = op.toFixed(4);
+    }
+
+    function applySceneOpacities(p) {
+      const dotEls = document.querySelectorAll('.prog-dot');
+
+      scenes.forEach((s, idx) => {
+        const el = document.getElementById(s.id);
+        const op = sceneEnvelope(p, s.in0, s.in1, s.out0, s.out1);
+        el.style.opacity = op.toFixed(4);
+        if (op > 0.25) {
+          el.classList.add('is-interactive');
+        } else {
+          el.classList.remove('is-interactive');
+        }
+        if (dotEls[idx]) {
+          dotEls[idx].classList.toggle('active', op > 0.4);
+        }
+      });
+
+      // Scene 1: main text first, then the heading and note
+      setStaggerOpacity('s1Main', smoothstep(0.09, 0.125, p));
+      const s1MetaOp = smoothstep(0.132, 0.168, p);
+      setStaggerOpacity('s1MetaTop', s1MetaOp);
+      setStaggerOpacity('s1MetaBot', s1MetaOp);
+
+      // Scene 2: main text first, then the heading and note
+      setStaggerOpacity('s2Main', smoothstep(0.26, 0.295, p));
+      const s2MetaOp = smoothstep(0.302, 0.338, p);
+      setStaggerOpacity('s2MetaTop', s2MetaOp);
+      setStaggerOpacity('s2MetaBot', s2MetaOp);
+
+      // Scene 3 (p 0.43 to 0.69): heading, then each number in turn
+      setStaggerOpacity('s3Head', smoothstep(0.43, 0.465, p));
+      for (let i = 0; i < 6; i++) {
+        const startP = 0.462 + i * 0.016;
+        const cardOp = smoothstep(startP, startP + 0.025, p);
+        setStaggerOpacity(`s3Card${i}`, cardOp);
+
+        const isVis = cardOp > 0.12 && p < 0.68;
+        if (isVis && !s3CardVisible[i]) {
+          const key = s3Keys[i];
+          s3Anim[key] = s3Target[key] * 0.18;
+        }
+        s3CardVisible[i] = isVis;
+      }
+      setStaggerOpacity('s3Foot', smoothstep(0.565, 0.595, p));
+
+      // Scene 4 (p 0.68 to 0.89): heading, then each photo in turn
+      setStaggerOpacity('s4Head', smoothstep(0.68, 0.715, p));
+      for (let i = 0; i < 6; i++) {
+        const startP = 0.712 + i * 0.014;
+        const cardOp = smoothstep(startP, startP + 0.024, p);
+        setStaggerOpacity(`s4Card${i}`, cardOp);
+
+        const isVis = cardOp > 0.12 && p < 0.88;
+        if (isVis && !s4CardVisible[i]) {
+          const key = s4Keys[i];
+          s4Anim[key] = s4Target[key] * 0.18;
+        }
+        s4CardVisible[i] = isVis;
+      }
+      setStaggerOpacity('s4Foot', smoothstep(0.798, 0.822, p));
+
+      // Scene 5 (p 0.88 to 0.98): heading, photos, then the columns
+      setStaggerOpacity('s5Head', smoothstep(0.88, 0.905, p));
+      for (let i = 0; i < 6; i++) {
+        const startP = 0.898 + i * 0.008;
+        const photoOp = smoothstep(startP, startP + 0.018, p);
+        setStaggerOpacity(`s5Photo${i}`, photoOp);
+
+        const isVis = photoOp > 0.12;
+        if (isVis && !s5PhotoVisible[i]) {
+          const key = s5Keys[i];
+          s5Anim[key] = s5Target[key] * 0.22;
+        }
+        s5PhotoVisible[i] = isVis;
+      }
+      setStaggerOpacity('s5Col0', smoothstep(0.935, 0.955, p));
+      setStaggerOpacity('s5Col1', smoothstep(0.945, 0.965, p));
+      setStaggerOpacity('s5Col2', smoothstep(0.955, 0.975, p));
+      setStaggerOpacity('s5Foot', smoothstep(0.962, 0.980, p));
+      setStaggerOpacity('s5Colophon', smoothstep(0.968, 0.985, p));
+
+      // Fade the lifeline out as scene 5 comes in
+      const lineZone = document.getElementById('lineZone');
+      const lineOpacity = 1 - smoothstep(0.85, 0.90, p);
+      lineZone.style.opacity = lineOpacity.toFixed(4);
+
+      const scrollHint = document.getElementById('scrollHint');
+      scrollHint.style.opacity = p < 0.86 ? '1' : '0';
+    }
+
+    /* The lifeline. In meat eater mode it stays on the original path. */
+    const canvas = document.getElementById('threadCanvas');
+    const ctx = canvas.getContext('2d');
+    let cw = 0;
+    let ch = 0;
+    let dpr = 1;
+
+    function resizeCanvas() {
+      const rect = canvas.parentElement.getBoundingClientRect();
+      dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+      cw = rect.width;
+      ch = rect.height;
+      canvas.width = Math.round(cw * dpr);
+      canvas.height = Math.round(ch * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    const U_SPLIT = 0.33;
+    const U_TODAY = 0.60;
+
+    function getWorldY(u, totalWorldHeight) {
+      return u * totalWorldHeight;
+    }
+
+    function getWeaveX(u, centerX, amp) {
+      const envelope = Math.sin(Math.min(1, u * 3.5) * (Math.PI / 2));
+      const wave1 = Math.sin(u * Math.PI * 3.2) * amp * 0.68;
+      const wave2 = Math.sin(u * Math.PI * 7.0 + 0.8) * amp * 0.28;
+      return centerX + (wave1 + wave2) * envelope;
+    }
+
+    function getGhostBranchX(u, centerX, amp) {
+      const du = Math.max(0, u - U_SPLIT);
+      const baseX = getWeaveX(u, centerX, amp);
+      const branchOffset = (1 - Math.exp(-du * 9.5)) * 44 + du * 18;
+      return baseX - branchOffset;
+    }
+
+    function getActivePathX(u, centerX, amp, isMeatMode) {
+      if (u <= U_SPLIT) return getWeaveX(u, centerX, amp);
+      return isMeatMode ? getGhostBranchX(u, centerX, amp) : getWeaveX(u, centerX, amp);
+    }
+
+    function getUnchosenPathX(u, centerX, amp, isMeatMode) {
+      return isMeatMode ? getWeaveX(u, centerX, amp) : getGhostBranchX(u, centerX, amp);
+    }
+
+    function renderThread(p, timeMs) {
+      ctx.clearRect(0, 0, cw, ch);
+
+      const isMeatMode = state.bottomMode === 'meat';
+      const drawProgress = Math.min(1, Math.max(0, p / 0.85));
+      const uTip = drawProgress < 0.08
+        ? Math.pow(drawProgress / 0.08, 1.35) * 0.08
+        : drawProgress;
+
+      const totalWorldHeight = ch * 2.35;
+      const centerX = cw * 0.56;
+      const weaveAmp = Math.min(52, cw * 0.16);
+
+      const startScreenY = ch * 0.46;
+      const tipWorldY = getWorldY(uTip, totalWorldHeight);
+      const targetScreenTipY = ch * (0.46 + 0.18 * drawProgress);
+      const cameraY = tipWorldY - (targetScreenTipY - startScreenY);
+
+      const worldToScreenY = (wy) => startScreenY + (wy - cameraY);
+
+      const birthScreenY = worldToScreenY(0);
+      const birthX = getWeaveX(0, centerX, weaveAmp);
+
+      // 1. Birth dot
+      const pulsePhase = (Math.sin(timeMs * 0.0032) + 1) * 0.5;
+      const idleStrength = 1 - smoothstep(0.0, 0.12, p);
+
+      const ringRadius1 = 9 + pulsePhase * (11 + idleStrength * 6);
+      const ringAlpha1 = (0.24 - pulsePhase * 0.18) * (0.45 + 0.55 * idleStrength);
+      ctx.beginPath();
+      ctx.arc(birthX, birthScreenY, ringRadius1, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(20, 20, 19, ${ringAlpha1.toFixed(3)})`;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      if (idleStrength > 0.05) {
+        const pulsePhase2 = (Math.sin(timeMs * 0.0032 - 1.2) + 1) * 0.5;
+        const ringRadius2 = 7 + pulsePhase2 * 22;
+        const ringAlpha2 = (1 - pulsePhase2) * 0.18 * idleStrength;
+        ctx.beginPath();
+        ctx.arc(birthX, birthScreenY, ringRadius2, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(20, 20, 19, ${ringAlpha2.toFixed(3)})`;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+
+      ctx.beginPath();
+      ctx.arc(birthX, birthScreenY, 4.2, 0, Math.PI * 2);
+      ctx.fillStyle = '#141413';
+      ctx.fill();
+
+      ctx.font = '400 11px "JetBrains Mono", monospace';
+      ctx.fillStyle = 'rgba(88, 86, 80, 0.85)';
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'middle';
+      if (cw >= 120) {
+        ctx.fillText('birth', birthX + 14, birthScreenY);
+      }
+
+      if (uTip <= 0.001) {
+        return;
+      }
+
+      const activeDiet = getStep4Diet();
+      const activeColor = isMeatMode
+        ? '#8E241B'
+        : (activeDiet === 'vegan' ? '#2B8A52' : '#1E5638');
+
+      // 2. Black line up to the turning point
+      const uBlackEnd = Math.min(uTip, U_SPLIT);
+      const stepsBlack = Math.max(12, Math.ceil(uBlackEnd * 180));
+      ctx.beginPath();
+      for (let i = 0; i <= stepsBlack; i++) {
+        const u = (i / stepsBlack) * uBlackEnd;
+        const x = getWeaveX(u, centerX, weaveAmp);
+        const y = worldToScreenY(getWorldY(u, totalWorldHeight));
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.strokeStyle = '#141413';
+      ctx.lineWidth = 1.85;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.stroke();
+
+      // 3. The path not taken, and the path taken
+      if (uTip > U_SPLIT) {
+        const splitX = getWeaveX(U_SPLIT, centerX, weaveAmp);
+        const splitY = worldToScreenY(getWorldY(U_SPLIT, totalWorldHeight));
+
+        const uGhostEnd = Math.min(uTip, U_SPLIT + 0.34);
+        const ghostSteps = 60;
+        ctx.save();
+        ctx.beginPath();
+        for (let i = 0; i <= ghostSteps; i++) {
+          const u = U_SPLIT + (i / ghostSteps) * (uGhostEnd - U_SPLIT);
+          const x = getUnchosenPathX(u, centerX, weaveAmp, isMeatMode);
+          const y = worldToScreenY(getWorldY(u, totalWorldHeight));
+          if (i === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.setLineDash([3, 5]);
+        ctx.strokeStyle = 'rgba(20, 20, 19, 0.20)';
+        ctx.lineWidth = 1.25;
+        ctx.stroke();
+        ctx.restore();
+
+        const activeSteps = Math.max(16, Math.ceil((uTip - U_SPLIT) * 220));
+        ctx.beginPath();
+        for (let i = 0; i <= activeSteps; i++) {
+          const u = U_SPLIT + (i / activeSteps) * (uTip - U_SPLIT);
+          const x = getActivePathX(u, centerX, weaveAmp, isMeatMode);
+          const y = worldToScreenY(getWorldY(u, totalWorldHeight));
+          if (i === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.strokeStyle = activeColor;
+        ctx.lineWidth = 2.2;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(splitX, splitY, 4.5, 0, Math.PI * 2);
+        ctx.fillStyle = activeColor;
+        ctx.fill();
+
+        if (cw >= 120) {
+          ctx.font = '400 10.5px "JetBrains Mono", monospace';
+          ctx.fillStyle = activeColor;
+          ctx.fillText(`age ${state.sinceAge}`, splitX + 12, splitY);
+        }
+      }
+
+      // 4. Today
+      if (uTip >= U_TODAY) {
+        const todayX = getActivePathX(U_TODAY, centerX, weaveAmp, isMeatMode);
+        const todayY = worldToScreenY(getWorldY(U_TODAY, totalWorldHeight));
+
+        ctx.beginPath();
+        ctx.arc(todayX, todayY, 4.2, 0, Math.PI * 2);
+        ctx.fillStyle = '#F4F1EA';
+        ctx.fill();
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = activeColor;
+        ctx.stroke();
+
+        if (cw >= 120) {
+          ctx.font = '400 10.5px "JetBrains Mono", monospace';
+          ctx.fillStyle = 'rgba(88, 86, 80, 0.9)';
+          ctx.fillText(`today (${state.currentAge})`, todayX + 12, todayY);
+        }
+      }
+
+      // 5. Moving tip
+      const tipX = getActivePathX(uTip, centerX, weaveAmp, isMeatMode);
+      const tipY = worldToScreenY(tipWorldY);
+      const tipColor = uTip > U_SPLIT ? activeColor : '#141413';
+
+      ctx.beginPath();
+      ctx.arc(tipX, tipY, 7.5 + pulsePhase * 3.5, 0, Math.PI * 2);
+      ctx.strokeStyle = uTip > U_SPLIT
+        ? (isMeatMode
+            ? `rgba(142, 36, 27, ${(0.24 - pulsePhase * 0.12).toFixed(3)})`
+            : `rgba(43, 138, 82, ${(0.22 - pulsePhase * 0.12).toFixed(3)})`)
+        : `rgba(20, 20, 19, ${(0.20 - pulsePhase * 0.12).toFixed(3)})`;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.arc(tipX, tipY, 4.2, 0, Math.PI * 2);
+      ctx.fillStyle = tipColor;
+      ctx.fill();
+
+      if (uTip > 0.94 && cw >= 120) {
+        ctx.font = '400 10.5px "JetBrains Mono", monospace';
+        ctx.fillStyle = activeColor;
+        ctx.fillText(`age ${state.finalAge.toFixed(1)}`, tipX + 12, tipY);
+      }
+    }
+
+    /* Animation loop */
+    function animate(timeMs) {
+      const diff = targetProgress - smoothProgress;
+      if (Math.abs(diff) > 0.00005) {
+        smoothProgress += diff * 0.085;
+      } else {
+        smoothProgress = targetProgress;
+      }
+
+      applySceneOpacities(smoothProgress);
+      updateAllTickers(timeMs);
+      renderThread(smoothProgress, timeMs);
+
+      requestAnimationFrame(animate);
+    }
+
+    // Initialize (supports ?p=0.60, ?mode=meat, ?modal=ig, ?ratio=stories, ?theme=2, ?modal=resources)
+    resizeCanvas();
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('mode') === 'meat') {
+      state.bottomMode = 'meat';
+    }
+    if (urlParams.has('ratio')) {
+      state.igRatio = urlParams.get('ratio');
+    }
+    if (urlParams.has('theme')) {
+      state.igThemeIndex = parseInt(urlParams.get('theme') || '0', 10);
+    }
+    recalculateAll(false);
+    if (urlParams.has('p')) {
+      const initP = Math.min(1, Math.max(0, parseFloat(urlParams.get('p')) || 0));
+      lockedQueryProgress = initP;
+      targetProgress = initP;
+      smoothProgress = initP;
+      recalculateAll(false);
+      applySceneOpacities(smoothProgress);
+      s3Keys.forEach((k) => { s3Anim[k] = s3Target[k]; });
+      s4Keys.forEach((k) => { s4Anim[k] = s4Target[k]; });
+      s5Keys.forEach((k) => { s5Anim[k] = s5Target[k]; });
+      updateAllTickers(performance.now());
+      renderThread(smoothProgress, 400);
+    } else {
+      updateTargetScroll();
+      applySceneOpacities(0);
+      updateAllTickers(performance.now());
+      renderThread(0, 0);
+    }
+    if (urlParams.get('modal') === 'ig') {
+      renderIgSlide(parseInt(urlParams.get('slide') || '0', 10));
+      igModal.classList.add('is-open');
+    } else if (urlParams.get('modal') === 'resources') {
+      resModal.classList.add('is-open');
+    }
+
+    // Opening the page at a chapter address (for example /#up-to-today) goes straight there
+    const startChapter = [...document.querySelectorAll('a[data-jump]')]
+      .find((a) => a.getAttribute('href') === location.hash);
+    const startP = startChapter ? parseFloat(startChapter.getAttribute('data-jump'))
+      : (location.hash === '#help-me-change' ? 0.98 : null);
+    if (startP !== null && !urlParams.has('p')) {
+      requestAnimationFrame(() => {
+        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        window.scrollTo(0, startP * maxScroll);
+        if (location.hash === '#help-me-change') {
+          resModal.classList.add('is-open');
+          resModal.setAttribute('aria-hidden', 'false');
+        }
+      });
+    }
+    requestAnimationFrame(animate);
+  </script>
+</body>
+</html>

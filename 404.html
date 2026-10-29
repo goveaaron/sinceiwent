@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page not found · since i went.</title>
+  <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#1E5638" />
+  <link rel="icon" href="/favicon.ico" sizes="48x48" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <script>
+    // Chapter names typed as an address (for example /up-to-today) open that chapter.
+    (function () {
+      var slug = location.pathname.replace(/^\/+|\/+$/g, '').toLowerCase();
+      var chapters = ['who-i-am', 'the-turning-point', 'up-to-today', 'the-rest-of-my-life', 'sources', 'help-me-change'];
+      if (chapters.indexOf(slug) !== -1) location.replace('/#' + slug);
+    })();
+  </script>
+  <style>
+    html, body { margin: 0; height: 100%; background: #F4F1EA; color: #141413; }
+    body {
+      display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
+      padding: 0 12vw; box-sizing: border-box;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+    }
+    h1 { font-style: italic; font-weight: 400; font-size: clamp(2.6rem, 8vw, 4.4rem); margin: 0 0 12px; letter-spacing: -0.01em; }
+    p { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.06em; color: #585650; margin: 0 0 28px; }
+    a { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.08em; color: #1E5638; text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 2px; }
+  </style>
+</head>
+<body>
+  <h1>since i went.</h1>
+  <p>This page doesn't exist.</p>
+  <a href="/">Draw your line →</a>
+</body>
+</html>
