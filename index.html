@@ -147,11 +147,11 @@
       z-index: 30;
       display: flex;
       align-items: center;
-      gap: 9px;
+      gap: 10px;
       padding: 0;
       background: transparent;
       border: none;
-      transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1), transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1), transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .lang-selector.is-hidden {
@@ -173,7 +173,7 @@
       color: var(--ink-muted);
       opacity: 0.76;
       cursor: pointer;
-      transition: color 0.32s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.32s ease, border-color 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: color 0.55s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.55s ease, border-color 0.55s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .lang-btn:hover {
@@ -198,7 +198,7 @@
     .extra-lang-active-wrap {
       display: none;
       align-items: center;
-      gap: 9px;
+      gap: 10px;
     }
 
     .extra-lang-active-wrap.is-shown {
@@ -223,7 +223,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      transition: color 0.32s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.32s ease, transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: color 0.55s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.55s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .more-langs-btn:hover,
@@ -244,23 +244,23 @@
 
     .more-langs-menu {
       position: absolute;
-      top: calc(100% + 10px);
+      top: calc(100% + 12px);
       right: 0;
-      min-width: 210px;
-      padding: 10px 14px;
+      min-width: 216px;
+      padding: 12px 16px;
       background: rgba(245, 242, 235, 0.96);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(31, 30, 28, 0.10);
-      box-shadow: 0 16px 38px -12px rgba(31, 30, 28, 0.12);
-      border-radius: 4px;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(31, 30, 28, 0.08);
+      box-shadow: 0 18px 42px -14px rgba(31, 30, 28, 0.10);
+      border-radius: 3px;
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 4px 16px;
+      gap: 5px 18px;
       opacity: 0;
       pointer-events: none;
-      transform: translateY(-5px);
-      transition: opacity 0.28s cubic-bezier(0.22, 1, 0.36, 1), transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+      transform: translateY(-4px);
+      transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1), transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .more-langs-menu.is-open {
@@ -279,10 +279,10 @@
       font-size: 11.5px;
       font-weight: 400;
       color: var(--ink-secondary);
-      opacity: 0.82;
+      opacity: 0.80;
       cursor: pointer;
       border-bottom: 1px solid transparent;
-      transition: color 0.25s ease, opacity 0.25s ease, border-color 0.25s ease;
+      transition: color 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.45s ease, border-color 0.45s cubic-bezier(0.22, 1, 0.36, 1);
       white-space: nowrap;
     }
 
@@ -355,26 +355,38 @@
       height: 100%;
       z-index: 3;
       pointer-events: none;
-      transition: opacity 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+      transition: opacity 0.88s cubic-bezier(0.16, 1, 0.3, 1), transform 0.88s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .final-facts-inner {
-      transition: opacity 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+      transition: opacity 0.88s cubic-bezier(0.16, 1, 0.3, 1), transform 0.88s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     body.is-crossfading .content-zone,
-    body.is-crossfading .final-facts-inner,
+    body.is-crossfading .final-facts-inner {
+      opacity: 0 !important;
+      transform: translate3d(0, 2.5px, 0);
+      transition: opacity 0.62s cubic-bezier(0.33, 0, 0.2, 1), transform 0.62s cubic-bezier(0.33, 0, 0.2, 1);
+    }
+
     body.is-crossfading #scrollHint {
       opacity: 0 !important;
+      transition: opacity 0.62s cubic-bezier(0.33, 0, 0.2, 1);
     }
 
-    body.is-lang-fading #threadCanvas {
+    body.is-lang-fading #threadCanvas,
+    body.is-lang-fading .stage-progress {
       opacity: 0;
-      transition: opacity 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: opacity 0.62s cubic-bezier(0.33, 0, 0.2, 1);
     }
 
-    #threadCanvas {
-      transition: opacity 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+    #threadCanvas,
+    .stage-progress {
+      transition: opacity 0.88s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .scene {
@@ -576,7 +588,7 @@
       cursor: pointer;
       padding: 0 2px;
       white-space: nowrap;
-      transition: color 0.3s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
+      transition: color 0.55s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.55s ease;
     }
 
     .choice-btn:first-child {
@@ -788,7 +800,7 @@
 
     /* Scene 4: photo cards. Hover shows the other photo and a fact. */
     .photo-metrics-grid {
-      gap: 12px 14px;
+      gap: 14px 16px;
       padding-top: 14px;
     }
 
@@ -798,10 +810,10 @@
       justify-content: flex-end;
       padding: 12px 13px;
       overflow: hidden;
-      background: #1B1A19;
-      border-radius: 2.5px;
-      border: 1px solid rgba(31, 30, 28, 0.14);
-      box-shadow: inset 0 0 0 1px rgba(245, 242, 235, 0.16), 0 12px 28px -14px rgba(31, 30, 28, 0.18);
+      background: transparent;
+      border-radius: 0;
+      border: none;
+      box-shadow: none;
       isolation: isolate;
       transform: translateZ(0);
       cursor: pointer;
@@ -823,7 +835,7 @@
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
       transform: translate3d(0, 0, 0);
-      transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1), transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: opacity 0.95s cubic-bezier(0.22, 1, 0.36, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .metric-photo.photo-good {
@@ -838,13 +850,13 @@
 
     .photo-metric-card.is-flipped .photo-bad {
       opacity: 1;
-      transform: translate3d(0, 0, 0) scale(1.04);
+      transform: translate3d(0, 0, 0) scale(1.035);
     }
 
     .metric-photo-scrim {
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(14, 14, 13, 0.22) 0%, rgba(14, 14, 13, 0.68) 100%);
+      background: linear-gradient(180deg, rgba(14, 14, 13, 0.14) 0%, rgba(14, 14, 13, 0.34) 48%, rgba(14, 14, 13, 0.74) 100%);
       z-index: 3;
       pointer-events: none;
     }
@@ -876,7 +888,7 @@
       background: rgba(16, 16, 15, 0.78);
       padding: 2px 6px;
       opacity: 0;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1);
       pointer-events: none;
     }
 
@@ -902,7 +914,7 @@
       border-left: 2px solid var(--crimson-dot);
       padding: 5px 8px;
       opacity: 0;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1);
       pointer-events: none;
     }
 
@@ -969,7 +981,7 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+      transition: background-color 0.45s cubic-bezier(0.22, 1, 0.36, 1), color 0.45s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.45s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .editorial-btn:hover {
@@ -1056,8 +1068,8 @@
       display: flex;
       align-items: baseline;
       justify-content: space-between;
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--ink);
+      padding-bottom: 11px;
+      border-bottom: 1px solid rgba(31, 30, 28, 0.22);
       margin-bottom: 14px;
       gap: 14px;
       flex-wrap: wrap;
@@ -1073,8 +1085,8 @@
 
     .final-profile-pill {
       display: flex;
-      align-items: center;
-      gap: 8px;
+      align-items: baseline;
+      gap: 9px;
       font-family: var(--font-mono);
       font-size: 10px;
       color: var(--ink-secondary);
@@ -1083,47 +1095,57 @@
 
     .mode-switch-btn {
       appearance: none;
-      background: transparent;
-      border: 1px solid var(--hairline-strong);
-      padding: 5px 10px;
-      font-family: var(--font-mono);
-      font-size: 10px;
-      color: var(--ink);
+      background: none;
+      border: none;
+      border-bottom: 1px solid transparent;
+      padding: 2px 1px 3px;
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.015em;
+      color: var(--ink-muted);
+      opacity: 0.78;
       cursor: pointer;
+      transition: color 0.55s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.55s ease, border-color 0.55s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .mode-switch-btn:hover {
-      border-color: var(--ink);
+      color: var(--ink-secondary);
+      opacity: 1;
     }
 
     .mode-switch-btn.active-mode {
-      background: var(--active-accent);
-      border-color: var(--active-accent);
-      color: #FFFFFF;
+      background: none;
+      color: var(--active-accent);
+      font-weight: 500;
+      opacity: 1;
+      border-bottom-color: var(--active-accent-line);
     }
 
     .mode-switch-btn.meat-btn.active-mode {
-      background: var(--meat-red);
-      border-color: var(--meat-red);
-      color: #FFFFFF;
+      background: none;
+      color: var(--meat-red);
+      font-weight: 500;
+      opacity: 1;
+      border-bottom-color: rgba(142, 36, 27, 0.44);
     }
 
     /* Scene 5 photo strip */
     .bottom-photo-strip {
       display: grid;
       grid-template-columns: repeat(6, minmax(0, 1fr));
-      gap: 10px;
-      margin-bottom: 14px;
+      gap: 11px;
+      margin-bottom: 15px;
     }
 
     .bottom-photo-card {
       position: relative;
       height: 136px;
       overflow: hidden;
-      background: #1B1A19;
-      border-radius: 2.5px;
-      border: 1px solid rgba(31, 30, 28, 0.14);
-      box-shadow: inset 0 0 0 1px rgba(245, 242, 235, 0.16), 0 10px 24px -12px rgba(31, 30, 28, 0.16);
+      background: transparent;
+      border-radius: 0;
+      border: none;
+      box-shadow: none;
       isolation: isolate;
       transform: translateZ(0);
       display: flex;
@@ -1141,14 +1163,14 @@
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
       transform: translate3d(0, 0, 0);
-      transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1), transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: opacity 0.95s cubic-bezier(0.22, 1, 0.36, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .bottom-photo-card::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(16, 15, 14, 0.16) 0%, rgba(16, 15, 14, 0.38) 100%);
+      background: linear-gradient(180deg, rgba(14, 14, 13, 0.04) 0%, rgba(14, 14, 13, 0.28) 48%, rgba(14, 14, 13, 0.84) 100%);
       z-index: 2;
       pointer-events: none;
     }
@@ -1165,25 +1187,25 @@
 
     .bottom-photo-card.is-flipped .b-img-good {
       opacity: 1;
-      transform: translate3d(0, 0, 0) scale(1.05);
+      transform: translate3d(0, 0, 0) scale(1.035);
     }
 
     /* Fact shown on hover or tap */
     .bottom-card-fact {
       position: absolute;
-      top: 6px;
-      left: 6px;
-      right: 6px;
+      top: 7px;
+      left: 7px;
+      right: 7px;
       z-index: 4;
-      background: rgba(16, 16, 15, 0.86);
+      background: rgba(16, 16, 15, 0.84);
       color: #F4F1EA;
       font-family: var(--font-mono);
       font-size: 8.5px;
-      line-height: 1.32;
-      padding: 4px 6px;
+      line-height: 1.34;
+      padding: 4.5px 6.5px;
       border-left: 2px solid var(--active-accent);
       opacity: 0;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1);
       pointer-events: none;
     }
 
@@ -1194,21 +1216,22 @@
     .bottom-edge-box {
       position: relative;
       z-index: 3;
-      background: rgba(18, 18, 17, 0.92);
+      background: transparent;
       color: #F4F1EA;
-      padding: 5px 8px;
+      padding: 8px 10px 7px;
       display: flex;
       flex-direction: column;
-      gap: 1px;
-      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      gap: 2px;
+      border-top: none;
     }
 
     .bottom-edge-num {
       font-family: var(--font-serif);
-      font-size: 1.15rem;
+      font-size: 1.2rem;
       font-weight: 500;
       line-height: 1.02;
       color: #FFFFFF;
+      text-shadow: 0 1px 10px rgba(0, 0, 0, 0.42);
       font-variant-numeric: lining-nums tabular-nums;
     }
 
@@ -1217,7 +1240,8 @@
       font-size: 8px;
       letter-spacing: 0.05em;
       text-transform: uppercase;
-      color: rgba(244, 241, 234, 0.72);
+      color: rgba(244, 241, 234, 0.80);
+      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.36);
     }
 
     .final-columns {
@@ -1253,7 +1277,7 @@
 
     .fact-table tr:last-child {
       border-top: 1px solid var(--hairline-strong);
-      border-bottom: 1.5px solid var(--ink);
+      border-bottom: 1px solid rgba(31, 30, 28, 0.24);
     }
 
     .fact-table td {
@@ -2377,8 +2401,11 @@
           <h2 class="final-title" id="finalMainHeading">Everything I spare</h2>
           <div class="final-profile-pill">
             <span id="finalSummaryTag">Man · Age 27 · Vegetarian since 18 (9 yrs so far · 61.4 yrs lifetime)</span>
+            <span class="lang-sep" aria-hidden="true">·</span>
             <button type="button" class="mode-switch-btn active-mode" data-bottom-mode="mine" id="modeMineBtn">My Path</button>
+            <span class="lang-sep" aria-hidden="true">·</span>
             <button type="button" class="mode-switch-btn" data-bottom-mode="vegan" id="modeVeganBtn">See as Vegan</button>
+            <span class="lang-sep" aria-hidden="true">·</span>
             <button type="button" class="mode-switch-btn meat-btn" data-bottom-mode="meat" id="modeMeatBtn">See as a Meat Eater</button>
           </div>
         </div>
@@ -6993,10 +7020,12 @@
       crossfadeTimer = setTimeout(() => {
         updateFn();
         requestAnimationFrame(() => {
-          document.body.classList.remove('is-crossfading');
-          if (includeCanvas) document.body.classList.remove('is-lang-fading');
+          requestAnimationFrame(() => {
+            document.body.classList.remove('is-crossfading');
+            if (includeCanvas) document.body.classList.remove('is-lang-fading');
+          });
         });
-      }, 210);
+      }, 620);
     }
 
     /* Controls, age inputs, modes and pop-ups */
@@ -8347,12 +8376,12 @@
       setElOpacity('s5Head', s5HeadOp);
 
       for (let i = 0; i < 6; i++) {
-        const cIn0 = 0.951 + i * 0.0042;
-        const cIn1 = cIn0 + 0.015;
+        const cIn0 = 0.951 + i * 0.0045;
+        const cIn1 = cIn0 + 0.016;
         const scrollOp = smoothstep(cIn0, cIn1, p);
-        // Also stagger in time (95ms between each photo) so even fast scrolls reveal the 6 photos one after another in succession
-        const elapsedSinceEnter = Math.max(0, nowMs - s5EnterTimeMs - i * 95);
-        const timeGate = lockedQueryProgress !== null ? 1 : Math.min(1, elapsedSinceEnter / 380);
+        // Also stagger in time (125ms between each photo) so even fast scrolls reveal the 6 photos one after another in succession
+        const elapsedSinceEnter = Math.max(0, nowMs - s5EnterTimeMs - i * 125);
+        const timeGate = lockedQueryProgress !== null ? 1 : Math.min(1, elapsedSinceEnter / 520);
         const targetCardOp = scrollOp * timeGate;
 
         if (!inS5) {
@@ -8360,7 +8389,7 @@
         } else if (lockedQueryProgress !== null) {
           s5CardFadeOp[i] = targetCardOp;
         } else {
-          s5CardFadeOp[i] += (targetCardOp - s5CardFadeOp[i]) * 0.14;
+          s5CardFadeOp[i] += (targetCardOp - s5CardFadeOp[i]) * 0.095;
           if (Math.abs(targetCardOp - s5CardFadeOp[i]) < 0.002) s5CardFadeOp[i] = targetCardOp;
         }
 
@@ -8630,7 +8659,7 @@
     function animate(timeMs) {
       const diff = targetProgress - smoothProgress;
       if (Math.abs(diff) > 0.00004) {
-        smoothProgress += diff * 0.088;
+        smoothProgress += diff * 0.072;
       } else {
         smoothProgress = targetProgress;
       }
