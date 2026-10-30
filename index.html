@@ -142,7 +142,7 @@
     .scroll-track {
       position: relative;
       width: 100%;
-      height: 2400vh;
+      height: 4200vh;
     }
 
     .viewport-stage {
@@ -153,7 +153,8 @@
       overflow: hidden;
       background-color: var(--bg);
       background-image:
-        radial-gradient(ellipse at 50% 35%, rgba(255, 253, 248, 0.55) 0%, rgba(232, 227, 215, 0.35) 100%);
+        radial-gradient(ellipse at 48% 32%, rgba(255, 253, 249, 0.68) 0%, rgba(244, 241, 234, 0.22) 56%, rgba(224, 218, 204, 0.42) 100%);
+      box-shadow: inset 0 0 110px rgba(20, 20, 19, 0.038);
       z-index: 1;
     }
 
@@ -220,30 +221,33 @@
     .title-main {
       font-family: var(--font-serif);
       font-weight: 400;
-      font-size: clamp(3.2rem, 5.6vw, 5.2rem);
-      letter-spacing: -0.02em;
-      line-height: 1.02;
+      font-size: clamp(3.3rem, 5.8vw, 5.4rem);
+      letter-spacing: -0.024em;
+      line-height: 1.01;
       color: var(--ink);
+      font-optical-sizing: auto;
+      font-kerning: normal;
+      font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
     }
 
     .title-sub {
-      margin-top: 20px;
+      margin-top: 22px;
       font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.14em;
+      font-size: 10.5px;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
       color: var(--ink-muted);
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
     }
 
     .title-sub::before {
       content: '';
-      width: 24px;
+      width: 32px;
       height: 1px;
       background: var(--ink-muted);
-      opacity: 0.5;
+      opacity: 0.45;
     }
 
     /* Scenes 1 and 2: statements */
@@ -319,21 +323,28 @@
       font-weight: 400;
       font-size: clamp(2.0rem, 3.4vw, 3.2rem);
       line-height: 1.38;
-      letter-spacing: -0.015em;
+      letter-spacing: -0.016em;
       color: var(--ink);
       max-width: 740px;
+      font-optical-sizing: auto;
+      font-kerning: normal;
       font-variant-numeric: lining-nums tabular-nums;
-      font-feature-settings: "lnum" 1, "tnum" 1;
+      font-feature-settings: "kern" 1, "liga" 1, "lnum" 1, "tnum" 1;
     }
 
     .inline-choice-group {
       display: inline-flex;
       align-items: baseline;
       gap: 4px;
-      border-bottom: 1.5px solid var(--ink);
+      border-bottom: 1px solid rgba(20, 20, 19, 0.42);
       padding-bottom: 2px;
       margin: 0 4px;
       flex-wrap: wrap;
+      transition: border-color 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .inline-choice-group:hover {
+      border-bottom-color: var(--ink);
     }
 
     .choice-btn {
@@ -346,7 +357,7 @@
       color: var(--ink-muted);
       cursor: pointer;
       padding: 0 5px;
-      transition: color 0.2s ease;
+      transition: color 0.25s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s ease;
     }
 
     .choice-btn:hover {
@@ -372,10 +383,16 @@
       display: inline-flex;
       align-items: center;
       gap: 5px;
-      border-bottom: 1.5px solid var(--ink);
+      border-bottom: 1px solid rgba(20, 20, 19, 0.42);
       padding: 0 4px 2px;
       margin: 0 4px;
       vertical-align: baseline;
+      transition: border-color 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .inline-number-ctrl:focus-within,
+    .inline-number-ctrl:hover {
+      border-bottom-color: var(--ink);
     }
 
     .inline-number-ctrl.green-underline {
@@ -398,12 +415,17 @@
       color: var(--ink-secondary);
       cursor: pointer;
       transform: translateY(-3px);
+      transition: border-color 0.22s ease, color 0.22s ease, background-color 0.22s ease, transform 0.15s ease;
     }
 
     .step-btn:hover {
       border-color: var(--ink);
       color: var(--ink);
       background: rgba(20, 20, 19, 0.05);
+    }
+
+    .step-btn:active {
+      transform: translateY(-3px) scale(0.93);
     }
 
     /* Age inputs */
@@ -476,6 +498,8 @@
       display: flex;
       flex-direction: column;
       gap: 4px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(20, 20, 19, 0.06);
     }
 
     .metric-number-row {
@@ -498,11 +522,11 @@
 
     .metric-number .dec-part {
       font-family: var(--font-mono);
-      font-size: 0.44em;
-      opacity: 0.68;
+      font-size: 0.40em;
+      opacity: 0.54;
       font-weight: 400;
-      letter-spacing: -0.02em;
-      margin-left: 1px;
+      letter-spacing: -0.01em;
+      margin-left: 1.5px;
     }
 
     .metric-number.accent-green {
@@ -546,7 +570,8 @@
       padding: 12px 13px;
       overflow: hidden;
       background: #181817;
-      border: 1px solid rgba(20, 20, 19, 0.14);
+      border: 1px solid rgba(20, 20, 19, 0.16);
+      box-shadow: inset 0 0 0 1px rgba(244, 241, 234, 0.14), 0 10px 26px -12px rgba(20, 20, 19, 0.22);
       cursor: pointer;
     }
 
@@ -563,7 +588,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: opacity 0.5s ease, transform 0.65s ease;
+      transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1), transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .metric-photo.photo-good {
@@ -864,6 +889,7 @@
       overflow: hidden;
       background: #141413;
       border: 1px solid var(--hairline-strong);
+      box-shadow: inset 0 0 0 1px rgba(244, 241, 234, 0.14), 0 8px 22px -10px rgba(20, 20, 19, 0.20);
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
@@ -876,7 +902,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: opacity 0.5s ease, transform 0.65s ease;
+      transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1), transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .bottom-photo-card .b-img-bad {
@@ -972,10 +998,20 @@
 
     .fact-table tr {
       border-bottom: 1px solid var(--hairline);
+      transition: background-color 0.2s ease;
+    }
+
+    .fact-table tr:hover {
+      background-color: rgba(20, 20, 19, 0.024);
+    }
+
+    .fact-table tr:last-child {
+      border-top: 1px solid var(--hairline-strong);
+      border-bottom: 1.5px solid var(--ink);
     }
 
     .fact-table td {
-      padding: 5px 0;
+      padding: 5.5px 2px;
       font-size: 11.5px;
       color: var(--ink-secondary);
     }
@@ -1164,7 +1200,9 @@
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(14, 14, 13, 0.86);
+      background: rgba(14, 14, 13, 0.80);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
       z-index: 1000;
       display: flex;
       align-items: center;
@@ -1172,11 +1210,23 @@
       padding: 20px;
       opacity: 0;
       pointer-events: none;
+      transition: opacity 0.32s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .modal-backdrop.is-open {
       opacity: 1;
       pointer-events: auto;
+    }
+
+    .ig-studio-panel,
+    .resources-panel {
+      transform: translateY(8px) scale(0.99);
+      transition: transform 0.36s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .modal-backdrop.is-open .ig-studio-panel,
+    .modal-backdrop.is-open .resources-panel {
+      transform: translateY(0) scale(1);
     }
 
     .ig-studio-panel {
@@ -1391,9 +1441,27 @@
       display: flex;
       flex-direction: column;
       align-items: flex-end;
-      gap: 13px;
+      gap: 14px;
       z-index: 10;
       padding: 8px 0 8px 14px;
+      --scroll-fill: 0%;
+    }
+
+    .stage-progress::before {
+      content: '';
+      position: absolute;
+      right: 2.25px;
+      top: 10px;
+      bottom: 10px;
+      width: 1px;
+      background: linear-gradient(
+        to bottom,
+        var(--active-accent) 0%,
+        var(--active-accent) var(--scroll-fill),
+        rgba(20, 20, 19, 0.11) var(--scroll-fill),
+        rgba(20, 20, 19, 0.11) 100%
+      );
+      pointer-events: none;
     }
 
     .prog-dot {
@@ -2265,10 +2333,10 @@
         <nav class="chapter-nav stagger-item" id="s5Colophon" aria-label="Chapters">
           <span>sinceiwent.org · every year counts</span>
           <div class="chapter-links">
-            <a href="#who-i-am" data-jump="0.18">01 who i am</a>
-            <a href="#the-turning-point" data-jump="0.35">02 the turning point</a>
+            <a href="#who-i-am" data-jump="0.19">01 who i am</a>
+            <a href="#the-turning-point" data-jump="0.38">02 the turning point</a>
             <a href="#up-to-today" data-jump="0.60">03 up to today</a>
-            <a href="#the-rest-of-my-life" data-jump="0.80">04 the rest of my life</a>
+            <a href="#the-rest-of-my-life" data-jump="0.82">04 the rest of my life</a>
           </div>
         </nav>
 
@@ -2281,11 +2349,11 @@
     <!-- Progress dots -->
     <nav class="stage-progress" aria-label="Scroll sections">
       <button type="button" class="prog-dot" data-jump="0.00" data-label="00 · since i went" title="since i went."></button>
-      <button type="button" class="prog-dot" data-jump="0.18" data-label="01 · who i am" title="who i am"></button>
-      <button type="button" class="prog-dot" data-jump="0.35" data-label="02 · the turning point" title="the turning point"></button>
+      <button type="button" class="prog-dot" data-jump="0.19" data-label="01 · who i am" title="who i am"></button>
+      <button type="button" class="prog-dot" data-jump="0.38" data-label="02 · the turning point" title="the turning point"></button>
       <button type="button" class="prog-dot" data-jump="0.60" data-label="03 · up to today" title="up to today"></button>
-      <button type="button" class="prog-dot" data-jump="0.80" data-label="04 · the rest of my life" title="the rest of my life"></button>
-      <button type="button" class="prog-dot" data-jump="0.92" data-label="05 · everything i spare" title="everything I spare"></button>
+      <button type="button" class="prog-dot" data-jump="0.82" data-label="04 · the rest of my life" title="the rest of my life"></button>
+      <button type="button" class="prog-dot" data-jump="0.985" data-label="05 · everything i spare" title="everything I spare"></button>
     </nav>
 
     <div class="scroll-hint" id="scrollHint">scroll ↓</div>
@@ -4143,12 +4211,12 @@
     }
 
     const scenes = [
-      { id: 'scene0', in0: -0.01, in1: 0.00,  out0: 0.045, out1: 0.088 },
-      { id: 'scene1', in0: 0.092, in1: 0.122, out0: 0.215, out1: 0.258 },
-      { id: 'scene2', in0: 0.262, in1: 0.292, out0: 0.395, out1: 0.438 },
-      { id: 'scene3', in0: 0.442, in1: 0.472, out0: 0.635, out1: 0.678 },
-      { id: 'scene4', in0: 0.680, in1: 0.710, out0: 0.822, out1: 0.855 },
-      { id: 'scene5', in0: 0.840, in1: 0.872, out0: 1.01,  out1: 1.05 }
+      { id: 'scene0', in0: -0.01, in1: 0.00,  out0: 0.035, out1: 0.068 },
+      { id: 'scene1', in0: 0.135, in1: 0.162, out0: 0.220, out1: 0.252 },
+      { id: 'scene2', in0: 0.325, in1: 0.352, out0: 0.415, out1: 0.448 },
+      { id: 'scene3', in0: 0.525, in1: 0.552, out0: 0.640, out1: 0.672 },
+      { id: 'scene4', in0: 0.745, in1: 0.772, out0: 0.845, out1: 0.872 },
+      { id: 'scene5', in0: 0.942, in1: 0.968, out0: 1.01,  out1: 1.05 }
     ];
 
     function setStaggerOpacity(id, op) {
@@ -4158,6 +4226,10 @@
 
     function applySceneOpacities(p) {
       const dotEls = document.querySelectorAll('.prog-dot');
+      const stageProg = document.querySelector('.stage-progress');
+      if (stageProg) {
+        stageProg.style.setProperty('--scroll-fill', `${(Math.min(1, Math.max(0, p)) * 100).toFixed(1)}%`);
+      }
 
       scenes.forEach((s, idx) => {
         const el = document.getElementById(s.id);
@@ -4168,12 +4240,12 @@
         if (idx === 0) {
           yShift = -12 * smoothstep(s.out0, s.out1, p);
         } else if (idx === 5) {
-          yShift = (1 - smoothstep(s.in0, s.in1, p)) * 12;
+          yShift = (1 - smoothstep(s.in0, s.in1, p)) * 10;
         } else {
           if (p < s.in1) {
-            yShift = (1 - smoothstep(s.in0, s.in1, p)) * 14;
+            yShift = (1 - smoothstep(s.in0, s.in1, p)) * 12;
           } else if (p > s.out0) {
-            yShift = -smoothstep(s.out0, s.out1, p) * 11;
+            yShift = -smoothstep(s.out0, s.out1, p) * 10;
           }
         }
         el.style.transform = `translate3d(0, ${yShift.toFixed(2)}px, 0)`;
@@ -4189,56 +4261,60 @@
       });
 
       // Scene 1: main text first, then the heading and note
-      setStaggerOpacity('s1Main', smoothstep(0.092, 0.125, p));
-      const s1MetaOp = smoothstep(0.132, 0.168, p);
+      setStaggerOpacity('s1Main', smoothstep(0.135, 0.162, p));
+      const s1MetaOp = smoothstep(0.150, 0.178, p);
       setStaggerOpacity('s1MetaTop', s1MetaOp);
       setStaggerOpacity('s1MetaBot', s1MetaOp);
 
       // Scene 2: main text first, then the heading and note
-      setStaggerOpacity('s2Main', smoothstep(0.262, 0.295, p));
-      const s2MetaOp = smoothstep(0.302, 0.338, p);
+      setStaggerOpacity('s2Main', smoothstep(0.325, 0.352, p));
+      const s2MetaOp = smoothstep(0.340, 0.368, p);
       setStaggerOpacity('s2MetaTop', s2MetaOp);
       setStaggerOpacity('s2MetaBot', s2MetaOp);
 
-      // Scene 3 (p 0.442 to 0.678): heading, then each number in turn
-      setStaggerOpacity('s3Head', smoothstep(0.442, 0.468, p));
+      // Scene 3 (p 0.525 to 0.672): heading, then each number in turn
+      setStaggerOpacity('s3Head', smoothstep(0.525, 0.550, p));
       for (let i = 0; i < 6; i++) {
-        const startP = 0.460 + i * 0.008;
-        const cardOp = smoothstep(startP, startP + 0.018, p);
+        const startP = 0.542 + i * 0.006;
+        const cardOp = smoothstep(startP, startP + 0.016, p);
         setStaggerOpacity(`s3Card${i}`, cardOp);
 
-        const isVis = cardOp > 0.12 && p < 0.67;
+        const isVis = cardOp > 0.12 && p < 0.665;
         if (isVis && !s3CardVisible[i]) {
           const key = s3Keys[i];
           s3Anim[key] = s3Target[key] * 0.18;
         }
         s3CardVisible[i] = isVis;
       }
-      setStaggerOpacity('s3Foot', smoothstep(0.512, 0.532, p));
+      setStaggerOpacity('s3Foot', smoothstep(0.578, 0.596, p));
 
-      // Scene 4 (p 0.680 to 0.855): heading, then each photo in turn
-      setStaggerOpacity('s4Head', smoothstep(0.678, 0.704, p));
+      // Scene 4 (p 0.745 to 0.872): heading, then each photo in turn
+      setStaggerOpacity('s4Head', smoothstep(0.745, 0.768, p));
       for (let i = 0; i < 6; i++) {
-        const startP = 0.696 + i * 0.006;
-        const cardOp = smoothstep(startP, startP + 0.016, p);
+        const startP = 0.760 + i * 0.005;
+        const cardOp = smoothstep(startP, startP + 0.015, p);
         setStaggerOpacity(`s4Card${i}`, cardOp);
 
-        const isVis = cardOp > 0.12 && p < 0.85;
+        const isVis = cardOp > 0.12 && p < 0.868;
         if (isVis && !s4CardVisible[i]) {
           const key = s4Keys[i];
           s4Anim[key] = s4Target[key] * 0.18;
         }
         s4CardVisible[i] = isVis;
       }
-      setStaggerOpacity('s4Foot', smoothstep(0.735, 0.752, p));
+      setStaggerOpacity('s4Foot', smoothstep(0.792, 0.808, p));
 
-      // Scene 5 (p 0.840 to 1.00): top heading is at full opacity as soon as Scene 5 enters,
-      // and all photos, tables, and footer items finish fading in by p = 0.875 so nothing is
-      // ever un-faded when arriving at the bottom on mobile or desktop.
-      setStaggerOpacity('s5Head', smoothstep(0.820, 0.848, p));
+      // Fade the lifeline out completely (by p = 0.938) BEFORE Scene 5 begins at p = 0.942
+      const lineZone = document.getElementById('lineZone');
+      const lineOpacity = 1 - smoothstep(0.910, 0.938, p);
+      lineZone.style.opacity = lineOpacity.toFixed(4);
+
+      // Scene 5 (p 0.942 to 1.00): only begins after the lifeline has finished drawing and faded out.
+      // All elements inside Scene 5 fade in together cleanly between 0.942 and 0.968.
+      setStaggerOpacity('s5Head', smoothstep(0.940, 0.958, p));
       for (let i = 0; i < 6; i++) {
-        const startP = 0.838 + i * 0.003;
-        const photoOp = smoothstep(startP, startP + 0.015, p);
+        const startP = 0.944 + i * 0.002;
+        const photoOp = smoothstep(startP, startP + 0.014, p);
         setStaggerOpacity(`s5Photo${i}`, photoOp);
 
         const isVis = photoOp > 0.12;
@@ -4248,20 +4324,18 @@
         }
         s5PhotoVisible[i] = isVis;
       }
-      setStaggerOpacity('s5Col0', smoothstep(0.848, 0.868, p));
-      setStaggerOpacity('s5Col1', smoothstep(0.851, 0.871, p));
-      setStaggerOpacity('s5Col2', smoothstep(0.854, 0.873, p));
-      setStaggerOpacity('s5Foot', smoothstep(0.856, 0.874, p));
-      setStaggerOpacity('s5Colophon', smoothstep(0.858, 0.875, p));
+      setStaggerOpacity('s5Col0', smoothstep(0.948, 0.964, p));
+      setStaggerOpacity('s5Col1', smoothstep(0.950, 0.966, p));
+      setStaggerOpacity('s5Col2', smoothstep(0.952, 0.967, p));
+      setStaggerOpacity('s5Foot', smoothstep(0.953, 0.968, p));
+      setStaggerOpacity('s5Colophon', smoothstep(0.954, 0.968, p));
 
-      // On very short phone screens (e.g. iPhone SE 375x667), #s5Head stays pinned at the top
-      // while the body below gently pans any remaining overflow over the final stretch of scroll.
       const s5ScrollBody = document.getElementById('s5ScrollBody');
       const s5ScrollInner = document.getElementById('s5ScrollInner');
       if (s5ScrollBody && s5ScrollInner) {
         const maxOverflow = Math.max(0, s5ScrollInner.scrollHeight - s5ScrollBody.clientHeight);
         if (maxOverflow > 2 && window.innerWidth <= 860) {
-          const panProgress = smoothstep(0.925, 0.992, p);
+          const panProgress = smoothstep(0.972, 0.996, p);
           const panY = -maxOverflow * panProgress;
           s5ScrollInner.style.transform = `translate3d(0, ${panY.toFixed(1)}px, 0)`;
         } else {
@@ -4269,13 +4343,8 @@
         }
       }
 
-      // Fade the lifeline out as scene 5 comes in
-      const lineZone = document.getElementById('lineZone');
-      const lineOpacity = 1 - smoothstep(0.835, 0.875, p);
-      lineZone.style.opacity = lineOpacity.toFixed(4);
-
       const scrollHint = document.getElementById('scrollHint');
-      scrollHint.style.opacity = p < 0.83 ? '1' : '0';
+      scrollHint.style.opacity = p < 0.92 ? '1' : '0';
     }
 
     /* The lifeline. In meat eater mode it stays on the original path. */
@@ -4325,40 +4394,16 @@
       return isMeatMode ? getWeaveX(u, centerX, amp) : getGhostBranchX(u, centerX, amp);
     }
 
-    function getAgeAtU(u) {
-      const expectancy = Math.max(state.currentAge, state.finalAge);
-      if (u <= U_SPLIT) {
-        return (u / U_SPLIT) * state.sinceAge;
-      }
-      if (u <= U_TODAY) {
-        return state.sinceAge + ((u - U_SPLIT) / (U_TODAY - U_SPLIT)) * (state.currentAge - state.sinceAge);
-      }
-      return state.currentAge + ((u - U_TODAY) / (1 - U_TODAY)) * (expectancy - state.currentAge);
-    }
-
-    function getUForAge(age) {
-      const expectancy = Math.max(state.currentAge, state.finalAge);
-      if (age <= state.sinceAge) {
-        return state.sinceAge > 0 ? (age / state.sinceAge) * U_SPLIT : 0;
-      }
-      if (age <= state.currentAge) {
-        const span = Math.max(0.1, state.currentAge - state.sinceAge);
-        return U_SPLIT + ((age - state.sinceAge) / span) * (U_TODAY - U_SPLIT);
-      }
-      const span = Math.max(0.1, expectancy - state.currentAge);
-      return U_TODAY + ((age - state.currentAge) / span) * (1 - U_TODAY);
-    }
-
     function renderThread(p, timeMs) {
       ctx.clearRect(0, 0, cw, ch);
 
       const isMeatMode = state.bottomMode === 'meat';
-      const drawProgress = Math.min(1, Math.max(0, p / 0.84));
+      const drawProgress = Math.min(1, Math.max(0, p / 0.895));
       const uTip = drawProgress < 0.08
         ? Math.pow(drawProgress / 0.08, 1.35) * 0.08
         : drawProgress;
 
-      const totalWorldHeight = ch * 3.05;
+      const totalWorldHeight = ch * 3.55;
       const centerX = cw * 0.56;
       const weaveAmp = Math.min(52, cw * 0.16);
 
@@ -4374,7 +4419,7 @@
 
       // 1. Birth dot
       const pulsePhase = (Math.sin(timeMs * 0.0032) + 1) * 0.5;
-      const idleStrength = 1 - smoothstep(0.0, 0.12, p);
+      const idleStrength = 1 - smoothstep(0.0, 0.10, p);
 
       const ringRadius1 = 9 + pulsePhase * (11 + idleStrength * 6);
       const ringAlpha1 = (0.24 - pulsePhase * 0.18) * (0.45 + 0.55 * idleStrength);
@@ -4400,8 +4445,8 @@
       ctx.fillStyle = '#141413';
       ctx.fill();
 
-      ctx.font = '400 11px "JetBrains Mono", monospace';
-      ctx.fillStyle = 'rgba(88, 86, 80, 0.85)';
+      ctx.font = '400 10.5px "JetBrains Mono", monospace';
+      ctx.fillStyle = 'rgba(88, 86, 80, 0.80)';
       ctx.textAlign = 'left';
       ctx.textBaseline = 'middle';
       if (cw >= 120) {
@@ -4419,7 +4464,7 @@
 
       // 2. Black line up to the turning point
       const uBlackEnd = Math.min(uTip, U_SPLIT);
-      const stepsBlack = Math.max(12, Math.ceil(uBlackEnd * 180));
+      const stepsBlack = Math.max(12, Math.ceil(uBlackEnd * 200));
       ctx.beginPath();
       for (let i = 0; i <= stepsBlack; i++) {
         const u = (i / stepsBlack) * uBlackEnd;
@@ -4456,24 +4501,8 @@
         ctx.stroke();
         ctx.restore();
 
-        // Subtle caption beside the ghost branch once separated
-        if (uTip > U_SPLIT + 0.14 && cw >= 175) {
-          const uGhostLabel = Math.min(uGhostEnd, U_SPLIT + 0.22);
-          const gx = getUnchosenPathX(uGhostLabel, centerX, weaveAmp, isMeatMode);
-          const gy = worldToScreenY(getWorldY(uGhostLabel, totalWorldHeight));
-          const ghostAlpha = smoothstep(U_SPLIT + 0.14, U_SPLIT + 0.24, uTip) * 0.45;
-          if (gy > 20 && gy < ch - 20) {
-            ctx.save();
-            ctx.font = 'italic 400 11.5px "Cormorant Garamond", Georgia, serif';
-            ctx.fillStyle = `rgba(88, 86, 80, ${ghostAlpha.toFixed(3)})`;
-            ctx.textAlign = 'right';
-            ctx.textBaseline = 'middle';
-            ctx.fillText('path not taken', gx - 9, gy);
-            ctx.restore();
-          }
-        }
-
-        const activeSteps = Math.max(16, Math.ceil((uTip - U_SPLIT) * 220));
+        const activeSteps = Math.max(16, Math.ceil((uTip - U_SPLIT) * 240));
+        ctx.save();
         ctx.beginPath();
         for (let i = 0; i <= activeSteps; i++) {
           const u = U_SPLIT + (i / activeSteps) * (uTip - U_SPLIT);
@@ -4482,52 +4511,27 @@
           if (i === 0) ctx.moveTo(x, y);
           else ctx.lineTo(x, y);
         }
+        ctx.shadowColor = isMeatMode ? 'rgba(142, 36, 27, 0.14)' : 'rgba(30, 86, 56, 0.14)';
+        ctx.shadowBlur = 6;
         ctx.strokeStyle = activeColor;
         ctx.lineWidth = 2.2;
         ctx.lineCap = 'round';
         ctx.lineJoin = 'round';
         ctx.stroke();
+        ctx.restore();
 
+        // Turning point node (pin dot with warm paper core, no age number)
         ctx.beginPath();
-        ctx.arc(splitX, splitY, 4.5, 0, Math.PI * 2);
+        ctx.arc(splitX, splitY, 4.6, 0, Math.PI * 2);
         ctx.fillStyle = activeColor;
         ctx.fill();
-
-        if (cw >= 120) {
-          ctx.font = '400 10.5px "JetBrains Mono", monospace';
-          ctx.textAlign = 'left';
-          ctx.fillStyle = activeColor;
-          ctx.fillText(`age ${state.sinceAge}`, splitX + 12, splitY);
-        }
-      }
-
-      // 3b. Subtle decade mileposts along the drawn line
-      const expectancy = Math.max(state.currentAge, state.finalAge);
-      for (let dec = 10; dec < expectancy - 2.5; dec += 10) {
-        if (Math.abs(dec - state.sinceAge) < 3 || Math.abs(dec - state.currentAge) < 3) continue;
-        const uDec = getUForAge(dec);
-        if (uDec <= 0.03 || uDec > uTip - 0.015) continue;
-        const dx = getActivePathX(uDec, centerX, weaveAmp, isMeatMode);
-        const dy = worldToScreenY(getWorldY(uDec, totalWorldHeight));
-        if (dy < 24 || dy > ch - 24) continue;
-        const decAlpha = smoothstep(uDec, uDec + 0.03, uTip) * 0.34;
         ctx.beginPath();
-        ctx.moveTo(dx - 5, dy);
-        ctx.lineTo(dx - 1.5, dy);
-        ctx.strokeStyle = `rgba(88, 86, 80, ${(decAlpha * 1.1).toFixed(3)})`;
-        ctx.lineWidth = 1;
-        ctx.stroke();
-        if (cw >= 150) {
-          ctx.font = '400 9px "JetBrains Mono", monospace';
-          ctx.fillStyle = `rgba(88, 86, 80, ${decAlpha.toFixed(3)})`;
-          ctx.textAlign = 'right';
-          ctx.textBaseline = 'middle';
-          ctx.fillText(`${dec}`, dx - 8, dy);
-        }
+        ctx.arc(splitX, splitY, 1.8, 0, Math.PI * 2);
+        ctx.fillStyle = '#F4F1EA';
+        ctx.fill();
       }
-      ctx.textAlign = 'left';
 
-      // 4. Today
+      // 4. Today node (quiet ring, no age number)
       if (uTip >= U_TODAY) {
         const todayX = getActivePathX(U_TODAY, centerX, weaveAmp, isMeatMode);
         const todayY = worldToScreenY(getWorldY(U_TODAY, totalWorldHeight));
@@ -4542,12 +4546,13 @@
 
         if (cw >= 120) {
           ctx.font = '400 10.5px "JetBrains Mono", monospace';
-          ctx.fillStyle = 'rgba(88, 86, 80, 0.9)';
-          ctx.fillText(`today (${state.currentAge})`, todayX + 12, todayY);
+          ctx.fillStyle = 'rgba(88, 86, 80, 0.80)';
+          ctx.textAlign = 'left';
+          ctx.fillText('today', todayX + 12, todayY);
         }
       }
 
-      // 5. Moving tip + live interpolated age
+      // 5. Moving tip (pure breathing dot, no age markers)
       const tipX = getActivePathX(uTip, centerX, weaveAmp, isMeatMode);
       const tipY = worldToScreenY(tipWorldY);
       const tipColor = uTip > U_SPLIT ? activeColor : '#141413';
@@ -4566,36 +4571,13 @@
       ctx.arc(tipX, tipY, 4.2, 0, Math.PI * 2);
       ctx.fillStyle = tipColor;
       ctx.fill();
-
-      if (cw >= 120 && uTip > 0.015) {
-        const minDistToFixed = Math.min(
-          Math.abs(uTip - 0),
-          Math.abs(uTip - U_SPLIT),
-          Math.abs(uTip - U_TODAY)
-        );
-        const tipLabelAlpha = uTip > 0.94 ? 1 : smoothstep(0.022, 0.048, minDistToFixed) * 0.82;
-        if (tipLabelAlpha > 0.05) {
-          const liveAge = getAgeAtU(uTip);
-          const ageLabel = uTip > 0.94
-            ? `age ${expectancy.toFixed(1)}`
-            : `age ${Math.max(1, Math.round(liveAge))}`;
-          ctx.save();
-          ctx.globalAlpha = tipLabelAlpha;
-          ctx.font = '400 10.5px "JetBrains Mono", monospace';
-          ctx.fillStyle = uTip > U_SPLIT ? activeColor : 'rgba(88, 86, 80, 0.85)';
-          ctx.textAlign = 'left';
-          ctx.textBaseline = 'middle';
-          ctx.fillText(ageLabel, tipX + 13, tipY);
-          ctx.restore();
-        }
-      }
     }
 
     /* Animation loop */
     function animate(timeMs) {
       const diff = targetProgress - smoothProgress;
       if (Math.abs(diff) > 0.00005) {
-        smoothProgress += diff * 0.105;
+        smoothProgress += diff * 0.092;
       } else {
         smoothProgress = targetProgress;
       }
