@@ -93,23 +93,23 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cormorant+Infant:wght@500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #F4F1EA;
-      --bg-card: #ECE8DF;
-      --ink: #141413;
-      --ink-secondary: #585650;
-      --ink-muted: #8E8B82;
-      --hairline: rgba(20, 20, 19, 0.10);
-      --hairline-strong: rgba(20, 20, 19, 0.22);
+      --bg: #F5F2EB;
+      --bg-card: #EDE9E0;
+      --ink: #1F1E1C;
+      --ink-secondary: #5E5B54;
+      --ink-muted: #918D84;
+      --hairline: rgba(31, 30, 28, 0.08);
+      --hairline-strong: rgba(31, 30, 28, 0.16);
 
-      --green-veg: #1E5638;
-      --green-vegan: #2B8A52;
+      --green-veg: #235C3E;
+      --green-vegan: #2D8553;
       --meat-red: #8E241B;
-      --active-accent: #1E5638;
+      --active-accent: #235C3E;
       --crimson-dot: #C83E31;
 
-      --font-serif: 'Cormorant Garamond', Georgia, serif;
-      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      --font-mono: 'JetBrains Mono', monospace;
+      --font-serif: 'Cormorant Garamond', 'Songti SC', 'Noto Serif CJK SC', 'Hiragino Mincho ProN', 'Yu Mincho', Georgia, serif;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans', 'Microsoft YaHei', sans-serif;
+      --font-mono: 'JetBrains Mono', 'PingFang SC', 'Hiragino Sans', monospace;
     }
 
     * {
@@ -134,15 +134,78 @@
     }
 
     ::selection {
-      background: rgba(43, 138, 82, 0.15);
+      background: rgba(45, 133, 83, 0.14);
       color: var(--ink);
+    }
+
+    /* Minimal, soft language selector at top right at the start */
+    .lang-selector {
+      position: fixed;
+      top: 28px;
+      right: 34px;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(245, 242, 235, 0.68);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(31, 30, 28, 0.06);
+      transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1), transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease;
+    }
+
+    .lang-selector:hover {
+      border-color: rgba(31, 30, 28, 0.13);
+    }
+
+    .lang-selector.is-hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-6px);
+    }
+
+    .lang-btn {
+      appearance: none;
+      background: none;
+      border: none;
+      border-bottom: 1px solid transparent;
+      padding: 2px 2px 3px;
+      font-family: var(--font-sans);
+      font-size: 11.5px;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      color: var(--ink-muted);
+      opacity: 0.78;
+      cursor: pointer;
+      transition: color 0.28s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.28s ease, border-color 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .lang-btn:hover {
+      color: var(--ink-secondary);
+      opacity: 1;
+    }
+
+    .lang-btn.active {
+      color: var(--active-accent);
+      font-weight: 500;
+      opacity: 1;
+      border-bottom-color: rgba(35, 92, 62, 0.42);
+    }
+
+    .lang-sep {
+      font-size: 10px;
+      color: var(--ink-muted);
+      opacity: 0.30;
+      user-select: none;
     }
 
     /* Scroll track and fixed stage */
     .scroll-track {
       position: relative;
       width: 100%;
-      height: 4200vh;
+      height: 6000vh;
     }
 
     .viewport-stage {
@@ -153,8 +216,8 @@
       overflow: hidden;
       background-color: var(--bg);
       background-image:
-        radial-gradient(ellipse at 48% 32%, rgba(255, 253, 249, 0.68) 0%, rgba(244, 241, 234, 0.22) 56%, rgba(224, 218, 204, 0.42) 100%);
-      box-shadow: inset 0 0 110px rgba(20, 20, 19, 0.038);
+        radial-gradient(ellipse at 48% 34%, rgba(255, 253, 250, 0.72) 0%, rgba(245, 242, 235, 0.28) 58%, rgba(228, 222, 210, 0.36) 100%);
+      box-shadow: inset 0 0 120px rgba(31, 30, 28, 0.028);
       z-index: 1;
     }
 
@@ -336,15 +399,15 @@
       display: inline-flex;
       align-items: baseline;
       gap: 4px;
-      border-bottom: 1px solid rgba(20, 20, 19, 0.42);
+      border-bottom: 1px solid rgba(31, 30, 28, 0.24);
       padding-bottom: 2px;
       margin: 0 4px;
       flex-wrap: wrap;
-      transition: border-color 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: border-color 0.35s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .inline-choice-group:hover {
-      border-bottom-color: var(--ink);
+      border-bottom-color: rgba(31, 30, 28, 0.58);
     }
 
     .choice-btn {
@@ -357,7 +420,7 @@
       color: var(--ink-muted);
       cursor: pointer;
       padding: 0 5px;
-      transition: color 0.25s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s ease;
+      transition: color 0.3s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
     }
 
     .choice-btn:hover {
@@ -375,7 +438,7 @@
     .choice-slash {
       font-size: 0.70em;
       color: var(--ink-muted);
-      opacity: 0.45;
+      opacity: 0.38;
       user-select: none;
     }
 
@@ -383,26 +446,26 @@
       display: inline-flex;
       align-items: center;
       gap: 5px;
-      border-bottom: 1px solid rgba(20, 20, 19, 0.42);
+      border-bottom: 1px solid rgba(31, 30, 28, 0.24);
       padding: 0 4px 2px;
       margin: 0 4px;
       vertical-align: baseline;
-      transition: border-color 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: border-color 0.35s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .inline-number-ctrl:focus-within,
     .inline-number-ctrl:hover {
-      border-bottom-color: var(--ink);
+      border-bottom-color: rgba(31, 30, 28, 0.58);
     }
 
     .inline-number-ctrl.green-underline {
-      border-bottom-color: var(--active-accent);
+      border-bottom-color: rgba(35, 92, 62, 0.45);
     }
 
     .step-btn {
       appearance: none;
       background: transparent;
-      border: 1px solid var(--hairline-strong);
+      border: 1px solid rgba(31, 30, 28, 0.14);
       border-radius: 50%;
       width: 24px;
       height: 24px;
@@ -415,13 +478,13 @@
       color: var(--ink-secondary);
       cursor: pointer;
       transform: translateY(-3px);
-      transition: border-color 0.22s ease, color 0.22s ease, background-color 0.22s ease, transform 0.15s ease;
+      transition: border-color 0.25s ease, color 0.25s ease, background-color 0.25s ease, transform 0.15s ease;
     }
 
     .step-btn:hover {
-      border-color: var(--ink);
+      border-color: rgba(31, 30, 28, 0.45);
       color: var(--ink);
-      background: rgba(20, 20, 19, 0.05);
+      background: rgba(31, 30, 28, 0.035);
     }
 
     .step-btn:active {
@@ -569,9 +632,12 @@
       justify-content: flex-end;
       padding: 12px 13px;
       overflow: hidden;
-      background: #181817;
-      border: 1px solid rgba(20, 20, 19, 0.16);
-      box-shadow: inset 0 0 0 1px rgba(244, 241, 234, 0.14), 0 10px 26px -12px rgba(20, 20, 19, 0.22);
+      background: #1B1A19;
+      border-radius: 2.5px;
+      border: 1px solid rgba(31, 30, 28, 0.14);
+      box-shadow: inset 0 0 0 1px rgba(245, 242, 235, 0.16), 0 12px 28px -14px rgba(31, 30, 28, 0.18);
+      isolation: isolate;
+      transform: translateZ(0);
       cursor: pointer;
     }
 
@@ -588,6 +654,9 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      transform: translate3d(0, 0, 0);
       transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1), transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
@@ -605,7 +674,7 @@
 
     .photo-metric-card.is-flipped .photo-bad {
       opacity: 1;
-      transform: scale(1.04);
+      transform: translate3d(0, 0, 0) scale(1.04);
     }
 
     .metric-photo-scrim {
@@ -887,9 +956,12 @@
       position: relative;
       height: 136px;
       overflow: hidden;
-      background: #141413;
-      border: 1px solid var(--hairline-strong);
-      box-shadow: inset 0 0 0 1px rgba(244, 241, 234, 0.14), 0 8px 22px -10px rgba(20, 20, 19, 0.20);
+      background: #1B1A19;
+      border-radius: 2.5px;
+      border: 1px solid rgba(31, 30, 28, 0.14);
+      box-shadow: inset 0 0 0 1px rgba(245, 242, 235, 0.16), 0 10px 24px -12px rgba(31, 30, 28, 0.16);
+      isolation: isolate;
+      transform: translateZ(0);
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
@@ -902,6 +974,9 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      transform: translate3d(0, 0, 0);
       transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1), transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
@@ -919,7 +994,7 @@
 
     .bottom-photo-card.is-flipped .b-img-good {
       opacity: 1;
-      transform: scale(1.05);
+      transform: translate3d(0, 0, 0) scale(1.05);
     }
 
     /* Fact shown on hover or tap */
@@ -1441,27 +1516,9 @@
       display: flex;
       flex-direction: column;
       align-items: flex-end;
-      gap: 14px;
+      gap: 15px;
       z-index: 10;
       padding: 8px 0 8px 14px;
-      --scroll-fill: 0%;
-    }
-
-    .stage-progress::before {
-      content: '';
-      position: absolute;
-      right: 2.25px;
-      top: 10px;
-      bottom: 10px;
-      width: 1px;
-      background: linear-gradient(
-        to bottom,
-        var(--active-accent) 0%,
-        var(--active-accent) var(--scroll-fill),
-        rgba(20, 20, 19, 0.11) var(--scroll-fill),
-        rgba(20, 20, 19, 0.11) 100%
-      );
-      pointer-events: none;
     }
 
     .prog-dot {
@@ -1470,17 +1527,17 @@
       height: 5.5px;
       border-radius: 50%;
       background: var(--ink-muted);
-      opacity: 0.32;
+      opacity: 0.28;
       cursor: pointer;
       border: none;
       padding: 0;
-      transition: transform 0.28s ease, opacity 0.28s ease, background-color 0.28s ease;
+      transition: transform 0.36s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.36s ease, background-color 0.36s ease, box-shadow 0.36s ease;
     }
 
     .prog-dot::before {
       content: attr(data-label);
       position: absolute;
-      right: 15px;
+      right: 16px;
       top: 50%;
       transform: translateY(-50%) translateX(4px);
       font-family: var(--font-mono);
@@ -1491,11 +1548,11 @@
       white-space: nowrap;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.22s ease, transform 0.22s ease;
+      transition: opacity 0.28s cubic-bezier(0.22, 1, 0.36, 1), transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .stage-progress:hover .prog-dot::before {
-      opacity: 0.65;
+      opacity: 0.62;
       transform: translateY(-50%) translateX(0);
     }
 
@@ -1505,14 +1562,15 @@
     }
 
     .prog-dot:hover {
-      opacity: 0.75;
-      transform: scale(1.25);
+      opacity: 0.68;
+      transform: scale(1.22);
     }
 
     .prog-dot.active {
       opacity: 1;
       background: var(--active-accent);
-      transform: scale(1.4);
+      transform: scale(1.3);
+      box-shadow: 0 0 0 3.5px rgba(35, 92, 62, 0.12);
     }
 
     .scroll-hint {
@@ -1733,6 +1791,15 @@
       .stage-progress {
         right: 8px;
       }
+      .lang-selector {
+        top: 14px;
+        right: 12px;
+        gap: 6px;
+        padding: 4px 9px;
+      }
+      .lang-btn {
+        font-size: 10.5px;
+      }
     }
 
     /* Short phones (iPhone SE and similar): keep each chapter on one screen */
@@ -1820,6 +1887,19 @@
     <!-- Paper texture -->
     <div class="paper-texture-layer" id="paperTextureLayer"></div>
 
+    <!-- Language selection at top right at the start -->
+    <nav class="lang-selector" id="langSelector" aria-label="Language">
+      <button type="button" class="lang-btn active" data-lang="en">English</button>
+      <span class="lang-sep" aria-hidden="true">·</span>
+      <button type="button" class="lang-btn" data-lang="fr">Français</button>
+      <span class="lang-sep" aria-hidden="true">·</span>
+      <button type="button" class="lang-btn" data-lang="es">Español</button>
+      <span class="lang-sep" aria-hidden="true">·</span>
+      <button type="button" class="lang-btn" data-lang="ja">日本語</button>
+      <span class="lang-sep" aria-hidden="true">·</span>
+      <button type="button" class="lang-btn" data-lang="zh">中文</button>
+    </nav>
+
     <!-- Lifeline -->
     <div class="line-zone" id="lineZone">
       <canvas id="threadCanvas"></canvas>
@@ -1830,63 +1910,63 @@
 
       <!-- 0: title -->
       <section class="scene is-interactive" id="scene0">
-        <h1 class="title-main">since i went.</h1>
-        <p class="title-sub">scroll to draw your line</p>
+        <h1 class="title-main" id="titleMain">since i went.</h1>
+        <p class="title-sub" id="titleSub">scroll to draw your line</p>
       </section>
 
       <!-- 01: who i am -->
       <section class="scene" id="scene1">
-        <h2 class="statement-kicker stagger-item" id="s1MetaTop"><span class="kicker-num" id="who-i-am">01</span> who i am</h2>
-        <p class="statement-body stagger-item" id="s1Main">
-          I am
+        <h2 class="statement-kicker" id="s1MetaTop"><span class="kicker-num" id="who-i-am">01</span> <span id="s1KickerText">who i am</span></h2>
+        <p class="statement-body" id="s1Main">
+          <span id="s1Prefix">I am</span>
           <span class="inline-choice-group" role="group" aria-label="Select identity">
-            <button type="button" class="choice-btn active" data-sex="man">a man</button>
+            <button type="button" class="choice-btn active" data-sex="man" id="sexBtnMan">a man</button>
             <span class="choice-slash">/</span>
-            <button type="button" class="choice-btn" data-sex="woman">a woman</button>
+            <button type="button" class="choice-btn" data-sex="woman" id="sexBtnWoman">a woman</button>
             <span class="choice-slash">/</span>
-            <button type="button" class="choice-btn" data-sex="nonbinary">non-binary</button>
-          </span>.<br />
-          Today I am
+            <button type="button" class="choice-btn" data-sex="nonbinary" id="sexBtnNb">non-binary</button>
+          </span><span id="s1Dot">.</span><br />
+          <span id="s1TodayPrefix">Today I am</span>
           <span class="inline-number-ctrl" title="Click -/+ or type your age directly">
             <button type="button" class="step-btn" id="ageMinus" aria-label="Decrease current age">−</button>
             <input type="text" class="editable-age-input" id="currentAgeInput" value="27" aria-label="Current age" />
             <button type="button" class="step-btn" id="agePlus" aria-label="Increase current age">+</button>
           </span>
-          years old.
+          <span id="s1AgeSuffix">years old.</span>
         </p>
-        <p class="statement-note stagger-item" id="s1MetaBot">type your age or click − / + · scroll to continue</p>
+        <p class="statement-note" id="s1MetaBot">type your age or click − / + · scroll to continue</p>
       </section>
 
       <!-- 02: the turning point -->
       <section class="scene" id="scene2">
-        <h2 class="statement-kicker stagger-item" id="s2MetaTop"><span class="kicker-num" id="the-turning-point">02</span> the turning point</h2>
-        <p class="statement-body stagger-item" id="s2Main">
+        <h2 class="statement-kicker" id="s2MetaTop"><span class="kicker-num" id="the-turning-point">02</span> <span id="s2KickerText">the turning point</span></h2>
+        <p class="statement-body" id="s2Main">
           <span id="s2NormalWrap">
-            Since I went
+            <span id="s2Prefix">Since I went</span>
             <span class="inline-choice-group" role="group" aria-label="Select diet">
-              <button type="button" class="choice-btn active-green" data-diet="vegetarian">vegetarian</button>
+              <button type="button" class="choice-btn active-green" data-diet="vegetarian" id="dietBtnVeg">vegetarian</button>
               <span class="choice-slash">/</span>
-              <button type="button" class="choice-btn" data-diet="vegan">vegan</button>
-            </span>
+              <button type="button" class="choice-btn" data-diet="vegan" id="dietBtnVegan">vegan</button>
+            </span><span id="s2PostDiet"></span>
           </span>
           <span id="s2MeatWrap" style="display:none;">
-            Since I <strong style="color:var(--active-accent);font-weight:500;">stayed a meat eater</strong>
+            <span id="s2MeatPrefix">Since I</span> <strong id="s2MeatStrong" style="color:var(--active-accent);font-weight:500;">stayed a meat eater</strong>
           </span><br />
-          at the age of
+          <span id="s2AgePrefix">at the age of</span>
           <span class="inline-number-ctrl green-underline" title="Click -/+ or type the age directly">
             <button type="button" class="step-btn" id="sinceAgeMinus" aria-label="Decrease age of change">−</button>
             <input type="text" class="editable-age-input green-text" id="sinceAgeInput" value="18" aria-label="Age of change" />
             <button type="button" class="step-btn" id="sinceAgePlus" aria-label="Increase age of change">+</button>
-          </span>.
+          </span><span id="s2AgeSuffix">.</span>
         </p>
-        <p class="statement-note stagger-item" id="s2MetaBot">9 years on this path so far</p>
+        <p class="statement-note" id="s2MetaBot">9 years on this path so far</p>
       </section>
 
       <!-- 03: up to today -->
       <section class="scene" id="scene3">
-        <div class="stagger-item" id="s3Head">
+        <div id="s3Head">
           <div class="statement-kicker">
-            <h2 class="kicker-title"><span class="kicker-num" id="up-to-today">03</span> up to today</h2>
+            <h2 class="kicker-title"><span class="kicker-num" id="up-to-today">03</span> <span id="s3KickerText">up to today</span></h2>
             <span class="live-dot" title="Live"></span>
             <span id="s3KickerStatus">live</span>
           </div>
@@ -1898,7 +1978,7 @@
         </div>
 
         <div class="metrics-grid">
-          <div class="metric-item stagger-item" id="s3Card0">
+          <div class="metric-item" id="s3Card0">
             <div class="metric-number-row">
               <span class="metric-number accent-green" data-metric="soFarLand">204.662487</span>
             </div>
@@ -1906,7 +1986,7 @@
             <div class="metric-sub" id="soFarLandSub">198 chickens · 1,620 beef burgers · 1,395 pork &amp; lamb meals</div>
           </div>
 
-          <div class="metric-item stagger-item" id="s3Card1">
+          <div class="metric-item" id="s3Card1">
             <div class="metric-number-row">
               <span class="metric-number accent-green" data-metric="soFarMarine">1,059.312793</span>
             </div>
@@ -1914,16 +1994,16 @@
             <div class="metric-sub" id="soFarMarineSub">693 finfish · 366 shellfish (+1 every 3.1 days)</div>
           </div>
 
-          <div class="metric-item stagger-item" id="s3Card2">
+          <div class="metric-item" id="s3Card2">
             <div class="metric-number-row">
               <span class="metric-number" data-metric="soFarCo2">14.760197</span>
-              <span class="metric-unit">tonnes</span>
+              <span class="metric-unit" data-unit="tonnes">tonnes</span>
             </div>
             <div class="metric-label" id="s3LabelCo2">CO₂e emissions I've prevented</div>
             <div class="metric-sub" id="soFarCo2Sub">+4.49 kg CO₂e saved every day</div>
           </div>
 
-          <div class="metric-item stagger-item" id="s3Card3">
+          <div class="metric-item" id="s3Card3">
             <div class="metric-number-row">
               <span class="metric-number" data-metric="soFarLandArea">26,370.31846</span>
               <span class="metric-unit">m²</span>
@@ -1932,7 +2012,7 @@
             <div class="metric-sub" id="soFarHabitatSub">2.64 hectares (+8.02 m² spared/day)</div>
           </div>
 
-          <div class="metric-item stagger-item" id="s3Card4">
+          <div class="metric-item" id="s3Card4">
             <div class="metric-number-row">
               <span class="metric-number" data-metric="soFarGrain">7,380.08912</span>
               <span class="metric-unit">kg</span>
@@ -1941,54 +2021,54 @@
             <div class="metric-sub" id="soFarGrainSub">+2.25 kg of animal feed saved every day</div>
           </div>
 
-          <div class="metric-item stagger-item" id="s3Card5">
+          <div class="metric-item" id="s3Card5">
             <div class="metric-number-row">
               <span class="metric-number" data-metric="soFarWater">4,230,051.084</span>
-              <span class="metric-unit">litres</span>
+              <span class="metric-unit" data-unit="litres">litres</span>
             </div>
             <div class="metric-label" id="s3LabelWater">Freshwater I've saved</div>
             <div class="metric-sub" id="soFarWaterSub">+1,287 L/day (+0.015 L every second)</div>
           </div>
         </div>
 
-        <div class="action-bar-wrap stagger-item" id="s3Foot">
+        <div class="action-bar-wrap" id="s3Foot">
           <div class="share-btn-group">
-            <button type="button" class="editorial-btn primary-outline open-ig-modal" data-ig-slide="0">
+            <button type="button" class="editorial-btn primary-outline open-ig-modal" data-ig-slide="0" data-i18n-btn="shareCarousel">
               Share Carousel
             </button>
             <button type="button" class="editorial-btn" id="copySoFarBtn">
               <span id="copySoFarLabel">Copy my stats</span>
             </button>
           </div>
-          <p class="source-note">* Based on University of Oxford and UN FAO data · <a href="#sources" data-jump="0.98">sources</a></p>
+          <p class="source-note" id="s3SourceNote">* Based on University of Oxford and UN FAO data · <a href="#sources" data-jump="0.985">sources</a></p>
         </div>
       </section>
 
       <!-- 04: the rest of my life -->
       <section class="scene" id="scene4">
-        <div class="stagger-item" id="s4Head">
+        <div id="s4Head">
           <div class="statement-kicker">
-            <h2 class="kicker-title"><span class="kicker-num" id="the-rest-of-my-life">04</span> the rest of my life</h2>
+            <h2 class="kicker-title"><span class="kicker-num" id="the-rest-of-my-life">04</span> <span id="s4KickerText">the rest of my life</span></h2>
             <span id="s4KickerSub">· hover any photo to see the other side</span>
           </div>
           <div class="facts-header">
             <p class="facts-lead" id="lifetimeLeadText">
-              Across my full life (<strong id="lifetimeYearsText">61.4 years</strong> <span id="lifetimeRangePrefix">from age <span id="lifetimeSinceAgeText">18</span></span> to
+              <span id="s4LeadPrefix">Across my full life (</span><strong id="lifetimeYearsText">61.4 years</strong> <span id="lifetimeRangePrefix">from age <span id="lifetimeSinceAgeText">18</span></span> <span id="s4LeadTo">to</span>
               <span class="inline-number-ctrl green-underline" title="Click -/+ or type any final age">
                 <button type="button" class="step-btn" id="expMinus" aria-label="Decrease final age">−</button>
                 <input type="text" class="editable-age-input green-text wide" id="expectancyInput" value="79.4" aria-label="Final age" />
                 <button type="button" class="step-btn" id="expPlus" aria-label="Increase final age">+</button>
-              </span>), <span id="lifetimeVerbPhrase">this is what I will spare:</span>
+              </span><span id="s4LeadClose">),</span> <span id="lifetimeVerbPhrase">this is what I will spare:</span>
             </p>
           </div>
         </div>
 
         <div class="metrics-grid photo-metrics-grid">
           <!-- Card 1 -->
-          <div class="metric-item photo-metric-card stagger-item" id="s4Card0">
+          <div class="metric-item photo-metric-card" id="s4Card0">
             <div class="metric-photo-wrap">
-              <img decoding="async" fetchpriority="low" class="metric-photo photo-good" src="assets/plates/good-1-cow.jpg" alt="Cow in misty pasture" />
-              <img decoding="async" fetchpriority="low" class="metric-photo photo-bad" src="assets/plates/bad-1-slaughter.jpg" alt="Slaughterhouse carcasses" />
+              <img class="metric-photo photo-good" src="assets/plates/good-1-cow.jpg" alt="Cow in misty pasture" />
+              <img class="metric-photo photo-bad" src="assets/plates/bad-1-slaughter.jpg" alt="Slaughterhouse carcasses" />
               <div class="metric-photo-scrim"></div>
               <span class="crosshair-mark">+ 01</span>
               <span class="other-side-badge">the reality</span>
@@ -2004,10 +2084,10 @@
           </div>
 
           <!-- Card 2 -->
-          <div class="metric-item photo-metric-card stagger-item" id="s4Card1">
+          <div class="metric-item photo-metric-card" id="s4Card1">
             <div class="metric-photo-wrap">
-              <img decoding="async" fetchpriority="low" class="metric-photo photo-good" src="assets/plates/good-2-fish.jpg" alt="School of fish underwater" />
-              <img decoding="async" fetchpriority="low" class="metric-photo photo-bad" src="assets/plates/bad-2-fish-blood.jpg" alt="Fish catch on trawler deck" />
+              <img class="metric-photo photo-good" src="assets/plates/good-2-fish.jpg" alt="School of fish underwater" />
+              <img class="metric-photo photo-bad" src="assets/plates/bad-2-fish-blood.jpg" alt="Fish catch on trawler deck" />
               <div class="metric-photo-scrim"></div>
               <span class="crosshair-mark">+ 02</span>
               <span class="other-side-badge">the reality</span>
@@ -2023,10 +2103,10 @@
           </div>
 
           <!-- Card 3 -->
-          <div class="metric-item photo-metric-card stagger-item" id="s4Card2">
+          <div class="metric-item photo-metric-card" id="s4Card2">
             <div class="metric-photo-wrap">
-              <img decoding="async" fetchpriority="low" class="metric-photo photo-good" src="assets/plates/good-3-fog-chimney.jpg" alt="Morning mist over skyline" />
-              <img decoding="async" fetchpriority="low" class="metric-photo photo-bad" src="assets/plates/bad-3-toxic-fumes.jpg" alt="Heavy dark industrial smoke" />
+              <img class="metric-photo photo-good" src="assets/plates/good-3-fog-chimney.jpg" alt="Morning mist over skyline" />
+              <img class="metric-photo photo-bad" src="assets/plates/bad-3-toxic-fumes.jpg" alt="Heavy dark industrial smoke" />
               <div class="metric-photo-scrim"></div>
               <span class="crosshair-mark">+ 03</span>
               <span class="other-side-badge">the reality</span>
@@ -2035,7 +2115,7 @@
             <div class="metric-edge-box">
               <div class="metric-number-row">
                 <span class="metric-number" data-metric="lifeCo2">100.7</span>
-                <span class="metric-unit">tonnes</span>
+                <span class="metric-unit" data-unit="tonnes">tonnes</span>
               </div>
               <div class="metric-label" id="s4LabelCo2">Lifetime CO₂e I will prevent</div>
               <div class="metric-sub" id="lifeFlightsSub">Equal to 112 transatlantic flights</div>
@@ -2043,10 +2123,10 @@
           </div>
 
           <!-- Card 4 -->
-          <div class="metric-item photo-metric-card stagger-item" id="s4Card3">
+          <div class="metric-item photo-metric-card" id="s4Card3">
             <div class="metric-photo-wrap">
-              <img decoding="async" fetchpriority="low" class="metric-photo photo-good" src="assets/plates/good-4-meadow.jpg" alt="Misty morning meadow" />
-              <img decoding="async" fetchpriority="low" class="metric-photo photo-bad" src="assets/plates/bad-4-logging.jpg" alt="Clearcut felled forest" />
+              <img class="metric-photo photo-good" src="assets/plates/good-4-meadow.jpg" alt="Misty morning meadow" />
+              <img class="metric-photo photo-bad" src="assets/plates/bad-4-logging.jpg" alt="Clearcut felled forest" />
               <div class="metric-photo-scrim"></div>
               <span class="crosshair-mark">+ 04</span>
               <span class="other-side-badge">the reality</span>
@@ -2063,10 +2143,10 @@
           </div>
 
           <!-- Card 5 -->
-          <div class="metric-item photo-metric-card stagger-item" id="s4Card4">
+          <div class="metric-item photo-metric-card" id="s4Card4">
             <div class="metric-photo-wrap">
-              <img decoding="async" fetchpriority="low" class="metric-photo photo-good" src="assets/plates/good-5-grain.jpg" alt="Golden wheat grain close-up" />
-              <img decoding="async" fetchpriority="low" class="metric-photo photo-bad" src="assets/plates/bad-5-rabbit-grain.jpg" alt="Wild rabbit in harvested grain straw" />
+              <img class="metric-photo photo-good" src="assets/plates/good-5-grain.jpg" alt="Golden wheat grain close-up" />
+              <img class="metric-photo photo-bad" src="assets/plates/bad-5-rabbit-grain.jpg" alt="Wild rabbit in harvested grain straw" />
               <div class="metric-photo-scrim"></div>
               <span class="crosshair-mark">+ 05</span>
               <span class="other-side-badge">the reality</span>
@@ -2083,10 +2163,10 @@
           </div>
 
           <!-- Card 6 -->
-          <div class="metric-item photo-metric-card stagger-item" id="s4Card5">
+          <div class="metric-item photo-metric-card" id="s4Card5">
             <div class="metric-photo-wrap">
-              <img decoding="async" fetchpriority="low" class="metric-photo photo-good" src="assets/plates/good-6-misty-river.jpg" alt="Misty river in valley" />
-              <img decoding="async" fetchpriority="low" class="metric-photo photo-bad" src="assets/plates/bad-6-polluted-river.jpg" alt="Polluted wastewater discharge into river" />
+              <img class="metric-photo photo-good" src="assets/plates/good-6-misty-river.jpg" alt="Misty river in valley" />
+              <img class="metric-photo photo-bad" src="assets/plates/bad-6-polluted-river.jpg" alt="Polluted wastewater discharge into river" />
               <div class="metric-photo-scrim"></div>
               <span class="crosshair-mark">+ 06</span>
               <span class="other-side-badge">the reality</span>
@@ -2095,7 +2175,7 @@
             <div class="metric-edge-box">
               <div class="metric-number-row">
                 <span class="metric-number" data-metric="lifeWater">28.86M</span>
-                <span class="metric-unit">litres</span>
+                <span class="metric-unit" data-unit="litres">litres</span>
               </div>
               <div class="metric-label" id="s4LabelWater">Lifetime freshwater I will save</div>
               <div class="metric-sub" id="lifeWaterSub">11.5 Olympic swimming pools</div>
@@ -2103,12 +2183,12 @@
           </div>
         </div>
 
-        <div class="action-bar-wrap stagger-item" id="s4Foot">
+        <div class="action-bar-wrap" id="s4Foot">
           <div class="share-btn-group">
             <button type="button" class="editorial-btn primary-outline" id="veganCompareBtn">
               <span id="veganCompareBtnLabel">→ What would this look like if I was vegan?</span>
             </button>
-            <button type="button" class="editorial-btn ig-btn open-ig-modal" data-ig-slide="2">
+            <button type="button" class="editorial-btn ig-btn open-ig-modal" data-ig-slide="2" data-i18n-btn="shareCarousel">
               Share Carousel
             </button>
             <button type="button" class="editorial-btn" id="copyLifeBtn">
@@ -2125,7 +2205,7 @@
     <section class="final-facts-scene" id="scene5">
       <div class="final-facts-inner">
 
-        <div class="final-top-bar stagger-item" id="s5Head">
+        <div class="final-top-bar" id="s5Head">
           <h2 class="final-title" id="finalMainHeading">Everything I spare</h2>
           <div class="final-profile-pill">
             <span id="finalSummaryTag">Man · Age 27 · Vegetarian since 18 (9 yrs so far · 61.4 yrs lifetime)</span>
@@ -2140,60 +2220,60 @@
 
         <!-- Photo strip -->
         <div class="bottom-photo-strip" id="bottomPhotoStrip">
-          <div class="bottom-photo-card stagger-item" id="s5Photo0">
-            <img decoding="async" fetchpriority="low" class="b-img-bad" src="assets/plates/bad-1-slaughter.jpg" alt="Slaughterhouse carcasses" />
-            <img decoding="async" fetchpriority="low" class="b-img-good" src="assets/plates/good-1-cow.jpg" alt="Cow in misty pasture" />
-            <div class="bottom-card-fact">74% of farmed land animals live in factory farms.</div>
+          <div class="bottom-photo-card" id="s5Photo0">
+            <img class="b-img-bad" src="assets/plates/bad-1-slaughter.jpg" alt="Slaughterhouse carcasses" />
+            <img class="b-img-good" src="assets/plates/good-1-cow.jpg" alt="Cow in misty pasture" />
+            <div class="bottom-card-fact" id="s5Fact0">74% of farmed land animals live in factory farms.</div>
             <div class="bottom-edge-box">
               <span class="bottom-edge-num" data-bmetric="bLand">1,396</span>
               <span class="bottom-edge-label" id="bLabelLand">Land Animals I Spare</span>
             </div>
           </div>
 
-          <div class="bottom-photo-card stagger-item" id="s5Photo1">
-            <img decoding="async" fetchpriority="low" class="b-img-bad" src="assets/plates/bad-2-fish-blood.jpg" alt="Fish catch on boat deck" />
-            <img decoding="async" fetchpriority="low" class="b-img-good" src="assets/plates/good-2-fish.jpg" alt="School of fish in ocean" />
-            <div class="bottom-card-fact">4.9 million km² of seabed is bottom-trawled every year.</div>
+          <div class="bottom-photo-card" id="s5Photo1">
+            <img class="b-img-bad" src="assets/plates/bad-2-fish-blood.jpg" alt="Fish catch on boat deck" />
+            <img class="b-img-good" src="assets/plates/good-2-fish.jpg" alt="School of fish in ocean" />
+            <div class="bottom-card-fact" id="s5Fact1">4.9 million km² of seabed is bottom-trawled every year.</div>
             <div class="bottom-edge-box">
               <span class="bottom-edge-num" data-bmetric="bMarine">7,227</span>
               <span class="bottom-edge-label" id="bLabelMarine">Marine Lives I Spare</span>
             </div>
           </div>
 
-          <div class="bottom-photo-card stagger-item" id="s5Photo2">
-            <img decoding="async" fetchpriority="low" class="b-img-bad" src="assets/plates/bad-3-toxic-fumes.jpg" alt="Dark industrial smoke" />
-            <img decoding="async" fetchpriority="low" class="b-img-good" src="assets/plates/good-3-fog-chimney.jpg" alt="Morning mist sky" />
-            <div class="bottom-card-fact">Vegan diets cause a quarter of the emissions of high-meat diets.</div>
+          <div class="bottom-photo-card" id="s5Photo2">
+            <img class="b-img-bad" src="assets/plates/bad-3-toxic-fumes.jpg" alt="Dark industrial smoke" />
+            <img class="b-img-good" src="assets/plates/good-3-fog-chimney.jpg" alt="Morning mist sky" />
+            <div class="bottom-card-fact" id="s5Fact2">Vegan diets cause a quarter of the emissions of high-meat diets.</div>
             <div class="bottom-edge-box">
               <span class="bottom-edge-num" data-bmetric="bCo2">100.7 t</span>
               <span class="bottom-edge-label" id="bLabelCo2">CO₂e I Prevent</span>
             </div>
           </div>
 
-          <div class="bottom-photo-card stagger-item" id="s5Photo3">
-            <img decoding="async" fetchpriority="low" class="b-img-bad" src="assets/plates/bad-4-logging.jpg" alt="Clearcut felled forest" />
-            <img decoding="async" fetchpriority="low" class="b-img-good" src="assets/plates/good-4-meadow.jpg" alt="Foggy morning meadow" />
-            <div class="bottom-card-fact">A plant-based world would free 3.1 billion hectares of farmland.</div>
+          <div class="bottom-photo-card" id="s5Photo3">
+            <img class="b-img-bad" src="assets/plates/bad-4-logging.jpg" alt="Clearcut felled forest" />
+            <img class="b-img-good" src="assets/plates/good-4-meadow.jpg" alt="Foggy morning meadow" />
+            <div class="bottom-card-fact" id="s5Fact3">A plant-based world would free 3.1 billion hectares of farmland.</div>
             <div class="bottom-edge-box">
               <span class="bottom-edge-num" data-bmetric="bHabitat">179,902 m²</span>
               <span class="bottom-edge-label" id="bLabelHabitat">Habitat I Spare</span>
             </div>
           </div>
 
-          <div class="bottom-photo-card stagger-item" id="s5Photo4">
-            <img decoding="async" fetchpriority="low" class="b-img-bad" src="assets/plates/bad-5-rabbit-grain.jpg" alt="Wild rabbit in grain" />
-            <img decoding="async" fetchpriority="low" class="b-img-good" src="assets/plates/good-5-grain.jpg" alt="Golden wheat grain" />
-            <div class="bottom-card-fact">36% of the world's crop calories go to animal feed.</div>
+          <div class="bottom-photo-card" id="s5Photo4">
+            <img class="b-img-bad" src="assets/plates/bad-5-rabbit-grain.jpg" alt="Wild rabbit in grain" />
+            <img class="b-img-good" src="assets/plates/good-5-grain.jpg" alt="Golden wheat grain" />
+            <div class="bottom-card-fact" id="s5Fact4">36% of the world's crop calories go to animal feed.</div>
             <div class="bottom-edge-box">
               <span class="bottom-edge-num" data-bmetric="bGrain">50,348 kg</span>
               <span class="bottom-edge-label" id="bLabelGrain">Animal Feed I Save</span>
             </div>
           </div>
 
-          <div class="bottom-photo-card stagger-item" id="s5Photo5">
-            <img decoding="async" fetchpriority="low" class="b-img-bad" src="assets/plates/bad-6-polluted-river.jpg" alt="Polluted river discharge" />
-            <img decoding="async" fetchpriority="low" class="b-img-good" src="assets/plates/good-6-misty-river.jpg" alt="Misty valley river" />
-            <div class="bottom-card-fact">Manure and fertiliser runoff from farms creates ocean dead zones.</div>
+          <div class="bottom-photo-card" id="s5Photo5">
+            <img class="b-img-bad" src="assets/plates/bad-6-polluted-river.jpg" alt="Polluted river discharge" />
+            <img class="b-img-good" src="assets/plates/good-6-misty-river.jpg" alt="Misty valley river" />
+            <div class="bottom-card-fact" id="s5Fact5">Manure and fertiliser runoff from farms creates ocean dead zones.</div>
             <div class="bottom-edge-box">
               <span class="bottom-edge-num" data-bmetric="bWater">28.86M L</span>
               <span class="bottom-edge-label" id="bLabelWater">Freshwater I Save</span>
@@ -2203,32 +2283,32 @@
 
         <div class="final-columns">
           <!-- Animals and meals -->
-          <div class="stagger-item" id="s5Col0">
+          <div id="s5Col0">
             <div class="final-col-title" id="col1Title">Animals &amp; meals spared · so far / lifetime</div>
             <table class="fact-table">
               <tbody>
                 <tr>
-                  <td>Chickens &amp; poultry</td>
+                  <td id="rowChickens">Chickens &amp; poultry</td>
                   <td class="val accent-col" id="tblChickens">198 / 1,351 birds (21.6k meals)</td>
                 </tr>
                 <tr>
-                  <td>Beef burgers &amp; cattle cuts</td>
+                  <td id="rowCattle">Beef burgers &amp; cattle cuts</td>
                   <td class="val accent-col" id="tblCattle">1,620 / 11,052 burgers (2,763 lbs beef)</td>
                 </tr>
                 <tr>
-                  <td>Pork chops, bacon &amp; pigs</td>
+                  <td id="rowPigs">Pork chops, bacon &amp; pigs</td>
                   <td class="val accent-col" id="tblPigs">1,080 / 7,368 meals (26 whole pigs)</td>
                 </tr>
                 <tr>
-                  <td>Lamb &amp; sheep cuts</td>
+                  <td id="rowSheep">Lamb &amp; sheep cuts</td>
                   <td class="val accent-col" id="tblSheep">315 / 2,149 meals (14 sheep/lambs)</td>
                 </tr>
                 <tr>
-                  <td>Wild &amp; farmed finfish</td>
+                  <td id="rowFinfish">Wild &amp; farmed finfish</td>
                   <td class="val accent-col" id="tblFinfish">693 / 4,728 fish</td>
                 </tr>
                 <tr>
-                  <td>Shellfish &amp; crustaceans</td>
+                  <td id="rowShellfish">Shellfish &amp; crustaceans</td>
                   <td class="val accent-col" id="tblShellfish">366 / 2,499 shellfish</td>
                 </tr>
                 <tr>
@@ -2240,32 +2320,32 @@
           </div>
 
           <!-- Carbon, land and water -->
-          <div class="stagger-item" id="s5Col1">
+          <div id="s5Col1">
             <div class="final-col-title" id="col2Title">Carbon, land &amp; water saved · so far / lifetime</div>
             <table class="fact-table">
               <tbody>
                 <tr>
-                  <td>Greenhouse gas (CO₂e)</td>
+                  <td id="rowCo2">Greenhouse gas (CO₂e)</td>
                   <td class="val" id="tblCo2">14.8 t / 100.7 t</td>
                 </tr>
                 <tr>
-                  <td>Forest &amp; grazing land</td>
+                  <td id="rowLand">Forest &amp; grazing land</td>
                   <td class="val" id="tblLand">26,370 m² / 179,902 m²</td>
                 </tr>
                 <tr>
-                  <td>Animal feed</td>
+                  <td id="rowGrain">Animal feed</td>
                   <td class="val" id="tblGrain">7,380 kg / 50,348 kg</td>
                 </tr>
                 <tr>
-                  <td>Freshwater footprint</td>
+                  <td id="rowWater">Freshwater footprint</td>
                   <td class="val" id="tblWater">4.23M L / 28.86M L</td>
                 </tr>
                 <tr>
-                  <td>Annual land &amp; CO₂e rate</td>
+                  <td id="rowAnnualRate">Annual land &amp; CO₂e rate</td>
                   <td class="val" id="tblAnnualRate">2,930 m² &amp; 1.64 t CO₂e / yr</td>
                 </tr>
                 <tr>
-                  <td>Target lifespan horizon</td>
+                  <td id="rowExpectancy">Target lifespan horizon</td>
                   <td class="val" id="tblExpectancy">79.4 years (editable)</td>
                 </tr>
               </tbody>
@@ -2273,70 +2353,70 @@
           </div>
 
           <!-- Sources -->
-          <div class="stagger-item" id="s5Col2">
+          <div id="s5Col2">
             <div class="final-col-title" id="sources">Sources</div>
             <ul class="sources-list">
               <li>
                 <span class="source-tag">01</span>
-                University of Oxford: <a href="https://ora.ox.ac.uk/objects/uuid:b0b53649-5e93-4415-bf07-6b0b1227172f" target="_blank" rel="noopener">Poore &amp; Nemecek (2018)</a>,
-                <em>Science</em>. The environmental impact of food, from 38,700 farms in 119 countries.
+                <span id="srcItem1">University of Oxford: <a href="https://ora.ox.ac.uk/objects/uuid:b0b53649-5e93-4415-bf07-6b0b1227172f" target="_blank" rel="noopener">Poore &amp; Nemecek (2018)</a>,
+                <em>Science</em>. The environmental impact of food, from 38,700 farms in 119 countries.</span>
               </li>
               <li>
                 <span class="source-tag">02</span>
-                University of Oxford: <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10365988/" target="_blank" rel="noopener">Scarborough et al. (2023)</a>,
-                <em>Nature Food</em>. The diets of 55,504 people. Used for CO₂e and land, against a typical meat eater (between the study's medium and high meat eaters).
+                <span id="srcItem2">University of Oxford: <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10365988/" target="_blank" rel="noopener">Scarborough et al. (2023)</a>,
+                <em>Nature Food</em>. The diets of 55,504 people. Used for CO₂e and land, against a typical meat eater (between the study's medium and high meat eaters).</span>
               </li>
               <li>
                 <span class="source-tag">03</span>
-                <a href="https://ourworldindata.org/meat-production" target="_blank" rel="noopener">UN FAO, via Our World in Data</a>.
-                How many animals are slaughtered each year.
+                <span id="srcItem3"><a href="https://ourworldindata.org/meat-production" target="_blank" rel="noopener">UN FAO, via Our World in Data</a>.
+                How many animals are slaughtered each year.</span>
               </li>
               <li>
                 <span class="source-tag">04</span>
-                <a href="https://ourworldindata.org/fish-and-overfishing" target="_blank" rel="noopener">UN FAO, via Our World in Data</a>.
-                Wild-caught and farmed fish.
+                <span id="srcItem4"><a href="https://ourworldindata.org/fish-and-overfishing" target="_blank" rel="noopener">UN FAO, via Our World in Data</a>.
+                Wild-caught and farmed fish.</span>
               </li>
               <li>
                 <span class="source-tag">05</span>
-                <a href="https://doi.org/10.1007/s10021-011-9517-8" target="_blank" rel="noopener">Mekonnen &amp; Hoekstra (2012)</a>,
-                <em>Ecosystems</em>. The water footprint of farm animal products.
+                <span id="srcItem5"><a href="https://doi.org/10.1007/s10021-011-9517-8" target="_blank" rel="noopener">Mekonnen &amp; Hoekstra (2012)</a>,
+                <em>Ecosystems</em>. The water footprint of farm animal products.</span>
               </li>
               <li>
                 <span class="source-tag">06</span>
-                <a href="https://ourworldindata.org/grapher/feed-required-to-produce-one-kilogram-of-meat-or-dairy-product" target="_blank" rel="noopener">Alexander et al. (2016), via Our World in Data</a>.
-                Feed needed per kilo of meat, eggs and milk.
+                <span id="srcItem6"><a href="https://ourworldindata.org/grapher/feed-required-to-produce-one-kilogram-of-meat-or-dairy-product" target="_blank" rel="noopener">Alexander et al. (2016), via Our World in Data</a>.
+                Feed needed per kilo of meat, eggs and milk.</span>
               </li>
               <li>
                 <span class="source-tag">07</span>
-                <a href="https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/lifeexpectancies/bulletins/nationallifetablesunitedkingdom/2017to2019" target="_blank" rel="noopener">Office for National Statistics</a>.
-                UK life expectancy, 2017 to 2019.
+                <span id="srcItem7"><a href="https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/lifeexpectancies/bulletins/nationallifetablesunitedkingdom/2017to2019" target="_blank" rel="noopener">Office for National Statistics</a>.
+                UK life expectancy, 2017 to 2019.</span>
               </li>
             </ul>
           </div>
         </div>
 
         <!-- Share and "help me change" -->
-        <div class="final-bottom-cta-row stagger-item" id="s5Foot">
+        <div class="final-bottom-cta-row" id="s5Foot">
           <div class="share-btn-group">
-            <button type="button" class="editorial-btn primary-outline open-ig-modal" data-ig-slide="0">
+            <button type="button" class="editorial-btn primary-outline open-ig-modal" data-ig-slide="0" data-i18n-btn="shareCarousel">
               Share Carousel
             </button>
           </div>
 
           <a href="#help-me-change" class="help-me-change-link" id="openResourcesBtn">
-            <span>help me change</span>
+            <span id="helpMeChangeText">help me change</span>
             <span class="arrow">→</span>
           </a>
         </div>
 
         <!-- Chapters -->
-        <nav class="chapter-nav stagger-item" id="s5Colophon" aria-label="Chapters">
-          <span>sinceiwent.org · every year counts</span>
+        <nav class="chapter-nav" id="s5Colophon" aria-label="Chapters">
+          <span id="colophonTagline">sinceiwent.org · every year counts</span>
           <div class="chapter-links">
-            <a href="#who-i-am" data-jump="0.19">01 who i am</a>
-            <a href="#the-turning-point" data-jump="0.38">02 the turning point</a>
-            <a href="#up-to-today" data-jump="0.60">03 up to today</a>
-            <a href="#the-rest-of-my-life" data-jump="0.82">04 the rest of my life</a>
+            <a href="#who-i-am" data-jump="0.19" id="chapLink1">01 who i am</a>
+            <a href="#the-turning-point" data-jump="0.39" id="chapLink2">02 the turning point</a>
+            <a href="#up-to-today" data-jump="0.60" id="chapLink3">03 up to today</a>
+            <a href="#the-rest-of-my-life" data-jump="0.81" id="chapLink4">04 the rest of my life</a>
           </div>
         </nav>
 
@@ -2348,12 +2428,12 @@
 
     <!-- Progress dots -->
     <nav class="stage-progress" aria-label="Scroll sections">
-      <button type="button" class="prog-dot" data-jump="0.00" data-label="00 · since i went" title="since i went."></button>
-      <button type="button" class="prog-dot" data-jump="0.19" data-label="01 · who i am" title="who i am"></button>
-      <button type="button" class="prog-dot" data-jump="0.38" data-label="02 · the turning point" title="the turning point"></button>
-      <button type="button" class="prog-dot" data-jump="0.60" data-label="03 · up to today" title="up to today"></button>
-      <button type="button" class="prog-dot" data-jump="0.82" data-label="04 · the rest of my life" title="the rest of my life"></button>
-      <button type="button" class="prog-dot" data-jump="0.985" data-label="05 · everything i spare" title="everything I spare"></button>
+      <button type="button" class="prog-dot" id="progDot0" data-jump="0.00" data-label="00 · since i went" title="since i went."></button>
+      <button type="button" class="prog-dot" id="progDot1" data-jump="0.19" data-label="01 · who i am" title="who i am"></button>
+      <button type="button" class="prog-dot" id="progDot2" data-jump="0.39" data-label="02 · the turning point" title="the turning point"></button>
+      <button type="button" class="prog-dot" id="progDot3" data-jump="0.60" data-label="03 · up to today" title="up to today"></button>
+      <button type="button" class="prog-dot" id="progDot4" data-jump="0.81" data-label="04 · the rest of my life" title="the rest of my life"></button>
+      <button type="button" class="prog-dot" id="progDot5" data-jump="0.985" data-label="05 · everything i spare" title="everything I spare"></button>
     </nav>
 
     <div class="scroll-hint" id="scrollHint">scroll ↓</div>
@@ -2369,29 +2449,29 @@
           <canvas id="igCanvas" width="1080" height="1920"></canvas>
         </div>
         <div class="ig-slide-dots">
-          <button type="button" class="ig-slide-tab active" data-slide-idx="0">01. Lifeline</button>
-          <button type="button" class="ig-slide-tab" data-slide-idx="1">02. So Far</button>
-          <button type="button" class="ig-slide-tab" data-slide-idx="2">03. Lifetime</button>
-          <button type="button" class="ig-slide-tab" data-slide-idx="3">04. Receipt</button>
+          <button type="button" class="ig-slide-tab active" data-slide-idx="0" id="igTab0">01. Lifeline</button>
+          <button type="button" class="ig-slide-tab" data-slide-idx="1" id="igTab1">02. So Far</button>
+          <button type="button" class="ig-slide-tab" data-slide-idx="2" id="igTab2">03. Lifetime</button>
+          <button type="button" class="ig-slide-tab" data-slide-idx="3" id="igTab3">04. Receipt</button>
         </div>
       </div>
 
       <div class="ig-controls-col">
         <div class="statement-kicker">sinceiwent.org</div>
-        <h3 class="ig-studio-title">Share Your Impact</h3>
+        <h3 class="ig-studio-title" id="igStudioTitle">Share Your Impact</h3>
 
         <div class="ig-picker-group">
-          <span class="ig-picker-label">Format</span>
+          <span class="ig-picker-label" id="igFormatLabel">Format</span>
           <div class="ig-picker-row">
-            <button type="button" class="ig-ratio-tab active" data-ratio="stories">Stories (9:16)</button>
-            <button type="button" class="ig-ratio-tab" data-ratio="post">Post (4:5)</button>
-            <button type="button" class="ig-ratio-tab" data-ratio="square">Square (1:1)</button>
-            <button type="button" class="ig-ratio-tab" data-ratio="landscape">Landscape (16:9)</button>
+            <button type="button" class="ig-ratio-tab active" data-ratio="stories" id="igRatio0">Stories (9:16)</button>
+            <button type="button" class="ig-ratio-tab" data-ratio="post" id="igRatio1">Post (4:5)</button>
+            <button type="button" class="ig-ratio-tab" data-ratio="square" id="igRatio2">Square (1:1)</button>
+            <button type="button" class="ig-ratio-tab" data-ratio="landscape" id="igRatio3">Landscape (16:9)</button>
           </div>
         </div>
 
         <div class="ig-picker-group">
-          <span class="ig-picker-label">Color</span>
+          <span class="ig-picker-label" id="igColorLabel">Color</span>
           <div class="theme-dots-row">
             <button type="button" class="theme-color-dot dot-white active" data-theme-idx="0" title="Alabaster White" aria-label="Alabaster White theme"></button>
             <button type="button" class="theme-color-dot dot-black" data-theme-idx="1" title="Darkroom Black" aria-label="Darkroom Black theme"></button>
@@ -2422,48 +2502,48 @@
       <button type="button" class="modal-close-btn" id="closeResourcesModalBtn" aria-label="Close">✕</button>
 
       <div class="resources-header">
-        <h3 class="resources-title">help me change</h3>
-        <p class="resources-sub">Free places to start.</p>
+        <h3 class="resources-title" id="resModalTitle">help me change</h3>
+        <p class="resources-sub" id="resModalSub">Free places to start.</p>
       </div>
 
       <div class="resources-grid">
         <div>
-          <div class="res-category-title">Try it</div>
+          <div class="res-category-title" id="resCat0">Try it</div>
           <div class="res-item">
             <a href="https://challenge22.com/" target="_blank" rel="noopener">Challenge 22 ↗</a>
-            <p>Free 22-day challenge with a mentor and dietitians.</p>
+            <p id="resDesc0">Free 22-day challenge with a mentor and dietitians.</p>
           </div>
           <div class="res-item">
             <a href="https://veganuary.com/try-vegan/" target="_blank" rel="noopener">Veganuary ↗</a>
-            <p>Free 31-day pledge with daily emails and recipes.</p>
+            <p id="resDesc1">Free 31-day pledge with daily emails and recipes.</p>
           </div>
         </div>
 
         <div>
-          <div class="res-category-title">Eat</div>
+          <div class="res-category-title" id="resCat1">Eat</div>
           <div class="res-item">
             <a href="https://www.happycow.net/" target="_blank" rel="noopener">HappyCow ↗</a>
-            <p>Vegan places to eat near you. Use the vegan filter.</p>
+            <p id="resDesc2">Vegan places to eat near you. Use the vegan filter.</p>
           </div>
           <div class="res-item">
             <a href="https://www.vegansociety.com/resources/nutrition-and-health" target="_blank" rel="noopener">The Vegan Society ↗</a>
-            <p>How to eat well on plants, from B12 to iron.</p>
+            <p id="resDesc3">How to eat well on plants, from B12 to iron.</p>
           </div>
           <div class="res-item">
             <a href="https://foodispower.org/chocolate-list/" target="_blank" rel="noopener">Food Empowerment Project ↗</a>
-            <p>Vegan chocolate, checked for child labour.</p>
+            <p id="resDesc4">Vegan chocolate, checked for child labour.</p>
           </div>
         </div>
 
         <div>
-          <div class="res-category-title">Why</div>
+          <div class="res-category-title" id="resCat2">Why</div>
           <div class="res-item">
             <a href="https://www.youtube.com/watch?v=THIODWTqx5E" target="_blank" rel="noopener">Farm to Fridge ↗</a>
-            <p>Eleven minutes inside the farms most food comes from.</p>
+            <p id="resDesc5">Eleven minutes inside the farms most food comes from.</p>
           </div>
           <div class="res-item">
             <a href="https://www.dominionmovement.com/" target="_blank" rel="noopener">Dominion ↗</a>
-            <p>The full documentary, free to watch.</p>
+            <p id="resDesc6">The full documentary, free to watch.</p>
           </div>
         </div>
       </div>
@@ -2505,13 +2585,25 @@
       }
     })();
 
-    /* Photos flip on hover with a mouse, or on tap on a phone. */
+    /* Pre-decode all plate images up front so they never flicker when scrolling to the bottom */
+    document.querySelectorAll('.metric-photo, .bottom-photo-card img').forEach((img) => {
+      if (typeof img.decode === 'function') {
+        img.decode().catch(() => {});
+      }
+    });
+
+    /* Photos flip on hover with a mouse, or on tap on a phone (only once the scene is fully active). */
     const CAN_HOVER = window.matchMedia('(hover: hover)').matches;
     const FLIP_VERB = CAN_HOVER ? 'hover' : 'tap';
     const photoCards = document.querySelectorAll('.photo-metric-card, .bottom-photo-card');
     photoCards.forEach((card) => {
       if (CAN_HOVER) {
-        card.addEventListener('mouseenter', () => card.classList.add('is-flipped'));
+        card.addEventListener('mouseenter', () => {
+          const parentScene = card.closest('.scene, .final-facts-scene');
+          if (!parentScene || parentScene.classList.contains('is-interactive')) {
+            card.classList.add('is-flipped');
+          }
+        });
         card.addEventListener('mouseleave', () => card.classList.remove('is-flipped'));
       } else {
         card.addEventListener('click', () => {
@@ -2532,6 +2624,7 @@
     };
 
     const state = {
+      lang: 'en',           // 'en' | 'fr' | 'es' | 'ja' | 'zh'
       sex: 'man',           // 'man' | 'woman' | 'nonbinary'
       currentAge: 27,       // years old today (standard default: 27)
       sinceAge: 18,         // age went vegetarian/vegan
@@ -2544,6 +2637,1279 @@
       igThemeIndex: 0,      // 0..4 (5 distinct visual carousel themes)
       sessionStartMs: performance.now()
     };
+
+    const I18N = {
+      en: {
+        pageTitle: 'since i went. Vegan & Vegetarian Impact Calculator',
+        titleMain: 'since i went.',
+        titleSub: 'scroll to draw your line',
+        scrollHint: 'scroll ↓',
+        birth: 'birth',
+        today: 'today',
+        progDots: [
+          '00 · since i went',
+          '01 · who i am',
+          '02 · the turning point',
+          '03 · up to today',
+          '04 · the rest of my life',
+          '05 · everything i spare'
+        ],
+        chapLinks: ['01 who i am', '02 the turning point', '03 up to today', '04 the rest of my life'],
+        colophonTagline: 'sinceiwent.org · every year counts',
+        s1Kicker: 'who i am',
+        s1Prefix: 'I am',
+        sexBtn: { man: 'a man', woman: 'a woman', nonbinary: 'non-binary' },
+        s1Dot: '.',
+        s1TodayPrefix: 'Today I am',
+        s1AgeSuffix: 'years old.',
+        s1Note: 'type your age or click − / + · scroll to continue',
+        s2Kicker: 'the turning point',
+        s2Prefix: () => 'Since I went',
+        dietBtn: () => ({ vegetarian: 'vegetarian', vegan: 'vegan' }),
+        s2PostDiet: '',
+        s2MeatPrefix: 'Since I',
+        s2MeatStrong: () => 'stayed a meat eater',
+        s2AgePrefix: 'at the age of',
+        s2AgeSuffix: '.',
+        s2Note: (y) => `${y} ${y === 1 ? 'year' : 'years'} on this path so far`,
+        s2NoteMeat: (y, sAge, cAge) => `${y} years since age ${sAge} · ${cAge} years as a meat eater so far`,
+        s3Kicker: 'up to today',
+        s3Live: 'live',
+        unitTonnes: 'tonnes',
+        unitLitres: 'litres',
+        s3Lead: (y, dietLabel) => `In the <strong id="soFarYearsText">${y} ${y === 1 ? 'year' : 'years'}</strong> since I went <span id="soFarDietText">${dietLabel}</span>, this is what I've spared:<sup class="lead-star">*</sup>`,
+        s3LeadMeat: (cAge) => `So far in my life (<strong id="soFarYearsText">${cAge} years</strong> as a meat eater), this is what I've consumed:<sup class="lead-star">*</sup>`,
+        s3Labels: {
+          spared: [
+            "Land animals I've spared",
+            "Fishes & marine lives I've spared",
+            "CO₂e emissions I've prevented",
+            "Forest & grazing land I've spared",
+            "Animal feed I've saved",
+            "Freshwater I've saved"
+          ],
+          meat: [
+            "Land animals I've consumed",
+            "Fishes & marine lives I've consumed",
+            "CO₂e emissions I've caused",
+            "Forest & grazing land I've used",
+            "Animal feed I've used",
+            "Freshwater I've used"
+          ]
+        },
+        s3Subs: {
+          spared: (soFar, perDay, s3Rate, daysSea) => [
+            `${soFar.chickens.toLocaleString()} chickens · ${soFar.burgers.toLocaleString()} beef burgers · ${(soFar.porkMeals + soFar.lambMeals).toLocaleString()} pork & lamb meals`,
+            `${soFar.finfish.toLocaleString()} finfish · ${soFar.shellfish.toLocaleString()} shellfish (+1 every ${daysSea} days)`,
+            `+${perDay(s3Rate.co2Tonnes * 1000)} kg CO₂e saved every day`,
+            `${(soFar.landM2 / 10000).toFixed(2)} hectares (+${perDay(s3Rate.landM2)} m² spared/day)`,
+            `+${perDay(s3Rate.grainKg)} kg of animal feed saved every day`,
+            `+${Math.round(soFar.waterPerSec * 86400).toLocaleString()} L/day (+${soFar.waterPerSec.toFixed(3)} L every second)`
+          ],
+          meat: (soFar, perDay, s3Rate) => [
+            `${soFar.chickens.toLocaleString()} chickens · ${soFar.burgers.toLocaleString()} beef burgers · ${(soFar.porkMeals + soFar.lambMeals).toLocaleString()} pork & lamb meals eaten`,
+            `${soFar.finfish.toLocaleString()} finfish · ${soFar.shellfish.toLocaleString()} shellfish consumed`,
+            `+${perDay(s3Rate.co2Tonnes * 1000)} kg CO₂e emitted every day`,
+            `${(soFar.landM2 / 10000).toFixed(2)} hectares occupied for grazing & feed`,
+            `+${perDay(s3Rate.grainKg)} kg of animal feed used every day`,
+            `+${Math.round(soFar.waterPerSec * 86400).toLocaleString()} L/day (+${soFar.waterPerSec.toFixed(3)} L every second)`
+          ]
+        },
+        shareCarousel: 'Share Carousel',
+        copySoFar: 'Copy my stats',
+        copyLife: 'Copy lifetime stats',
+        copied: '✓ Copied to clipboard',
+        s3SourceNote: '* Based on University of Oxford and UN FAO data · <a href="#sources" data-jump="0.985">sources</a>',
+        s4Kicker: 'the rest of my life',
+        s4KickerSub: (hover) => `· ${hover ? 'hover' : 'tap'} any photo to see the other side`,
+        s4KickerSubMeat: (hover) => `· ${hover ? 'hover' : 'tap'} a photo for the facts`,
+        s4LeadPrefix: 'Across my full life (',
+        s4Years: (y) => `${y} years`,
+        s4FromAge: (age) => `from age <span id="lifetimeSinceAgeText">${age}</span>`,
+        s4FromBirth: 'from birth',
+        s4LeadTo: 'to',
+        s4LeadClose: '),',
+        s4VerbSpared: 'this is what I will spare:',
+        s4VerbMeat: 'this is what I will cause:',
+        realityBadge: 'the reality',
+        s4Facts: [
+          'Over 80 billion land animals are slaughtered for food every year.',
+          'Over a trillion wild fish are caught every year.',
+          'Livestock emits more greenhouse gas than all planes and ships combined.',
+          'Cattle ranching drives about 80% of Amazon deforestation.',
+          'It takes about 25 kg of feed to produce 1 kg of beef.',
+          '1 kg of beef takes 15,415 litres of water to produce.'
+        ],
+        s4Labels: {
+          spared: [
+            'Land animals I will spare',
+            'Marine animals I will spare',
+            'Lifetime CO₂e I will prevent',
+            'Lifetime habitat I will spare',
+            'Lifetime animal feed I will save',
+            'Lifetime freshwater I will save'
+          ],
+          meat: [
+            'Land animals I will consume',
+            'Marine animals I will consume',
+            'Lifetime CO₂e I will cause',
+            'Lifetime habitat I will occupy',
+            'Lifetime animal feed I will use',
+            'Lifetime freshwater I will use'
+          ]
+        },
+        s4Subs: {
+          spared: (life) => [
+            `${life.chickens.toLocaleString()} chickens · ${life.burgers.toLocaleString()} beef burgers · ${(life.porkMeals + life.lambMeals).toLocaleString()} pork & lamb meals`,
+            `${life.finfish.toLocaleString()} finfish · ${life.shellfish.toLocaleString()} shellfish`,
+            `Equal to ${Math.round(life.co2 / 0.9)} transatlantic flights`,
+            `${(life.landM2 / 10000).toFixed(1)} hectares returned to nature`,
+            `${(life.grainKg / 1000).toFixed(1)} tonnes of animal feed`,
+            `${(life.waterLitres / 2500000).toFixed(1)} Olympic swimming pools`
+          ],
+          meat: (life) => [
+            `${life.chickens.toLocaleString()} chickens · ${life.burgers.toLocaleString()} beef burgers · ${(life.porkMeals + life.lambMeals).toLocaleString()} pork & lamb meals`,
+            `${life.finfish.toLocaleString()} finfish · ${life.shellfish.toLocaleString()} shellfish consumed`,
+            `Equal to ${Math.round(life.co2 / 0.9)} transatlantic flights emitted`,
+            `${(life.landM2 / 10000).toFixed(1)} hectares cleared for grazing & feed`,
+            `${(life.grainKg / 1000).toFixed(1)} tonnes of animal feed`,
+            `${(life.waterLitres / 2500000).toFixed(1)} Olympic swimming pools used`
+          ]
+        },
+        veganBtn: {
+          meatReset: '← Switch back to my vegetarian / vegan path',
+          meatDelta: (a, c) => `Switching back spares ${a} land animals & ${c} tonnes CO₂e`,
+          asVegan: '✓ Viewing as vegan (click to compare vegetarian)',
+          asVeganDelta: (a, c) => `Vegan spares +${a} more land animals & +${c} t CO₂e than vegetarian`,
+          previewVegan: '✓ Showing what this looks like as a vegan (click to reset)',
+          previewDelta: (a, c) => `+${a} additional land animals & +${c} tonnes CO₂e spared as vegan`,
+          askVegan: '→ What would this look like if I was vegan?',
+          askDelta: (a, c) => `Going vegan spares +${a} more animals & +${c} tonnes CO₂e over my life`
+        },
+        s5HeadingSpared: 'Everything I spare',
+        s5HeadingMeat: "If I'd stayed a meat eater",
+        modeBtns: { mine: 'My Path', vegan: 'See as Vegan', meat: 'See as a Meat Eater' },
+        sexNoun: { man: 'Man', woman: 'Woman', nonbinary: 'Non-binary' },
+        dietCap: () => ({ vegetarian: 'Vegetarian', vegan: 'Vegan' }),
+        s5SummarySpared: (sexL, cAge, dL, sAge, ySoFar, yLife) =>
+          `${sexL} · Age ${cAge} · ${dL} since ${sAge} (${ySoFar} yrs so far · ${yLife} yrs lifetime)`,
+        s5SummaryMeat: (sexL, cAge, exp) =>
+          `${sexL} · Age ${cAge} · Standard Meat Diet from birth to ${exp} yrs`,
+        s5Facts: [
+          '74% of farmed land animals live in factory farms.',
+          '4.9 million km² of seabed is bottom-trawled every year.',
+          'Vegan diets cause a quarter of the emissions of high-meat diets.',
+          'A plant-based world would free 3.1 billion hectares of farmland.',
+          "36% of the world's crop calories go to animal feed.",
+          'Manure and fertiliser runoff from farms creates ocean dead zones.'
+        ],
+        s5PhotoLabels: {
+          spared: ['Land Animals I Spare', 'Marine Lives I Spare', 'CO₂e I Prevent', 'Habitat I Spare', 'Animal Feed I Save', 'Freshwater I Save'],
+          meat: ['Land Animals Consumed', 'Marine Lives Consumed', 'CO₂e Emitted', 'Habitat Occupied', 'Animal Feed Used', 'Freshwater Used']
+        },
+        col1TitleSpared: 'Animals & meals spared · so far / lifetime',
+        col1TitleMeat: 'Animals & meals eaten · so far / lifetime',
+        col2TitleSpared: 'Carbon, land & water saved · so far / lifetime',
+        col2TitleMeat: 'Carbon, land & water used · so far / lifetime',
+        sourcesTitle: 'Sources',
+        tableRows1: [
+          'Chickens & poultry',
+          'Beef burgers & cattle cuts',
+          'Pork chops, bacon & pigs',
+          'Lamb & sheep cuts',
+          'Wild & farmed finfish',
+          'Shellfish & crustaceans',
+          'Total animals & meat meals'
+        ],
+        tableVals1: (sf, lf, beefLbs) => [
+          `${sf.chickens.toLocaleString()} / ${lf.chickens.toLocaleString()} birds (${(lf.chickenMeals / 1000).toFixed(1)}k meals)`,
+          `${sf.burgers.toLocaleString()} / ${lf.burgers.toLocaleString()} burgers (${beefLbs.toLocaleString()} lbs beef)`,
+          `${sf.porkMeals.toLocaleString()} / ${lf.porkMeals.toLocaleString()} meals (${lf.pigs} whole pigs)`,
+          `${sf.lambMeals.toLocaleString()} / ${lf.lambMeals.toLocaleString()} meals (${lf.sheep} sheep/lambs)`,
+          `${sf.finfish.toLocaleString()} / ${lf.finfish.toLocaleString()} fish`,
+          `${sf.shellfish.toLocaleString()} / ${lf.shellfish.toLocaleString()} shellfish`,
+          `<strong>${sf.totalAnimals.toLocaleString()} / ${lf.totalAnimals.toLocaleString()} lives (${(lf.totalMeatMeals / 1000).toFixed(1)}k meals)</strong>`
+        ],
+        tableRows2: [
+          'Greenhouse gas (CO₂e)',
+          'Forest & grazing land',
+          'Animal feed',
+          'Freshwater footprint',
+          'Annual land & CO₂e rate',
+          'Target lifespan horizon'
+        ],
+        yrSuffix: 'yr',
+        editableYears: (exp) => `${exp} years (editable)`,
+        sourcesItems: [
+          'University of Oxford: <a href="https://ora.ox.ac.uk/objects/uuid:b0b53649-5e93-4415-bf07-6b0b1227172f" target="_blank" rel="noopener">Poore &amp; Nemecek (2018)</a>, <em>Science</em>. The environmental impact of food, from 38,700 farms in 119 countries.',
+          'University of Oxford: <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10365988/" target="_blank" rel="noopener">Scarborough et al. (2023)</a>, <em>Nature Food</em>. The diets of 55,504 people. Used for CO₂e and land, against a typical meat eater (between the study\'s medium and high meat eaters).',
+          '<a href="https://ourworldindata.org/meat-production" target="_blank" rel="noopener">UN FAO, via Our World in Data</a>. How many animals are slaughtered each year.',
+          '<a href="https://ourworldindata.org/fish-and-overfishing" target="_blank" rel="noopener">UN FAO, via Our World in Data</a>. Wild-caught and farmed fish.',
+          '<a href="https://doi.org/10.1007/s10021-011-9517-8" target="_blank" rel="noopener">Mekonnen &amp; Hoekstra (2012)</a>, <em>Ecosystems</em>. The water footprint of farm animal products.',
+          '<a href="https://ourworldindata.org/grapher/feed-required-to-produce-one-kilogram-of-meat-or-dairy-product" target="_blank" rel="noopener">Alexander et al. (2016), via Our World in Data</a>. Feed needed per kilo of meat, eggs and milk.',
+          '<a href="https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/lifeexpectancies/bulletins/nationallifetablesunitedkingdom/2017to2019" target="_blank" rel="noopener">Office for National Statistics</a>. UK life expectancy, 2017 to 2019.'
+        ],
+        helpMeChange: 'help me change',
+        resModalSub: 'Free places to start.',
+        resCats: ['Try it', 'Eat', 'Why'],
+        resDescs: [
+          'Free 22-day challenge with a mentor and dietitians.',
+          'Free 31-day pledge with daily emails and recipes.',
+          'Vegan places to eat near you. Use the vegan filter.',
+          'How to eat well on plants, from B12 to iron.',
+          'Vegan chocolate, checked for child labour.',
+          'Eleven minutes inside the farms most food comes from.',
+          'The full documentary, free to watch.'
+        ],
+        igStudioTitle: 'Share Your Impact',
+        igFormatLabel: 'Format',
+        igColorLabel: 'Color',
+        igTabs: ['01. Lifeline', '02. So Far', '03. Lifetime', '04. Receipt'],
+        igRatios: ['Stories (9:16)', 'Post (4:5)', 'Square (1:1)', 'Landscape (16:9)'],
+        igDownloadOne: '↓ Download Slide',
+        igDownloadAll: '↓ Download All 4',
+        igShareBtn: 'Share'
+      },
+
+      fr: {
+        pageTitle: 'depuis mon choix. Calculateur d’impact végétarien et végane',
+        titleMain: 'depuis mon choix.',
+        titleSub: 'faites défiler pour tracer votre ligne',
+        scrollHint: 'défiler ↓',
+        birth: 'naissance',
+        today: 'aujourd’hui',
+        progDots: [
+          '00 · depuis mon choix',
+          '01 · qui je suis',
+          '02 · le tournant',
+          '03 · jusqu’à aujourd’hui',
+          '04 · le reste de ma vie',
+          '05 · tout ce que j’épargne'
+        ],
+        chapLinks: ['01 qui je suis', '02 le tournant', '03 jusqu’à aujourd’hui', '04 le reste de ma vie'],
+        colophonTagline: 'sinceiwent.org · chaque année compte',
+        s1Kicker: 'qui je suis',
+        s1Prefix: 'Je suis',
+        sexBtn: { man: 'un homme', woman: 'une femme', nonbinary: 'non-binaire' },
+        s1Dot: '.',
+        s1TodayPrefix: 'Aujourd’hui, j’ai',
+        s1AgeSuffix: 'ans.',
+        s1Note: 'entrez votre âge ou cliquez sur − / + · défilez pour continuer',
+        s2Kicker: 'le tournant',
+        s2Prefix: (sex) => sex === 'woman' ? 'Depuis que je suis devenue' : (sex === 'nonbinary' ? 'Depuis que je suis devenu·e' : 'Depuis que je suis devenu'),
+        dietBtn: (sex) => ({
+          vegetarian: sex === 'woman' ? 'végétarienne' : (sex === 'nonbinary' ? 'végétarien·ne' : 'végétarien'),
+          vegan: 'végane'
+        }),
+        s2PostDiet: '',
+        s2MeatPrefix: 'Depuis que je suis',
+        s2MeatStrong: (sex) => sex === 'woman' ? 'restée omnivore' : (sex === 'nonbinary' ? 'resté·e omnivore' : 'resté omnivore'),
+        s2AgePrefix: 'à l’âge de',
+        s2AgeSuffix: ' ans.',
+        s2Note: (y) => `${y} ${y <= 1 ? 'an' : 'ans'} sur ce chemin jusqu’ici`,
+        s2NoteMeat: (y, sAge, cAge) => `${y} ans depuis mes ${sAge} ans · ${cAge} ans en tant qu’omnivore`,
+        s3Kicker: 'jusqu’à aujourd’hui',
+        s3Live: 'en direct',
+        unitTonnes: 'tonnes',
+        unitLitres: 'litres',
+        s3Lead: (y, dietLabel) => `En <strong id="soFarYearsText">${y} ${y <= 1 ? 'an' : 'ans'}</strong> en tant que <span id="soFarDietText">${dietLabel}</span>, voici ce que j’ai épargné :<sup class="lead-star">*</sup>`,
+        s3LeadMeat: (cAge) => `Jusqu’ici dans ma vie (<strong id="soFarYearsText">${cAge} ans</strong> comme omnivore), voici ce que j’ai consommé :<sup class="lead-star">*</sup>`,
+        s3Labels: {
+          spared: [
+            'Animaux terrestres épargnés',
+            'Poissons et vies marines épargnés',
+            'Émissions de CO₂e évitées',
+            'Forêts et pâturages préservés',
+            'Fourrage et céréales économisés',
+            'Eau douce économisée'
+          ],
+          meat: [
+            'Animaux terrestres consommés',
+            'Poissons et vies marines consommés',
+            'Émissions de CO₂e générées',
+            'Forêts et pâturages occupés',
+            'Fourrage et céréales utilisés',
+            'Eau douce consommée'
+          ]
+        },
+        s3Subs: {
+          spared: (soFar, perDay, s3Rate, daysSea) => [
+            `${soFar.chickens.toLocaleString()} poulets · ${soFar.burgers.toLocaleString()} burgers de bœuf · ${(soFar.porkMeals + soFar.lambMeals).toLocaleString()} repas de porc et d’agneau`,
+            `${soFar.finfish.toLocaleString()} poissons · ${soFar.shellfish.toLocaleString()} crustacés (+1 tous les ${daysSea} jours)`,
+            `+${perDay(s3Rate.co2Tonnes * 1000)} kg de CO₂e évités chaque jour`,
+            `${(soFar.landM2 / 10000).toFixed(2)} hectares (+${perDay(s3Rate.landM2)} m² préservés/jour)`,
+            `+${perDay(s3Rate.grainKg)} kg de fourrage économisés chaque jour`,
+            `+${Math.round(soFar.waterPerSec * 86400).toLocaleString()} L/jour (+${soFar.waterPerSec.toFixed(3)} L par seconde)`
+          ],
+          meat: (soFar, perDay, s3Rate) => [
+            `${soFar.chickens.toLocaleString()} poulets · ${soFar.burgers.toLocaleString()} burgers de bœuf · ${(soFar.porkMeals + soFar.lambMeals).toLocaleString()} repas de porc et d’agneau`,
+            `${soFar.finfish.toLocaleString()} poissons · ${soFar.shellfish.toLocaleString()} crustacés consommés`,
+            `+${perDay(s3Rate.co2Tonnes * 1000)} kg de CO₂e émis chaque jour`,
+            `${(soFar.landM2 / 10000).toFixed(2)} hectares occupés pour le pâturage`,
+            `+${perDay(s3Rate.grainKg)} kg de fourrage utilisés chaque jour`,
+            `+${Math.round(soFar.waterPerSec * 86400).toLocaleString()} L/jour (+${soFar.waterPerSec.toFixed(3)} L par seconde)`
+          ]
+        },
+        shareCarousel: 'Partager le carrousel',
+        copySoFar: 'Copier mes chiffres',
+        copyLife: 'Copier le bilan à vie',
+        copied: '✓ Copié dans le presse-papiers',
+        s3SourceNote: '* D’après les études de l’Université d’Oxford et de la FAO (ONU) · <a href="#sources" data-jump="0.985">sources</a>',
+        s4Kicker: 'le reste de ma vie',
+        s4KickerSub: (hover) => `· ${hover ? 'survolez' : 'touchez'} une photo pour voir l’autre côté`,
+        s4KickerSubMeat: (hover) => `· ${hover ? 'survolez' : 'touchez'} une photo pour voir les faits`,
+        s4LeadPrefix: 'Sur toute ma vie (',
+        s4Years: (y) => `${y} ans`,
+        s4FromAge: (age) => `de <span id="lifetimeSinceAgeText">${age}</span> ans`,
+        s4FromBirth: 'depuis la naissance',
+        s4LeadTo: 'jusqu’à',
+        s4LeadClose: ' ans),',
+        s4VerbSpared: 'voici ce que j’épargnerai :',
+        s4VerbMeat: 'voici ce que je causerai :',
+        realityBadge: 'la réalité',
+        s4Facts: [
+          'Plus de 80 milliards d’animaux terrestres sont abattus pour l’alimentation chaque année.',
+          'Plus de mille milliards de poissons sauvages sont pêchés chaque année.',
+          'L’élevage émet plus de gaz à effet de serre que tous les avions et navires réunis.',
+          'L’élevage bovin est responsable d’environ 80 % de la déforestation en Amazonie.',
+          'Il faut environ 25 kg de fourrage pour produire 1 kg de bœuf.',
+          'Produire 1 kg de bœuf nécessite 15 415 litres d’eau.'
+        ],
+        s4Labels: {
+          spared: [
+            'Animaux terrestres que j’épargnerai',
+            'Animaux marins que j’épargnerai',
+            'CO₂e évité sur toute ma vie',
+            'Habitat naturel que je préserverai',
+            'Fourrage économisé sur ma vie',
+            'Eau douce économisée sur ma vie'
+          ],
+          meat: [
+            'Animaux terrestres que je consommerai',
+            'Animaux marins que je consommerai',
+            'CO₂e émis sur toute ma vie',
+            'Habitat naturel que j’occuperai',
+            'Fourrage utilisé sur ma vie',
+            'Eau douce utilisée sur ma vie'
+          ]
+        },
+        s4Subs: {
+          spared: (life) => [
+            `${life.chickens.toLocaleString()} poulets · ${life.burgers.toLocaleString()} burgers de bœuf · ${(life.porkMeals + life.lambMeals).toLocaleString()} repas de porc et d’agneau`,
+            `${life.finfish.toLocaleString()} poissons · ${life.shellfish.toLocaleString()} crustacés`,
+            `Équivalent à ${Math.round(life.co2 / 0.9)} vols transatlantiques`,
+            `${(life.landM2 / 10000).toFixed(1)} hectares rendus à la nature`,
+            `${(life.grainKg / 1000).toFixed(1)} tonnes de fourrage`,
+            `${(life.waterLitres / 2500000).toFixed(1)} piscines olympiques`
+          ],
+          meat: (life) => [
+            `${life.chickens.toLocaleString()} poulets · ${life.burgers.toLocaleString()} burgers de bœuf · ${(life.porkMeals + life.lambMeals).toLocaleString()} repas de porc et d’agneau`,
+            `${life.finfish.toLocaleString()} poissons · ${life.shellfish.toLocaleString()} crustacés consommés`,
+            `Équivalent à ${Math.round(life.co2 / 0.9)} vols transatlantiques`,
+            `${(life.landM2 / 10000).toFixed(1)} hectares défrichés pour l’élevage`,
+            `${(life.grainKg / 1000).toFixed(1)} tonnes de fourrage`,
+            `${(life.waterLitres / 2500000).toFixed(1)} piscines olympiques utilisées`
+          ]
+        },
+        veganBtn: {
+          meatReset: '← Revenir à mon parcours végétarien / végane',
+          meatDelta: (a, c) => `Y revenir épargne ${a} animaux terrestres et ${c} tonnes de CO₂e`,
+          asVegan: '✓ Affichage en végane (cliquer pour comparer au végétarien)',
+          asVeganDelta: (a, c) => `Le choix végane épargne +${a} animaux et +${c} t de CO₂e de plus`,
+          previewVegan: '✓ Aperçu en tant que végane (cliquer pour réinitialiser)',
+          previewDelta: (a, c) => `+${a} animaux terrestres et +${c} tonnes de CO₂e épargnés en plus`,
+          askVegan: '→ Et si j’étais végane ?',
+          askDelta: (a, c) => `Devenir végane épargne +${a} animaux et +${c} tonnes de CO₂e sur ma vie`
+        },
+        s5HeadingSpared: 'Tout ce que j’épargne',
+        s5HeadingMeat: 'Si j’étais resté·e omnivore',
+        modeBtns: { mine: 'Mon parcours', vegan: 'Voir en végane', meat: 'Voir en omnivore' },
+        sexNoun: { man: 'Homme', woman: 'Femme', nonbinary: 'Non-binaire' },
+        dietCap: (sex) => ({
+          vegetarian: sex === 'woman' ? 'Végétarienne' : (sex === 'nonbinary' ? 'Végétarien·ne' : 'Végétarien'),
+          vegan: 'Végane'
+        }),
+        s5SummarySpared: (sexL, cAge, dL, sAge, ySoFar, yLife) =>
+          `${sexL} · ${cAge} ans · ${dL} depuis ${sAge} ans (${ySoFar} ans jusqu’ici · ${yLife} ans à vie)`,
+        s5SummaryMeat: (sexL, cAge, exp) =>
+          `${sexL} · ${cAge} ans · Régime omnivore de la naissance à ${exp} ans`,
+        s5Facts: [
+          '74 % des animaux terrestres d’élevage vivent en élevage intensif.',
+          '4,9 millions de km² de fonds marins sont chalutés chaque année.',
+          'Une alimentation végane émet quatre fois moins qu’un régime riche en viande.',
+          'Un monde végétal libérerait 3,1 milliards d’hectares de terres agricoles.',
+          '36 % des calories agricoles mondiales servent à nourrir le bétail.',
+          'Le ruissellement des élevages crée des zones mortes dans les océans.'
+        ],
+        s5PhotoLabels: {
+          spared: ['Animaux terrestres épargnés', 'Vies marines épargnées', 'CO₂e évité', 'Habitat préservé', 'Fourrage économisé', 'Eau douce économisée'],
+          meat: ['Animaux terrestres consommés', 'Vies marines consommées', 'CO₂e émis', 'Habitat occupé', 'Fourrage utilisé', 'Eau douce utilisée']
+        },
+        col1TitleSpared: 'Animaux et repas épargnés · jusqu’ici / à vie',
+        col1TitleMeat: 'Animaux et repas consommés · jusqu’ici / à vie',
+        col2TitleSpared: 'Carbone, terres et eau économisés · jusqu’ici / à vie',
+        col2TitleMeat: 'Carbone, terres et eau utilisés · jusqu’ici / à vie',
+        sourcesTitle: 'Sources',
+        tableRows1: [
+          'Poulets et volailles',
+          'Burgers de bœuf et pièces bovines',
+          'Côtes de porc, bacon et cochons',
+          'Pièces d’agneau et de mouton',
+          'Poissons sauvages et d’élevage',
+          'Crustacés et coquillages',
+          'Total des vies et repas carnés'
+        ],
+        tableVals1: (sf, lf, beefLbs) => [
+          `${sf.chickens.toLocaleString()} / ${lf.chickens.toLocaleString()} oiseaux (${(lf.chickenMeals / 1000).toFixed(1)}k repas)`,
+          `${sf.burgers.toLocaleString()} / ${lf.burgers.toLocaleString()} burgers (${Math.round(beefLbs * 0.4536).toLocaleString()} kg de bœuf)`,
+          `${sf.porkMeals.toLocaleString()} / ${lf.porkMeals.toLocaleString()} repas (${lf.pigs} cochons entiers)`,
+          `${sf.lambMeals.toLocaleString()} / ${lf.lambMeals.toLocaleString()} repas (${lf.sheep} moutons/agneaux)`,
+          `${sf.finfish.toLocaleString()} / ${lf.finfish.toLocaleString()} poissons`,
+          `${sf.shellfish.toLocaleString()} / ${lf.shellfish.toLocaleString()} crustacés`,
+          `<strong>${sf.totalAnimals.toLocaleString()} / ${lf.totalAnimals.toLocaleString()} vies (${(lf.totalMeatMeals / 1000).toFixed(1)}k repas)</strong>`
+        ],
+        tableRows2: [
+          'Gaz à effet de serre (CO₂e)',
+          'Forêts et pâturages',
+          'Fourrage et céréales',
+          'Empreinte en eau douce',
+          'Rythme annuel (terres et CO₂e)',
+          'Espérance de vie cible'
+        ],
+        yrSuffix: 'an',
+        editableYears: (exp) => `${exp} ans (modifiable)`,
+        sourcesItems: [
+          'Université d’Oxford : <a href="https://ora.ox.ac.uk/objects/uuid:b0b53649-5e93-4415-bf07-6b0b1227172f" target="_blank" rel="noopener">Poore &amp; Nemecek (2018)</a>, <em>Science</em>. Impact environnemental de l’alimentation sur 38 700 fermes dans 119 pays.',
+          'Université d’Oxford : <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10365988/" target="_blank" rel="noopener">Scarborough et al. (2023)</a>, <em>Nature Food</em>. Régimes alimentaires de 55 504 personnes (CO₂e et usage des sols).',
+          '<a href="https://ourworldindata.org/meat-production" target="_blank" rel="noopener">FAO (ONU), via Our World in Data</a>. Nombre d’animaux abattus chaque année.',
+          '<a href="https://ourworldindata.org/fish-and-overfishing" target="_blank" rel="noopener">FAO (ONU), via Our World in Data</a>. Poissons sauvages et d’aquaculture.',
+          '<a href="https://doi.org/10.1007/s10021-011-9517-8" target="_blank" rel="noopener">Mekonnen &amp; Hoekstra (2012)</a>, <em>Ecosystems</em>. Empreinte hydrique des produits d’origine animale.',
+          '<a href="https://ourworldindata.org/grapher/feed-required-to-produce-one-kilogram-of-meat-or-dairy-product" target="_blank" rel="noopener">Alexander et al. (2016), via Our World in Data</a>. Fourrage requis par kilo de viande, d’œufs et de lait.',
+          '<a href="https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/lifeexpectancies/bulletins/nationallifetablesunitedkingdom/2017to2019" target="_blank" rel="noopener">Office for National Statistics</a>. Tables d’espérance de vie, 2017 à 2019.'
+        ],
+        helpMeChange: 'm’aider à changer',
+        resModalSub: 'Des ressources gratuites pour commencer.',
+        resCats: ['Essayer', 'Se nourrir', 'Comprendre'],
+        resDescs: [
+          'Défi gratuit de 22 jours avec des mentors et des diététiciens.',
+          'Engagement gratuit de 31 jours avec recettes et conseils quotidiens.',
+          'Restaurants véganes et végétariens près de chez vous.',
+          'Bien se nourrir au végétal, de la vitamine B12 au fer.',
+          'Liste de chocolats véganes vérifiés sans travail des enfants.',
+          'Onze minutes au cœur des élevages d’où provient la majorité de la viande.',
+          'Le documentaire complet, en accès libre.'
+        ],
+        igStudioTitle: 'Partager votre impact',
+        igFormatLabel: 'Format',
+        igColorLabel: 'Couleur',
+        igTabs: ['01. Ligne de vie', '02. Jusqu’ici', '03. À vie', '04. Bilan'],
+        igRatios: ['Stories (9:16)', 'Post (4:5)', 'Carré (1:1)', 'Paysage (16:9)'],
+        igDownloadOne: '↓ Télécharger l’image',
+        igDownloadAll: '↓ Télécharger les 4',
+        igShareBtn: 'Partager'
+      },
+
+      es: {
+        pageTitle: 'desde que cambié. Calculadora de impacto vegetariano y vegano',
+        titleMain: 'desde que cambié.',
+        titleSub: 'desplázate para trazar tu línea',
+        scrollHint: 'desplazar ↓',
+        birth: 'nacimiento',
+        today: 'hoy',
+        progDots: [
+          '00 · desde que cambié',
+          '01 · quién soy',
+          '02 · el punto de inflexión',
+          '03 · hasta hoy',
+          '04 · el resto de mi vida',
+          '05 · todo lo que salvo'
+        ],
+        chapLinks: ['01 quién soy', '02 el punto de inflexión', '03 hasta hoy', '04 el resto de mi vida'],
+        colophonTagline: 'sinceiwent.org · cada año cuenta',
+        s1Kicker: 'quién soy',
+        s1Prefix: 'Soy',
+        sexBtn: { man: 'un hombre', woman: 'una mujer', nonbinary: 'no binario' },
+        s1Dot: '.',
+        s1TodayPrefix: 'Hoy tengo',
+        s1AgeSuffix: 'años.',
+        s1Note: 'escribe tu edad o pulsa − / + · desplázate para continuar',
+        s2Kicker: 'el punto de inflexión',
+        s2Prefix: () => 'Desde que me hice',
+        dietBtn: (sex) => ({
+          vegetarian: sex === 'woman' ? 'vegetariana' : (sex === 'nonbinary' ? 'vegetariano/a' : 'vegetariano'),
+          vegan: sex === 'woman' ? 'vegana' : (sex === 'nonbinary' ? 'vegano/a' : 'vegano')
+        }),
+        s2PostDiet: '',
+        s2MeatPrefix: 'Desde que',
+        s2MeatStrong: () => 'seguí comiendo carne',
+        s2AgePrefix: 'a los',
+        s2AgeSuffix: ' años.',
+        s2Note: (y) => `${y} ${y === 1 ? 'año' : 'años'} en este camino hasta hoy`,
+        s2NoteMeat: (y, sAge, cAge) => `${y} años desde los ${sAge} · ${cAge} años comiendo carne hasta hoy`,
+        s3Kicker: 'hasta hoy',
+        s3Live: 'en vivo',
+        unitTonnes: 'toneladas',
+        unitLitres: 'litros',
+        s3Lead: (y, dietLabel) => `En los <strong id="soFarYearsText">${y} ${y === 1 ? 'año' : 'años'}</strong> desde que me hice <span id="soFarDietText">${dietLabel}</span>, esto es lo que he salvado:<sup class="lead-star">*</sup>`,
+        s3LeadMeat: (cAge) => `Hasta ahora en mi vida (<strong id="soFarYearsText">${cAge} años</strong> comiendo carne), esto es lo que he consumido:<sup class="lead-star">*</sup>`,
+        s3Labels: {
+          spared: [
+            'Animales terrestres salvados',
+            'Peces y vidas marinas salvados',
+            'Emisiones de CO₂e evitadas',
+            'Bosques y pastizales preservados',
+            'Alimento animal ahorrado',
+            'Agua dulce ahorrada'
+          ],
+          meat: [
+            'Animales terrestres consumidos',
+            'Peces y vidas marinas consumidos',
+            'Emisiones de CO₂e causadas',
+            'Bosques y pastizales utilizados',
+            'Alimento animal utilizado',
+            'Agua dulce utilizada'
+          ]
+        },
+        s3Subs: {
+          spared: (soFar, perDay, s3Rate, daysSea) => [
+            `${soFar.chickens.toLocaleString()} pollos · ${soFar.burgers.toLocaleString()} hamburguesas de res · ${(soFar.porkMeals + soFar.lambMeals).toLocaleString()} comidas de cerdo y cordero`,
+            `${soFar.finfish.toLocaleString()} peces · ${soFar.shellfish.toLocaleString()} mariscos (+1 cada ${daysSea} días)`,
+            `+${perDay(s3Rate.co2Tonnes * 1000)} kg de CO₂e ahorrados cada día`,
+            `${(soFar.landM2 / 10000).toFixed(2)} hectáreas (+${perDay(s3Rate.landM2)} m² preservados/día)`,
+            `+${perDay(s3Rate.grainKg)} kg de alimento animal ahorrados cada día`,
+            `+${Math.round(soFar.waterPerSec * 86400).toLocaleString()} L/día (+${soFar.waterPerSec.toFixed(3)} L por segundo)`
+          ],
+          meat: (soFar, perDay, s3Rate) => [
+            `${soFar.chickens.toLocaleString()} pollos · ${soFar.burgers.toLocaleString()} hamburguesas de res · ${(soFar.porkMeals + soFar.lambMeals).toLocaleString()} comidas de cerdo y cordero`,
+            `${soFar.finfish.toLocaleString()} peces · ${soFar.shellfish.toLocaleString()} mariscos consumidos`,
+            `+${perDay(s3Rate.co2Tonnes * 1000)} kg de CO₂e emitidos cada día`,
+            `${(soFar.landM2 / 10000).toFixed(2)} hectáreas ocupadas para pastoreo`,
+            `+${perDay(s3Rate.grainKg)} kg de alimento animal usados cada día`,
+            `+${Math.round(soFar.waterPerSec * 86400).toLocaleString()} L/día (+${soFar.waterPerSec.toFixed(3)} L por segundo)`
+          ]
+        },
+        shareCarousel: 'Compartir carrusel',
+        copySoFar: 'Copiar mis datos',
+        copyLife: 'Copiar datos de vida',
+        copied: '✓ Copiado al portapapeles',
+        s3SourceNote: '* Basado en datos de la Universidad de Oxford y la FAO de la ONU · <a href="#sources" data-jump="0.985">fuentes</a>',
+        s4Kicker: 'el resto de mi vida',
+        s4KickerSub: (hover) => `· ${hover ? 'pasa el cursor sobre' : 'toca'} cualquier foto para ver el otro lado`,
+        s4KickerSubMeat: (hover) => `· ${hover ? 'pasa el cursor sobre' : 'toca'} una foto para ver los datos`,
+        s4LeadPrefix: 'A lo largo de toda mi vida (',
+        s4Years: (y) => `${y} años`,
+        s4FromAge: (age) => `desde los <span id="lifetimeSinceAgeText">${age}</span>`,
+        s4FromBirth: 'desde el nacimiento',
+        s4LeadTo: 'hasta los',
+        s4LeadClose: ' años),',
+        s4VerbSpared: 'esto es lo que salvaré:',
+        s4VerbMeat: 'esto es lo que causaré:',
+        realityBadge: 'la realidad',
+        s4Facts: [
+          'Más de 80 000 millones de animales terrestres son sacrificados cada año para alimentación.',
+          'Más de un billón de peces salvajes son capturados cada año.',
+          'La ganadería emite más gases de efecto invernadero que todos los aviones y barcos juntos.',
+          'La ganadería vacuna impulsa cerca del 80 % de la deforestación del Amazonas.',
+          'Se necesitan unos 25 kg de pienso para producir 1 kg de carne de res.',
+          'Producir 1 kg de carne de res requiere 15 415 litros de agua.'
+        ],
+        s4Labels: {
+          spared: [
+            'Animales terrestres que salvaré',
+            'Animales marinos que salvaré',
+            'CO₂e que evitaré en mi vida',
+            'Hábitat natural que preservaré',
+            'Alimento animal que ahorraré',
+            'Agua dulce que ahorraré en mi vida'
+          ],
+          meat: [
+            'Animales terrestres que consumiré',
+            'Animales marinos que consumiré',
+            'CO₂e que causaré en mi vida',
+            'Hábitat natural que ocuparé',
+            'Alimento animal que usaré',
+            'Agua dulce que usaré en mi vida'
+          ]
+        },
+        s4Subs: {
+          spared: (life) => [
+            `${life.chickens.toLocaleString()} pollos · ${life.burgers.toLocaleString()} hamburguesas de res · ${(life.porkMeals + life.lambMeals).toLocaleString()} comidas de cerdo y cordero`,
+            `${life.finfish.toLocaleString()} peces · ${life.shellfish.toLocaleString()} mariscos`,
+            `Equivalente a ${Math.round(life.co2 / 0.9)} vuelos transatlánticos`,
+            `${(life.landM2 / 10000).toFixed(1)} hectáreas devueltas a la naturaleza`,
+            `${(life.grainKg / 1000).toFixed(1)} toneladas de alimento animal`,
+            `${(life.waterLitres / 2500000).toFixed(1)} piscinas olímpicas`
+          ],
+          meat: (life) => [
+            `${life.chickens.toLocaleString()} pollos · ${life.burgers.toLocaleString()} hamburguesas de res · ${(life.porkMeals + life.lambMeals).toLocaleString()} comidas de cerdo y cordero`,
+            `${life.finfish.toLocaleString()} peces · ${life.shellfish.toLocaleString()} mariscos consumidos`,
+            `Equivalente a ${Math.round(life.co2 / 0.9)} vuelos transatlánticos`,
+            `${(life.landM2 / 10000).toFixed(1)} hectáreas taladas para pastoreo`,
+            `${(life.grainKg / 1000).toFixed(1)} toneladas de alimento animal`,
+            `${(life.waterLitres / 2500000).toFixed(1)} piscinas olímpicas utilizadas`
+          ]
+        },
+        veganBtn: {
+          meatReset: '← Volver a mi camino vegetariano / vegano',
+          meatDelta: (a, c) => `Volver salva ${a} animales terrestres y ${c} toneladas de CO₂e`,
+          asVegan: '✓ Viendo como vegano/a (clic para comparar con vegetariano)',
+          asVeganDelta: (a, c) => `Ser vegano/a salva +${a} animales terrestres y +${c} t de CO₂e adicionales`,
+          previewVegan: '✓ Mostrando cómo se ve siendo vegano/a (clic para restablecer)',
+          previewDelta: (a, c) => `+${a} animales terrestres y +${c} toneladas de CO₂e salvados como vegano/a`,
+          askVegan: '→ ¿Cómo se vería esto si fuera vegano/a?',
+          askDelta: (a, c) => `Ser vegano/a salva +${a} animales más y +${c} toneladas de CO₂e en mi vida`
+        },
+        s5HeadingSpared: 'Todo lo que salvo',
+        s5HeadingMeat: 'Si hubiera seguido comiendo carne',
+        modeBtns: { mine: 'Mi camino', vegan: 'Ver como vegano/a', meat: 'Ver como omnívoro/a' },
+        sexNoun: { man: 'Hombre', woman: 'Mujer', nonbinary: 'No binario' },
+        dietCap: (sex) => ({
+          vegetarian: sex === 'woman' ? 'Vegetariana' : (sex === 'nonbinary' ? 'Vegetariano/a' : 'Vegetariano'),
+          vegan: sex === 'woman' ? 'Vegana' : (sex === 'nonbinary' ? 'Vegano/a' : 'Vegano')
+        }),
+        s5SummarySpared: (sexL, cAge, dL, sAge, ySoFar, yLife) =>
+          `${sexL} · ${cAge} años · ${dL} desde los ${sAge} (${ySoFar} años hasta hoy · ${yLife} años de vida)`,
+        s5SummaryMeat: (sexL, cAge, exp) =>
+          `${sexL} · ${cAge} años · Dieta con carne desde el nacimiento hasta los ${exp} años`,
+        s5Facts: [
+          'El 74 % de los animales terrestres de granja viven en granjas industriales.',
+          '4,9 millones de km² de lecho marino son arrastrados cada año.',
+          'Las dietas veganas generan una cuarta parte de las emisiones de las dietas ricas en carne.',
+          'Un mundo basado en plantas liberaría 3100 millones de hectáreas de tierras agrícolas.',
+          'El 36 % de las calorías agrícolas del mundo se destina a alimentar animales.',
+          'La escorrentía de estiércol y fertilizantes crea zonas muertas en los océanos.'
+        ],
+        s5PhotoLabels: {
+          spared: ['Animales terrestres salvados', 'Vidas marinas salvadas', 'CO₂e evitado', 'Hábitat preservado', 'Alimento animal ahorrado', 'Agua dulce ahorrada'],
+          meat: ['Animales terrestres consumidos', 'Vidas marinas consumidas', 'CO₂e emitido', 'Hábitat ocupado', 'Alimento animal usado', 'Agua dulce usada']
+        },
+        col1TitleSpared: 'Animales y comidas salvados · hasta hoy / de por vida',
+        col1TitleMeat: 'Animales y comidas consumidos · hasta hoy / de por vida',
+        col2TitleSpared: 'Carbono, tierra y agua ahorrados · hasta hoy / de por vida',
+        col2TitleMeat: 'Carbono, tierra y agua usados · hasta hoy / de por vida',
+        sourcesTitle: 'Fuentes',
+        tableRows1: [
+          'Pollos y aves de corral',
+          'Hamburguesas y cortes de res',
+          'Chuletas de cerdo, tocino y cerdos',
+          'Cortes de cordero y oveja',
+          'Peces salvajes y de piscifactoría',
+          'Mariscos y crustáceos',
+          'Total de animales y comidas con carne'
+        ],
+        tableVals1: (sf, lf, beefLbs) => [
+          `${sf.chickens.toLocaleString()} / ${lf.chickens.toLocaleString()} aves (${(lf.chickenMeals / 1000).toFixed(1)}k comidas)`,
+          `${sf.burgers.toLocaleString()} / ${lf.burgers.toLocaleString()} hamburguesas (${Math.round(beefLbs * 0.4536).toLocaleString()} kg de res)`,
+          `${sf.porkMeals.toLocaleString()} / ${lf.porkMeals.toLocaleString()} comidas (${lf.pigs} cerdos enteros)`,
+          `${sf.lambMeals.toLocaleString()} / ${lf.lambMeals.toLocaleString()} comidas (${lf.sheep} ovejas/corderos)`,
+          `${sf.finfish.toLocaleString()} / ${lf.finfish.toLocaleString()} peces`,
+          `${sf.shellfish.toLocaleString()} / ${lf.shellfish.toLocaleString()} mariscos`,
+          `<strong>${sf.totalAnimals.toLocaleString()} / ${lf.totalAnimals.toLocaleString()} vidas (${(lf.totalMeatMeals / 1000).toFixed(1)}k comidas)</strong>`
+        ],
+        tableRows2: [
+          'Gases de efecto invernadero (CO₂e)',
+          'Bosques y tierras de pastoreo',
+          'Alimento para animales',
+          'Huella de agua dulce',
+          'Tasa anual de tierra y CO₂e',
+          'Esperanza de vida objetivo'
+        ],
+        yrSuffix: 'año',
+        editableYears: (exp) => `${exp} años (editable)`,
+        sourcesItems: [
+          'Universidad de Oxford: <a href="https://ora.ox.ac.uk/objects/uuid:b0b53649-5e93-4415-bf07-6b0b1227172f" target="_blank" rel="noopener">Poore &amp; Nemecek (2018)</a>, <em>Science</em>. El impacto ambiental de los alimentos en 38 700 granjas de 119 países.',
+          'Universidad de Oxford: <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10365988/" target="_blank" rel="noopener">Scarborough et al. (2023)</a>, <em>Nature Food</em>. Las dietas de 55 504 personas (CO₂e y uso de suelo).',
+          '<a href="https://ourworldindata.org/meat-production" target="_blank" rel="noopener">FAO de la ONU, vía Our World in Data</a>. Cuántos animales son sacrificados cada año.',
+          '<a href="https://ourworldindata.org/fish-and-overfishing" target="_blank" rel="noopener">FAO de la ONU, vía Our World in Data</a>. Peces capturados en libertad y de piscifactoría.',
+          '<a href="https://doi.org/10.1007/s10021-011-9517-8" target="_blank" rel="noopener">Mekonnen &amp; Hoekstra (2012)</a>, <em>Ecosystems</em>. La huella hídrica de los productos animales.',
+          '<a href="https://ourworldindata.org/grapher/feed-required-to-produce-one-kilogram-of-meat-or-dairy-product" target="_blank" rel="noopener">Alexander et al. (2016), vía Our World in Data</a>. Alimento necesario por kilo de carne, huevos y leche.',
+          '<a href="https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/lifeexpectancies/bulletins/nationallifetablesunitedkingdom/2017to2019" target="_blank" rel="noopener">Office for National Statistics</a>. Esperanza de vida en el Reino Unido, 2017 a 2019.'
+        ],
+        helpMeChange: 'ayúdame a cambiar',
+        resModalSub: 'Recursos gratuitos para empezar.',
+        resCats: ['Pruébalo', 'Comer', 'Por qué'],
+        resDescs: [
+          'Reto gratuito de 22 días con mentores y nutricionistas.',
+          'Compromiso gratuito de 31 días con recetas y correos diarios.',
+          'Lugares veganos y vegetarianos cerca de ti.',
+          'Cómo alimentarse bien con plantas, desde la B12 hasta el hierro.',
+          'Lista de chocolate vegano verificado sin trabajo infantil.',
+          'Once minutos dentro de las granjas de donde proviene la mayor parte de la comida.',
+          'El documental completo, gratis para ver.'
+        ],
+        igStudioTitle: 'Comparte tu impacto',
+        igFormatLabel: 'Formato',
+        igColorLabel: 'Color',
+        igTabs: ['01. Línea de vida', '02. Hasta hoy', '03. De por vida', '04. Resumen'],
+        igRatios: ['Stories (9:16)', 'Post (4:5)', 'Cuadrado (1:1)', 'Paisaje (16:9)'],
+        igDownloadOne: '↓ Descargar imagen',
+        igDownloadAll: '↓ Descargar las 4',
+        igShareBtn: 'Compartir'
+      },
+
+      ja: {
+        pageTitle: 'あの日から。ベジタリアン・ヴィーガン影響計算機',
+        titleMain: 'あの日から。',
+        titleSub: 'スクロールして、あなたの軌跡を描く',
+        scrollHint: 'スクロール ↓',
+        birth: '誕生',
+        today: '今日',
+        progDots: [
+          '00 · あの日から',
+          '01 · 私について',
+          '02 · 転機',
+          '03 · 今日まで',
+          '04 · これからの人生',
+          '05 · 私が救うすべて'
+        ],
+        chapLinks: ['01 私について', '02 転機', '03 今日まで', '04 これからの人生'],
+        colophonTagline: 'sinceiwent.org · すべての一年が意味を持つ',
+        s1Kicker: '私について',
+        s1Prefix: '私は',
+        sexBtn: { man: '男性', woman: '女性', nonbinary: 'ノンバイナリー' },
+        s1Dot: 'です。',
+        s1TodayPrefix: '現在の年齢は',
+        s1AgeSuffix: '歳です。',
+        s1Note: '年齢を入力するか − / + をクリック · スクロールして続ける',
+        s2Kicker: '転機',
+        s2Prefix: () => '',
+        dietBtn: () => ({ vegetarian: 'ベジタリアン', vegan: 'ヴィーガン' }),
+        s2PostDiet: 'を選んだのは、',
+        s2MeatPrefix: '肉食を',
+        s2MeatStrong: () => '続けてきた歩み、',
+        s2AgePrefix: '',
+        s2AgeSuffix: ' 歳のとき。',
+        s2Note: (y) => `この道を歩んで ${y} 年`,
+        s2NoteMeat: (y, sAge, cAge) => `${sAge}歳から ${y} 年 · これまでの人生 ${cAge} 年（肉食）`,
+        s3Kicker: '今日まで',
+        s3Live: 'リアルタイム',
+        unitTonnes: 'トン',
+        unitLitres: 'L',
+        s3Lead: (y, dietLabel) => `<span id="soFarDietText">${dietLabel}</span>になってからの <strong id="soFarYearsText">${y} 年間</strong>で、私が救ってきたもの：<sup class="lead-star">*</sup>`,
+        s3LeadMeat: (cAge) => `これまでの人生（肉食として過ごした <strong id="soFarYearsText">${cAge} 年間</strong>）で、私が消費してきたもの：<sup class="lead-star">*</sup>`,
+        s3Labels: {
+          spared: [
+            '救った陸生動物の命',
+            '救った魚・海洋生物の命',
+            '削減した CO₂e 排出量',
+            '守った森林・放牧地',
+            '節約した家畜飼料',
+            '節約した淡水'
+          ],
+          meat: [
+            '消費した陸生動物の命',
+            '消費した魚・海洋生物の命',
+            '排出した CO₂e 量',
+            '使用した森林・放牧地',
+            '消費した家畜飼料',
+            '消費した淡水'
+          ]
+        },
+        s3Subs: {
+          spared: (soFar, perDay, s3Rate, daysSea) => [
+            `鶏 ${soFar.chickens.toLocaleString()}羽 · ビーフバーガー ${soFar.burgers.toLocaleString()}個分 · 豚・羊肉 ${ (soFar.porkMeals + soFar.lambMeals).toLocaleString()}食分`,
+            `魚類 ${soFar.finfish.toLocaleString()}匹 · 甲殻類・貝類 ${soFar.shellfish.toLocaleString()}匹（${daysSea}日に1匹を救う）`,
+            `毎日 +${perDay(s3Rate.co2Tonnes * 1000)} kg の CO₂e を削減`,
+            `${(soFar.landM2 / 10000).toFixed(2)} ヘクタール（毎日 +${perDay(s3Rate.landM2)} m² を保全）`,
+            `毎日 +${perDay(s3Rate.grainKg)} kg の家畜飼料を節約`,
+            `+1日あたり ${Math.round(soFar.waterPerSec * 86400).toLocaleString()} L（毎秒 +${soFar.waterPerSec.toFixed(3)} L）`
+          ],
+          meat: (soFar, perDay, s3Rate) => [
+            `鶏 ${soFar.chickens.toLocaleString()}羽 · ビーフバーガー ${soFar.burgers.toLocaleString()}個分 · 豚・羊肉 ${(soFar.porkMeals + soFar.lambMeals).toLocaleString()}食分`,
+            `魚類 ${soFar.finfish.toLocaleString()}匹 · 甲殻類・貝類 ${soFar.shellfish.toLocaleString()}匹を消費`,
+            `毎日 +${perDay(s3Rate.co2Tonnes * 1000)} kg の CO₂e を排出`,
+            `放牧と飼料栽培に ${(soFar.landM2 / 10000).toFixed(2)} ヘクタールを使用`,
+            `毎日 +${perDay(s3Rate.grainKg)} kg の家畜飼料を消費`,
+            `+1日あたり ${Math.round(soFar.waterPerSec * 86400).toLocaleString()} L（毎秒 +${soFar.waterPerSec.toFixed(3)} L）`
+          ]
+        },
+        shareCarousel: 'スライドを共有',
+        copySoFar: 'これまでの記録をコピー',
+        copyLife: '生涯の記録をコピー',
+        copied: '✓ コピーしました',
+        s3SourceNote: '* オックスフォード大学および国連食糧農業機関（FAO）のデータに基づく · <a href="#sources" data-jump="0.985">出典</a>',
+        s4Kicker: 'これからの人生',
+        s4KickerSub: (hover) => `· 写真を${hover ? 'ホバー' : 'タップ'}すると裏側の現実を表示`,
+        s4KickerSubMeat: (hover) => `· 写真を${hover ? 'ホバー' : 'タップ'}すると事実を表示`,
+        s4LeadPrefix: '生涯を通じて（',
+        s4Years: (y) => `${y} 年間`,
+        s4FromAge: (age) => `、<span id="lifetimeSinceAgeText">${age}</span>歳`,
+        s4FromBirth: '、誕生',
+        s4LeadTo: 'から',
+        s4LeadClose: '歳まで）、',
+        s4VerbSpared: '私が救うことになるすべて：',
+        s4VerbMeat: '私が消費することになるすべて：',
+        realityBadge: '現実',
+        s4Facts: [
+          '毎年800億頭以上の陸生動物が食用のために屠殺されています。',
+          '毎年1兆匹以上の野生の魚が漁獲されています。',
+          '畜産業は、世界中のすべての飛行機と船舶の合計よりも多くの温室効果ガスを排出しています。',
+          'アマゾン熱帯雨林の森林破壊の約80％は牛の放牧が原因です。',
+          '牛肉1 kgを生産するには、約25 kgの飼料が必要です。',
+          '牛肉1 kgを生産するには、15,415リットルの水が必要です。'
+        ],
+        s4Labels: {
+          spared: [
+            '生涯で救う陸生動物の命',
+            '生涯で救う海洋生物の命',
+            '生涯で防ぐ CO₂e 排出量',
+            '生涯で守る野生の生息地',
+            '生涯で節約する家畜飼料',
+            '生涯で節約する淡水'
+          ],
+          meat: [
+            '生涯で消費する陸生動物',
+            '生涯で消費する海洋生物',
+            '生涯で排出する CO₂e 量',
+            '生涯で占有する生息地',
+            '生涯で使用する家畜飼料',
+            '生涯で使用する淡水'
+          ]
+        },
+        s4Subs: {
+          spared: (life) => [
+            `鶏 ${life.chickens.toLocaleString()}羽 · ビーフバーガー ${life.burgers.toLocaleString()}個分 · 豚・羊肉 ${(life.porkMeals + life.lambMeals).toLocaleString()}食分`,
+            `魚類 ${life.finfish.toLocaleString()}匹 · 甲殻類・貝類 ${life.shellfish.toLocaleString()}匹`,
+            `大西洋横断フライト ${Math.round(life.co2 / 0.9)} 回分に相当`,
+            `${(life.landM2 / 10000).toFixed(1)} ヘクタールを自然へ還す`,
+            `家畜飼料 ${(life.grainKg / 1000).toFixed(1)} トン`,
+            `オリンピックプール ${(life.waterLitres / 2500000).toFixed(1)} 杯分`
+          ],
+          meat: (life) => [
+            `鶏 ${life.chickens.toLocaleString()}羽 · ビーフバーガー ${life.burgers.toLocaleString()}個分 · 豚・羊肉 ${(life.porkMeals + life.lambMeals).toLocaleString()}食分`,
+            `魚類 ${life.finfish.toLocaleString()}匹 · 甲殻類・貝類 ${life.shellfish.toLocaleString()}匹を消費`,
+            `大西洋横断フライト ${Math.round(life.co2 / 0.9)} 回分の排出に相当`,
+            `放牧と飼料のために ${(life.landM2 / 10000).toFixed(1)} ヘクタールを開墾`,
+            `家畜飼料 ${(life.grainKg / 1000).toFixed(1)} トン`,
+            `オリンピックプール ${(life.waterLitres / 2500000).toFixed(1)} 杯分を使用`
+          ]
+        },
+        veganBtn: {
+          meatReset: '← ベジタリアン / ヴィーガンの軌跡に戻る',
+          meatDelta: (a, c) => `切り替えることで陸生動物 ${a}頭と CO₂e ${c}トンを救えます`,
+          asVegan: '✓ ヴィーガンとして表示中（クリックでベジタリアンと比較）',
+          asVeganDelta: (a, c) => `ヴィーガンはベジタリアンよりさらに +${a}頭、+${c}トンの CO₂e を救います`,
+          previewVegan: '✓ ヴィーガンの場合の試算を表示中（クリックで戻す）',
+          previewDelta: (a, c) => `ヴィーガンならさらに +${a}頭の陸生動物と +${c}トンの CO₂e を救えます`,
+          askVegan: '→ もしヴィーガンだったらどうなる？',
+          askDelta: (a, c) => `ヴィーガンになると生涯でさらに +${a}頭の動物と +${c}トンの CO₂e を救えます`
+        },
+        s5HeadingSpared: '私が救うすべて',
+        s5HeadingMeat: 'もし肉食を続けていたら',
+        modeBtns: { mine: '私の歩み', vegan: 'ヴィーガンで見る', meat: '肉食者で見る' },
+        sexNoun: { man: '男性', woman: '女性', nonbinary: 'ノンバイナリー' },
+        dietCap: () => ({ vegetarian: 'ベジタリアン', vegan: 'ヴィーガン' }),
+        s5SummarySpared: (sexL, cAge, dL, sAge, ySoFar, yLife) =>
+          `${sexL} · ${cAge}歳 · ${sAge}歳から${dL}（これまで ${ySoFar}年 · 生涯 ${yLife}年）`,
+        s5SummaryMeat: (sexL, cAge, exp) =>
+          `${sexL} · ${cAge}歳 · 誕生から ${exp}歳まで一般的な肉食を続けた場合`,
+        s5Facts: [
+          '飼育されている陸生動物の74％が工場式畜産場で暮らしています。',
+          '毎年490万 km²の海底が底引き網漁で掘り起こされています。',
+          'ヴィーガン食の温室効果ガス排出量は、肉中心の食事のわずか4分の1です。',
+          '植物中心の世界になれば、31億ヘクタールの農地を自然に還せます。',
+          '世界の農作物カロリーの36％が家畜の飼料に使われています。',
+          '畜産場からの糞尿や肥料の流出が、海洋の死の海域（デッドゾーン）を生んでいます。'
+        ],
+        s5PhotoLabels: {
+          spared: ['救う陸生動物', '救う海洋生物', '防ぐ CO₂e', '守る生息地', '節約する家畜飼料', '節約する淡水'],
+          meat: ['消費する陸生動物', '消費する海洋生物', '排出する CO₂e', '占有する生息地', '使用する家畜飼料', '使用する淡水']
+        },
+        col1TitleSpared: '救う動物と食事の数 · 今日まで / 生涯',
+        col1TitleMeat: '消費する動物と食事の数 · 今日まで / 生涯',
+        col2TitleSpared: '削減する炭素・土地・水 · 今日まで / 生涯',
+        col2TitleMeat: '使用する炭素・土地・水 · 今日まで / 生涯',
+        sourcesTitle: '出典・データソース',
+        tableRows1: [
+          '鶏・家禽類',
+          'ビーフバーガー・牛肉カット',
+          'ポークチョップ・ベーコン・豚',
+          'ラム・マトン（羊）',
+          '天然・養殖の魚類',
+          '貝類・甲殻類',
+          '動物と肉料理の合計'
+        ],
+        tableVals1: (sf, lf, beefLbs) => [
+          `${sf.chickens.toLocaleString()} / ${lf.chickens.toLocaleString()} 羽（${(lf.chickenMeals / 1000).toFixed(1)}k 食）`,
+          `${sf.burgers.toLocaleString()} / ${lf.burgers.toLocaleString()} 個（牛肉 ${Math.round(beefLbs * 0.4536).toLocaleString()} kg）`,
+          `${sf.porkMeals.toLocaleString()} / ${lf.porkMeals.toLocaleString()} 食（豚 ${lf.pigs} 頭分）`,
+          `${sf.lambMeals.toLocaleString()} / ${lf.lambMeals.toLocaleString()} 食（羊 ${lf.sheep} 頭分）`,
+          `${sf.finfish.toLocaleString()} / ${lf.finfish.toLocaleString()} 匹`,
+          `${sf.shellfish.toLocaleString()} / ${lf.shellfish.toLocaleString()} 匹`,
+          `<strong>${sf.totalAnimals.toLocaleString()} / ${lf.totalAnimals.toLocaleString()} の命（${(lf.totalMeatMeals / 1000).toFixed(1)}k 食）</strong>`
+        ],
+        tableRows2: [
+          '温室効果ガス (CO₂e)',
+          '森林・放牧地',
+          '家畜飼料',
+          '淡水フットプリント',
+          '年間削減ペース（土地・CO₂e）',
+          '想定寿命（編集可能）'
+        ],
+        yrSuffix: '年',
+        editableYears: (exp) => `${exp} 歳（編集可能）`,
+        sourcesItems: [
+          'オックスフォード大学：<a href="https://ora.ox.ac.uk/objects/uuid:b0b53649-5e93-4415-bf07-6b0b1227172f" target="_blank" rel="noopener">Poore &amp; Nemecek (2018)</a>, <em>Science</em>。119カ国38,700農場の食品環境負荷。',
+          'オックスフォード大学：<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10365988/" target="_blank" rel="noopener">Scarborough et al. (2023)</a>, <em>Nature Food</em>。55,504人の食生活におけるCO₂eと土地利用の比較。',
+          '<a href="https://ourworldindata.org/meat-production" target="_blank" rel="noopener">国連 FAO（Our World in Data 経由）</a>。年間の家畜屠殺数統計。',
+          '<a href="https://ourworldindata.org/fish-and-overfishing" target="_blank" rel="noopener">国連 FAO（Our World in Data 経由）</a>。天然漁獲および養殖魚統計。',
+          '<a href="https://doi.org/10.1007/s10021-011-9517-8" target="_blank" rel="noopener">Mekonnen &amp; Hoekstra (2012)</a>, <em>Ecosystems</em>。畜産物のウォーターフットプリント。',
+          '<a href="https://ourworldindata.org/grapher/feed-required-to-produce-one-kilogram-of-meat-or-dairy-product" target="_blank" rel="noopener">Alexander et al. (2016)</a>。肉・卵・乳製品1kgあたりの必要飼料量。',
+          '<a href="https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/lifeexpectancies/bulletins/nationallifetablesunitedkingdom/2017to2019" target="_blank" rel="noopener">英国国家統計局 (ONS)</a>。平均寿命統計（2017〜2019年）。'
+        ],
+        helpMeChange: '一歩を踏み出すには',
+        resModalSub: '無料で始められるガイドとリソース。',
+        resCats: ['試してみる', '食事と栄養', '知る・観る'],
+        resDescs: [
+          'メンターと管理栄養士がサポートする無料の22日間チャレンジ。',
+          '毎日のレシピとヒントが届く無料の31日間プログラム。',
+          '近くのヴィーガン・ベジタリアン対応レストランを検索。',
+          'ビタミンB12から鉄分まで、植物性中心の栄養ガイド。',
+          '児童労働のないエシカルなヴィーガンチョコレート一覧。',
+          '私たちが普段口にする食肉がどこから来るのかを映す11分間。',
+          '畜産の実態を捉えた長編ドキュメンタリー（無料視聴）。'
+        ],
+        igStudioTitle: 'あなたの軌跡をシェア',
+        igFormatLabel: 'サイズ・比率',
+        igColorLabel: 'カラーテーマ',
+        igTabs: ['01. 軌跡', '02. 今日まで', '03. 生涯', '04. 一覧'],
+        igRatios: ['ストーリーズ (9:16)', '投稿 (4:5)', '正方形 (1:1)', '横長 (16:9)'],
+        igDownloadOne: '↓ このスライドを保存',
+        igDownloadAll: '↓ 4枚すべて保存',
+        igShareBtn: 'シェアする'
+      },
+
+      zh: {
+        pageTitle: '自那日起。素食与纯素影响计算器',
+        titleMain: '自那日起。',
+        titleSub: '向下滚动，描绘你的生命轨迹',
+        scrollHint: '向下滚动 ↓',
+        birth: '出生',
+        today: '今天',
+        progDots: [
+          '00 · 自那日起',
+          '01 · 关于我',
+          '02 · 转折点',
+          '03 · 截至今日',
+          '04 · 余生漫长',
+          '05 · 我所挽救的一切'
+        ],
+        chapLinks: ['01 关于我', '02 转折点', '03 截至今日', '04 余生漫长'],
+        colophonTagline: 'sinceiwent.org · 每一年的选择都算数',
+        s1Kicker: '关于我',
+        s1Prefix: '我是',
+        sexBtn: { man: '男性', woman: '女性', nonbinary: '非二元性别' },
+        s1Dot: '。',
+        s1TodayPrefix: '今年我',
+        s1AgeSuffix: '岁。',
+        s1Note: '输入年龄或点击 − / + · 继续向下滚动',
+        s2Kicker: '转折点',
+        s2Prefix: () => '我开始选择',
+        dietBtn: () => ({ vegetarian: '素食', vegan: '纯素' }),
+        s2PostDiet: '生活，',
+        s2MeatPrefix: '我一直保持',
+        s2MeatStrong: () => '肉食习惯，',
+        s2AgePrefix: '是在',
+        s2AgeSuffix: ' 岁那年。',
+        s2Note: (y) => `在这条路上已走过 ${y} 年`,
+        s2NoteMeat: (y, sAge, cAge) => `自 ${sAge} 岁起已 ${y} 年 · 至今 ${cAge} 年保持肉食`,
+        s3Kicker: '截至今日',
+        s3Live: '实时',
+        unitTonnes: '吨',
+        unitLitres: '升',
+        s3Lead: (y, dietLabel) => `选择<span id="soFarDietText">${dietLabel}</span>以来的 <strong id="soFarYearsText">${y} 年</strong>间，这是我所挽救的一切：<sup class="lead-star">*</sup>`,
+        s3LeadMeat: (cAge) => `在迄今为止的人生中（作为肉食者的 <strong id="soFarYearsText">${cAge} 年</strong>），这是我所消耗的一切：<sup class="lead-star">*</sup>`,
+        s3Labels: {
+          spared: [
+            '挽救的陆生动物生命',
+            '挽救的鱼类与海洋生命',
+            '减少的二氧化碳当量 (CO₂e)',
+            '保护的森林与牧场面积',
+            '节省的动物饲料',
+            '节约的淡水资源'
+          ],
+          meat: [
+            '消耗的陆生动物生命',
+            '消耗的鱼类与海洋生命',
+            '产生的二氧化碳当量 (CO₂e)',
+            '占用的森林与牧场面积',
+            '消耗的动物饲料',
+            '消耗的淡水资源'
+          ]
+        },
+        s3Subs: {
+          spared: (soFar, perDay, s3Rate, daysSea) => [
+            `${soFar.chickens.toLocaleString()} 只鸡 · ${soFar.burgers.toLocaleString()} 个牛肉汉堡 · ${(soFar.porkMeals + soFar.lambMeals).toLocaleString()} 顿猪羊肉餐`,
+            `${soFar.finfish.toLocaleString()} 条鱼类 · ${soFar.shellfish.toLocaleString()} 只虾蟹贝类（每 ${daysSea} 天多挽救 1 只）`,
+            `每天减少 +${perDay(s3Rate.co2Tonnes * 1000)} kg CO₂e 排放`,
+            `${(soFar.landM2 / 10000).toFixed(2)} 公顷（每天多保护 +${perDay(s3Rate.landM2)} m²）`,
+            `每天节省 +${perDay(s3Rate.grainKg)} kg 动物饲料`,
+            `每天节约 +${Math.round(soFar.waterPerSec * 86400).toLocaleString()} 升（每秒 +${soFar.waterPerSec.toFixed(3)} 升）`
+          ],
+          meat: (soFar, perDay, s3Rate) => [
+            `${soFar.chickens.toLocaleString()} 只鸡 · ${soFar.burgers.toLocaleString()} 个牛肉汉堡 · ${(soFar.porkMeals + soFar.lambMeals).toLocaleString()} 顿猪羊肉餐`,
+            `已消耗 ${soFar.finfish.toLocaleString()} 条鱼类 · ${soFar.shellfish.toLocaleString()} 只虾蟹贝类`,
+            `每天产生 +${perDay(s3Rate.co2Tonnes * 1000)} kg CO₂e 排放`,
+            `占用 ${(soFar.landM2 / 10000).toFixed(2)} 公顷森林与牧场`,
+            `每天消耗 +${perDay(s3Rate.grainKg)} kg 动物饲料`,
+            `每天消耗 +${Math.round(soFar.waterPerSec * 86400).toLocaleString()} 升（每秒 +${soFar.waterPerSec.toFixed(3)} 升）`
+          ]
+        },
+        shareCarousel: '生成分享卡片',
+        copySoFar: '复制当前数据',
+        copyLife: '复制一生数据',
+        copied: '✓ 已复制到剪贴板',
+        s3SourceNote: '* 基于牛津大学与联合国粮农组织 (FAO) 数据 · <a href="#sources" data-jump="0.985">数据来源</a>',
+        s4Kicker: '余生漫长',
+        s4KickerSub: (hover) => `· ${hover ? '悬停' : '轻触'}任意照片，查看另一面的现实`,
+        s4KickerSubMeat: (hover) => `· ${hover ? '悬停' : '轻触'}任意照片，查看背后的数据`,
+        s4LeadPrefix: '纵观我的一生（共 ',
+        s4Years: (y) => `${y} 年`,
+        s4FromAge: (age) => `，从 <span id="lifetimeSinceAgeText">${age}</span> 岁`,
+        s4FromBirth: '，从出生',
+        s4LeadTo: '到',
+        s4LeadClose: ' 岁），',
+        s4VerbSpared: '这是我将挽救的一切：',
+        s4VerbMeat: '这是我将消耗的一切：',
+        realityBadge: '真实一面',
+        s4Facts: [
+          '每年有超过 800 亿只陆生动物因人类食用而被屠宰。',
+          '每年有超过一万亿条野生鱼类被捕捞。',
+          '畜牧业排放的温室气体超过全球所有飞机和船只的总和。',
+          '约 80% 的亚马逊雨林砍伐直接源于养牛业。',
+          '生产 1 公斤牛肉大约需要消耗 25 公斤饲料。',
+          '生产 1 公斤牛肉需要消耗 15,415 升淡水。'
+        ],
+        s4Labels: {
+          spared: [
+            '一生将挽救的陆生动物',
+            '一生将挽救的海洋生物',
+            '一生将减少的 CO₂e 排放',
+            '一生将守护的自然栖息地',
+            '一生将节省的动物饲料',
+            '一生将节约的淡水资源'
+          ],
+          meat: [
+            '一生将消耗的陆生动物',
+            '一生将消耗的海洋生物',
+            '一生将产生的 CO₂e 排放',
+            '一生将占用的自然栖息地',
+            '一生将消耗的动物饲料',
+            '一生将消耗的淡水资源'
+          ]
+        },
+        s4Subs: {
+          spared: (life) => [
+            `${life.chickens.toLocaleString()} 只鸡 · ${life.burgers.toLocaleString()} 个牛肉汉堡 · ${(life.porkMeals + life.lambMeals).toLocaleString()} 顿猪羊肉餐`,
+            `${life.finfish.toLocaleString()} 条鱼类 · ${life.shellfish.toLocaleString()} 只虾蟹贝类`,
+            `相当于 ${Math.round(life.co2 / 0.9)} 次跨大西洋航班的排放`,
+            `将 ${(life.landM2 / 10000).toFixed(1)} 公顷土地归还自然`,
+            `${(life.grainKg / 1000).toFixed(1)} 吨动物饲料`,
+            `相当于 ${(life.waterLitres / 2500000).toFixed(1)} 座奥运标准泳池`
+          ],
+          meat: (life) => [
+            `${life.chickens.toLocaleString()} 只鸡 · ${life.burgers.toLocaleString()} 个牛肉汉堡 · ${(life.porkMeals + life.lambMeals).toLocaleString()} 顿猪羊肉餐`,
+            `消耗 ${life.finfish.toLocaleString()} 条鱼类 · ${life.shellfish.toLocaleString()} 只虾蟹贝类`,
+            `相当于 ${Math.round(life.co2 / 0.9)} 次跨大西洋航班的排放`,
+            `为放牧与饲料开垦 ${(life.landM2 / 10000).toFixed(1)} 公顷土地`,
+            `${(life.grainKg / 1000).toFixed(1)} 吨动物饲料`,
+            `消耗 ${(life.waterLitres / 2500000).toFixed(1)} 座奥运标准泳池的水量`
+          ]
+        },
+        veganBtn: {
+          meatReset: '← 切换回我的素食 / 纯素轨迹',
+          meatDelta: (a, c) => `切换回素食可挽救 ${a} 只陆生动物并减少 ${c} 吨 CO₂e`,
+          asVegan: '✓ 当前按纯素显示（点击可与蛋奶素对比）',
+          asVeganDelta: (a, c) => `纯素比蛋奶素在一生中多挽救 +${a} 只动物，多减少 +${c} 吨 CO₂e`,
+          previewVegan: '✓ 正在预览纯素饮食的影响（点击恢复）',
+          previewDelta: (a, c) => `选择纯素可额外多挽救 +${a} 只陆生动物，多减少 +${c} 吨 CO₂e`,
+          askVegan: '→ 如果我选择纯素（Vegan）会怎样？',
+          askDelta: (a, c) => `转为纯素可在我的一生中多挽救 +${a} 只动物，多减少 +${c} 吨 CO₂e`
+        },
+        s5HeadingSpared: '我所挽救的一切',
+        s5HeadingMeat: '如果我一直保持肉食',
+        modeBtns: { mine: '我的轨迹', vegan: '按纯素查看', meat: '按肉食者查看' },
+        sexNoun: { man: '男性', woman: '女性', nonbinary: '非二元性别' },
+        dietCap: () => ({ vegetarian: '素食', vegan: '纯素' }),
+        s5SummarySpared: (sexL, cAge, dL, sAge, ySoFar, yLife) =>
+          `${sexL} · ${cAge} 岁 · ${sAge} 岁起${dL}（至今 ${ySoFar} 年 · 一生 ${yLife} 年）`,
+        s5SummaryMeat: (sexL, cAge, exp) =>
+          `${sexL} · ${cAge} 岁 · 从出生至 ${exp} 岁保持标准肉食饮食`,
+        s5Facts: [
+          '全球 74% 的养殖陆生动物生活在工业化养殖场中。',
+          '每年有 490 万平方公里的海床遭到拖网捕捞破坏。',
+          '纯素饮食产生的碳排放仅为高肉食饮食的四分之一。',
+          '如果全球转向植物性饮食，将释放 31 亿公顷农田归还自然。',
+          '全球 36% 的农作物热量被用于喂养牲畜。',
+          '养殖场流出的粪便与化肥正在海洋中制造无氧死区。'
+        ],
+        s5PhotoLabels: {
+          spared: ['挽救的陆生动物', '挽救的海洋生命', '减少的 CO₂e', '保护的栖息地', '节省的动物饲料', '节约的淡水'],
+          meat: ['消耗的陆生动物', '消耗的海洋生命', '排放的 CO₂e', '占用的栖息地', '消耗的动物饲料', '消耗的淡水']
+        },
+        col1TitleSpared: '挽救的动物与肉食餐数 · 至今 / 一生',
+        col1TitleMeat: '消耗的动物与肉食餐数 · 至今 / 一生',
+        col2TitleSpared: '节约的碳、土地与水资源 · 至今 / 一生',
+        col2TitleMeat: '消耗的碳、土地与水资源 · 至今 / 一生',
+        sourcesTitle: '数据来源',
+        tableRows1: [
+          '鸡与家禽',
+          '牛肉汉堡与牛肉切块',
+          '猪排、培根与生猪',
+          '羊排与绵羊/羔羊',
+          '野生与养殖鱼类',
+          '虾蟹与贝类',
+          '动物生命与肉食餐数总计'
+        ],
+        tableVals1: (sf, lf, beefLbs) => [
+          `${sf.chickens.toLocaleString()} / ${lf.chickens.toLocaleString()} 只禽类（${(lf.chickenMeals / 1000).toFixed(1)}k 顿）`,
+          `${sf.burgers.toLocaleString()} / ${lf.burgers.toLocaleString()} 个汉堡（${Math.round(beefLbs * 0.4536).toLocaleString()} kg 牛肉）`,
+          `${sf.porkMeals.toLocaleString()} / ${lf.porkMeals.toLocaleString()} 顿猪肉餐（${lf.pigs} 头生猪）`,
+          `${sf.lambMeals.toLocaleString()} / ${lf.lambMeals.toLocaleString()} 顿羊肉餐（${lf.sheep} 只羊）`,
+          `${sf.finfish.toLocaleString()} / ${lf.finfish.toLocaleString()} 条鱼`,
+          `${sf.shellfish.toLocaleString()} / ${lf.shellfish.toLocaleString()} 只虾蟹贝类`,
+          `<strong>${sf.totalAnimals.toLocaleString()} / ${lf.totalAnimals.toLocaleString()} 条生命（${(lf.totalMeatMeals / 1000).toFixed(1)}k 顿餐食）</strong>`
+        ],
+        tableRows2: [
+          '温室气体 (CO₂e)',
+          '森林与放牧用地',
+          '动物饲料',
+          '淡水足迹',
+          '每年节约土地与减排速率',
+          '目标预期寿命'
+        ],
+        yrSuffix: '年',
+        editableYears: (exp) => `${exp} 岁（可编辑）`,
+        sourcesItems: [
+          '牛津大学：<a href="https://ora.ox.ac.uk/objects/uuid:b0b53649-5e93-4415-bf07-6b0b1227172f" target="_blank" rel="noopener">Poore &amp; Nemecek (2018)</a>, <em>Science</em>。涵盖 119 个国家 38,700 个农场的食物环境影响研究。',
+          '牛津大学：<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10365988/" target="_blank" rel="noopener">Scarborough et al. (2023)</a>, <em>Nature Food</em>。基于 55,504 人的真实饮食碳排放与土地占用对比。',
+          '<a href="https://ourworldindata.org/meat-production" target="_blank" rel="noopener">联合国粮农组织 (FAO)，经由 Our World in Data</a>。全球每年屠宰动物数量统计。',
+          '<a href="https://ourworldindata.org/fish-and-overfishing" target="_blank" rel="noopener">联合国粮农组织 (FAO)，经由 Our World in Data</a>。野生捕捞与水产养殖鱼类数据。',
+          '<a href="https://doi.org/10.1007/s10021-011-9517-8" target="_blank" rel="noopener">Mekonnen &amp; Hoekstra (2012)</a>, <em>Ecosystems</em>。畜牧产品的淡水足迹研究。',
+          '<a href="https://ourworldindata.org/grapher/feed-required-to-produce-one-kilogram-of-meat-or-dairy-product" target="_blank" rel="noopener">Alexander et al. (2016)，经由 Our World in Data</a>。每公斤肉、蛋、奶所需的饲料转化率。',
+          '<a href="https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/lifeexpectancies/bulletins/nationallifetablesunitedkingdom/2017to2019" target="_blank" rel="noopener">英国国家统计局 (ONS)</a>。国民预期寿命统计表（2017 至 2019）。'
+        ],
+        helpMeChange: '帮助我改变',
+        resModalSub: '免费开启植物性生活的实用指南。',
+        resCats: ['开始尝试', '日常饮食', '了解真相'],
+        resDescs: [
+          '免费的 22 天纯素体验挑战，配备导师与注册营养师指导。',
+          '免费的 31 天纯素挑战，每日发送食谱与实用贴士。',
+          '查找你身边的素食与纯素友好餐厅。',
+          '英国纯素协会官方营养指南，涵盖维生素 B12、铁与蛋白质。',
+          '经核查无童工剥削的纯素巧克力清单。',
+          '11 分钟短片，走进大多数肉类食品来源的现代养殖场。',
+          '完整高清纪录片《Dominion》，免费在线观看。'
+        ],
+        igStudioTitle: '分享你的生命影响力',
+        igFormatLabel: '画幅比例',
+        igColorLabel: '色彩主题',
+        igTabs: ['01. 生命线', '02. 至今', '03. 一生', '04. 清单'],
+        igRatios: ['限时动态 (9:16)', '贴文 (4:5)', '正方形 (1:1)', '横版 (16:9)'],
+        igDownloadOne: '↓ 下载当前卡片',
+        igDownloadAll: '↓ 下载全部 4 张',
+        igShareBtn: '直接分享'
+      }
+    };
+
+    function t() {
+      return I18N[state.lang] || I18N.en;
+    }
+
+    function applyStaticTranslations() {
+      const L = t();
+      document.documentElement.lang = state.lang;
+      document.title = L.pageTitle;
+
+      const setTxt = (id, val) => {
+        const el = document.getElementById(id);
+        if (el && val !== undefined) el.textContent = val;
+      };
+      const setHtml = (id, val) => {
+        const el = document.getElementById(id);
+        if (el && val !== undefined) el.innerHTML = val;
+      };
+
+      setTxt('titleMain', L.titleMain);
+      setTxt('titleSub', L.titleSub);
+      setTxt('scrollHint', L.scrollHint);
+
+      L.progDots.forEach((lbl, idx) => {
+        const dot = document.getElementById(`progDot${idx}`);
+        if (dot) {
+          dot.setAttribute('data-label', lbl);
+          dot.setAttribute('title', lbl);
+        }
+      });
+
+      L.chapLinks.forEach((lbl, idx) => {
+        setTxt(`chapLink${idx + 1}`, lbl);
+      });
+      setTxt('colophonTagline', L.colophonTagline);
+
+      // Scene 1
+      setTxt('s1KickerText', L.s1Kicker);
+      setTxt('s1Prefix', L.s1Prefix);
+      setTxt('sexBtnMan', L.sexBtn.man);
+      setTxt('sexBtnWoman', L.sexBtn.woman);
+      setTxt('sexBtnNb', L.sexBtn.nonbinary);
+      setTxt('s1Dot', L.s1Dot);
+      setTxt('s1TodayPrefix', L.s1TodayPrefix);
+      setTxt('s1AgeSuffix', L.s1AgeSuffix);
+      setTxt('s1MetaBot', L.s1Note);
+
+      // Scene 2
+      setTxt('s2KickerText', L.s2Kicker);
+      setTxt('s2PostDiet', L.s2PostDiet);
+      setTxt('s2MeatPrefix', L.s2MeatPrefix);
+      setTxt('s2AgePrefix', L.s2AgePrefix);
+      setTxt('s2AgeSuffix', L.s2AgeSuffix);
+
+      // Scene 3
+      setTxt('s3KickerText', L.s3Kicker);
+      setTxt('s3KickerStatus', L.s3Live);
+      document.querySelectorAll('[data-unit="tonnes"]').forEach((el) => { el.textContent = L.unitTonnes; });
+      document.querySelectorAll('[data-unit="litres"]').forEach((el) => { el.textContent = L.unitLitres; });
+      document.querySelectorAll('[data-i18n-btn="shareCarousel"]').forEach((el) => { el.textContent = L.shareCarousel; });
+      setTxt('copySoFarLabel', L.copySoFar);
+      setTxt('copyLifeLabel', L.copyLife);
+      setHtml('s3SourceNote', L.s3SourceNote);
+
+      // Scene 4
+      setTxt('s4KickerText', L.s4Kicker);
+      setTxt('s4LeadPrefix', L.s4LeadPrefix);
+      setTxt('s4LeadTo', L.s4LeadTo);
+      setTxt('s4LeadClose', L.s4LeadClose);
+      document.querySelectorAll('.other-side-badge').forEach((el) => { el.textContent = L.realityBadge; });
+      L.s4Facts.forEach((f, idx) => setTxt(`s4Fact${idx}`, f));
+
+      // Scene 5
+      setTxt('modeMineBtn', L.modeBtns.mine);
+      setTxt('modeVeganBtn', L.modeBtns.vegan);
+      setTxt('modeMeatBtn', L.modeBtns.meat);
+      L.s5Facts.forEach((f, idx) => setTxt(`s5Fact${idx}`, f));
+      setTxt('sources', L.sourcesTitle);
+      const rowIds1 = ['rowChickens', 'rowCattle', 'rowPigs', 'rowSheep', 'rowFinfish', 'rowShellfish', 'tblTotalLabel'];
+      rowIds1.forEach((id, idx) => setTxt(id, L.tableRows1[idx]));
+      const rowIds2 = ['rowCo2', 'rowLand', 'rowGrain', 'rowWater', 'rowAnnualRate', 'rowExpectancy'];
+      rowIds2.forEach((id, idx) => setTxt(id, L.tableRows2[idx]));
+      L.sourcesItems.forEach((htmlStr, idx) => setHtml(`srcItem${idx + 1}`, htmlStr));
+      setTxt('helpMeChangeText', L.helpMeChange);
+
+      // Modals
+      setTxt('resModalTitle', L.helpMeChange);
+      setTxt('resModalSub', L.resModalSub);
+      L.resCats.forEach((c, idx) => setTxt(`resCat${idx}`, c));
+      L.resDescs.forEach((d, idx) => setTxt(`resDesc${idx}`, d));
+      setTxt('igStudioTitle', L.igStudioTitle);
+      setTxt('igFormatLabel', L.igFormatLabel);
+      setTxt('igColorLabel', L.igColorLabel);
+      L.igTabs.forEach((tb, idx) => setTxt(`igTab${idx}`, tb));
+      L.igRatios.forEach((rt, idx) => setTxt(`igRatio${idx}`, rt));
+      setTxt('downloadCurrentSlideBtn', L.igDownloadOne);
+      setTxt('downloadAllSlidesBtn', L.igDownloadAll);
+      setTxt('nativeShareSlideBtn', L.igShareBtn);
+    }
 
     // Yearly figures per person, compared with a typical meat eater.
     // CO2e and land: Scarborough et al. 2023 (University of Oxford), against a meat eater halfway
@@ -2771,6 +4137,7 @@
         if (state.bottomMode !== 'meat') state.bottomMode = 'mine';
       }
 
+      const L = t();
       const isMeatMode = state.bottomMode === 'meat';
       document.body.classList.toggle('is-meat-mode', isMeatMode);
 
@@ -2779,7 +4146,7 @@
       const step5Diet = getStep5Diet();
 
       // Meat eater mode turns the accent colour dark red (#8E241B) everywhere
-      let accentHex = (step4Diet === 'vegan' || activeDiet === 'vegan') ? '#2B8A52' : '#1E5638';
+      let accentHex = (step4Diet === 'vegan' || activeDiet === 'vegan') ? '#2D8553' : '#235C3E';
       if (isMeatMode) {
         accentHex = '#8E241B';
       }
@@ -2828,18 +4195,28 @@
       const expIn = document.getElementById('expectancyInput');
       if (document.activeElement !== expIn) expIn.value = expectancy.toFixed(1);
 
-      // Scene 2 text updates for Meat Eater Mode vs Vegetarian/Vegan Mode
+      // Scene 2 text updates for language + gender + Meat Eater Mode vs Vegetarian/Vegan Mode
+      const s2PrefEl = document.getElementById('s2Prefix');
+      if (s2PrefEl) s2PrefEl.textContent = L.s2Prefix(state.sex);
+      const dBtns = L.dietBtn(state.sex);
+      const vegBtnEl = document.getElementById('dietBtnVeg');
+      if (vegBtnEl) vegBtnEl.textContent = dBtns.vegetarian;
+      const veganBtnEl = document.getElementById('dietBtnVegan');
+      if (veganBtnEl) veganBtnEl.textContent = dBtns.vegan;
+      const meatStrongEl = document.getElementById('s2MeatStrong');
+      if (meatStrongEl) meatStrongEl.textContent = L.s2MeatStrong(state.sex);
+
       const s2NormalWrap = document.getElementById('s2NormalWrap');
       const s2MeatWrap = document.getElementById('s2MeatWrap');
       const s2MetaBot = document.getElementById('s2MetaBot');
       if (isMeatMode) {
         if (s2NormalWrap) s2NormalWrap.style.display = 'none';
         if (s2MeatWrap) s2MeatWrap.style.display = 'inline';
-        if (s2MetaBot) s2MetaBot.textContent = `${yearsSoFar} years since age ${state.sinceAge} · ${state.currentAge} years as a meat eater so far`;
+        if (s2MetaBot) s2MetaBot.textContent = L.s2NoteMeat(yearsSoFar, state.sinceAge, state.currentAge);
       } else {
         if (s2NormalWrap) s2NormalWrap.style.display = 'inline';
         if (s2MeatWrap) s2MeatWrap.style.display = 'none';
-        if (s2MetaBot) s2MetaBot.textContent = `${yearsSoFar} ${yearsSoFar === 1 ? 'year' : 'years'} on this path so far`;
+        if (s2MetaBot) s2MetaBot.textContent = L.s2Note(yearsSoFar);
       }
 
       // Scene 3 text updates for Meat Eater Mode vs Spared Mode
@@ -2847,96 +4224,49 @@
       const s3Rate = RATES[isMeatMode ? 'meat' : activeDiet];
       const perDay = (v, d = 2) => (v / 365.25).toFixed(d);
       const daysPerSeaAnimal = (365.25 / (s3Rate.finfish + s3Rate.shellfish)).toFixed(1);
-      if (isMeatMode) {
-        s3Lead.innerHTML = `So far in my life (<strong id="soFarYearsText">${state.currentAge} years</strong> as a meat eater), this is what I've consumed:<sup class="lead-star">*</sup>`;
-        document.getElementById('s3LabelLand').textContent = "Land animals I've consumed";
-        document.getElementById('s3LabelMarine').textContent = "Fishes & marine lives I've consumed";
-        document.getElementById('s3LabelCo2').textContent = "CO₂e emissions I've caused";
-        document.getElementById('s3LabelHabitat').textContent = "Forest & grazing land I've used";
-        document.getElementById('s3LabelGrain').textContent = "Animal feed I've used";
-        document.getElementById('s3LabelWater').textContent = "Freshwater I've used";
-        document.getElementById('soFarLandSub').textContent =
-          `${soFar.chickens.toLocaleString()} chickens · ${soFar.burgers.toLocaleString()} beef burgers · ${(soFar.porkMeals + soFar.lambMeals).toLocaleString()} pork & lamb meals eaten`;
-        document.getElementById('soFarMarineSub').textContent =
-          `${soFar.finfish.toLocaleString()} finfish · ${soFar.shellfish.toLocaleString()} shellfish consumed`;
-        document.getElementById('soFarCo2Sub').textContent =
-          `+${perDay(s3Rate.co2Tonnes * 1000)} kg CO₂e emitted every day`;
-        document.getElementById('soFarHabitatSub').textContent =
-          `${(soFar.landM2 / 10000).toFixed(2)} hectares occupied for grazing & feed`;
-        document.getElementById('soFarGrainSub').textContent =
-          `+${perDay(s3Rate.grainKg)} kg of animal feed used every day`;
-        document.getElementById('soFarWaterSub').textContent =
-          `+${Math.round(soFar.waterPerSec * 86400).toLocaleString()} L/day (+${soFar.waterPerSec.toFixed(3)} L every second)`;
-      } else {
-        s3Lead.innerHTML = `In the <strong id="soFarYearsText">${yearsSoFar} ${yearsSoFar === 1 ? 'year' : 'years'}</strong> since I went <span id="soFarDietText">${activeDiet}</span>, this is what I've spared:<sup class="lead-star">*</sup>`;
-        document.getElementById('s3LabelLand').textContent = "Land animals I've spared";
-        document.getElementById('s3LabelMarine').textContent = "Fishes & marine lives I've spared";
-        document.getElementById('s3LabelCo2').textContent = "CO₂e emissions I've prevented";
-        document.getElementById('s3LabelHabitat').textContent = "Forest & grazing land I've spared";
-        document.getElementById('s3LabelGrain').textContent = "Animal feed I've saved";
-        document.getElementById('s3LabelWater').textContent = "Freshwater I've saved";
-        document.getElementById('soFarLandSub').textContent =
-          `${soFar.chickens.toLocaleString()} chickens · ${soFar.burgers.toLocaleString()} beef burgers · ${(soFar.porkMeals + soFar.lambMeals).toLocaleString()} pork & lamb meals`;
-        document.getElementById('soFarMarineSub').textContent =
-          `${soFar.finfish.toLocaleString()} finfish · ${soFar.shellfish.toLocaleString()} shellfish (+1 every ${daysPerSeaAnimal} days)`;
-        document.getElementById('soFarCo2Sub').textContent =
-          `+${perDay(s3Rate.co2Tonnes * 1000)} kg CO₂e saved every day`;
-        document.getElementById('soFarHabitatSub').textContent =
-          `${(soFar.landM2 / 10000).toFixed(2)} hectares (+${perDay(s3Rate.landM2)} m² spared/day)`;
-        document.getElementById('soFarGrainSub').textContent =
-          `+${perDay(s3Rate.grainKg)} kg of animal feed saved every day`;
-        document.getElementById('soFarWaterSub').textContent =
-          `+${Math.round(soFar.waterPerSec * 86400).toLocaleString()} L/day (+${soFar.waterPerSec.toFixed(3)} L every second)`;
-      }
+      const dietWord = dBtns[activeDiet] || activeDiet;
+      const s3Lbls = isMeatMode ? L.s3Labels.meat : L.s3Labels.spared;
+      const s3SubArr = isMeatMode
+        ? L.s3Subs.meat(soFar, perDay, s3Rate)
+        : L.s3Subs.spared(soFar, perDay, s3Rate, daysPerSeaAnimal);
+
+      s3Lead.innerHTML = isMeatMode
+        ? L.s3LeadMeat(state.currentAge, state.sex)
+        : L.s3Lead(yearsSoFar, dietWord, state.sex);
+
+      ['s3LabelLand', 's3LabelMarine', 's3LabelCo2', 's3LabelHabitat', 's3LabelGrain', 's3LabelWater'].forEach((id, i) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = s3Lbls[i];
+      });
+      ['soFarLandSub', 'soFarMarineSub', 'soFarCo2Sub', 'soFarHabitatSub', 'soFarGrainSub', 'soFarWaterSub'].forEach((id, i) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = s3SubArr[i];
+      });
 
       // Scene 4 text & photo labels for Meat Eater Mode vs Spared Mode
-      if (isMeatMode) {
-        document.getElementById('s4KickerSub').textContent = `· ${FLIP_VERB} a photo for the facts`;
-        document.getElementById('lifetimeYearsText').textContent = `${expectancy.toFixed(1)} years`;
-        document.getElementById('lifetimeRangePrefix').innerHTML = `from birth`;
-        document.getElementById('lifetimeVerbPhrase').textContent = 'this is what I will cause:';
-        document.getElementById('s4LabelLand').textContent = 'Land animals I will consume';
-        document.getElementById('s4LabelMarine').textContent = 'Marine animals I will consume';
-        document.getElementById('s4LabelCo2').textContent = 'Lifetime CO₂e I will cause';
-        document.getElementById('s4LabelHabitat').textContent = 'Lifetime habitat I will occupy';
-        document.getElementById('s4LabelGrain').textContent = 'Lifetime animal feed I will use';
-        document.getElementById('s4LabelWater').textContent = 'Lifetime freshwater I will use';
-        document.getElementById('lifeLandSub').textContent =
-          `${life.chickens.toLocaleString()} chickens · ${life.burgers.toLocaleString()} beef burgers · ${(life.porkMeals + life.lambMeals).toLocaleString()} pork & lamb meals`;
-        document.getElementById('lifeMarineSub').textContent =
-          `${life.finfish.toLocaleString()} finfish · ${life.shellfish.toLocaleString()} shellfish consumed`;
-        document.getElementById('lifeFlightsSub').textContent =
-          `Equal to ${Math.round(life.co2 / 0.9)} transatlantic flights emitted`;
-        document.getElementById('lifeHabitatSub').textContent =
-          `${(life.landM2 / 10000).toFixed(1)} hectares cleared for grazing & feed`;
-        document.getElementById('lifeGrainSub').textContent =
-          `${(life.grainKg / 1000).toFixed(1)} tonnes of animal feed`;
-        document.getElementById('lifeWaterSub').textContent =
-          `${(life.waterLitres / 2500000).toFixed(1)} Olympic swimming pools used`;
-      } else {
-        document.getElementById('s4KickerSub').textContent = `· ${FLIP_VERB} any photo to see the other side`;
-        document.getElementById('lifetimeYearsText').textContent = `${totalLifeYears.toFixed(1)} years`;
-        document.getElementById('lifetimeRangePrefix').innerHTML = `from age <span id="lifetimeSinceAgeText">${state.sinceAge}</span>`;
-        document.getElementById('lifetimeVerbPhrase').textContent = 'this is what I will spare:';
-        document.getElementById('s4LabelLand').textContent = 'Land animals I will spare';
-        document.getElementById('s4LabelMarine').textContent = 'Marine animals I will spare';
-        document.getElementById('s4LabelCo2').textContent = 'Lifetime CO₂e I will prevent';
-        document.getElementById('s4LabelHabitat').textContent = 'Lifetime habitat I will spare';
-        document.getElementById('s4LabelGrain').textContent = 'Lifetime animal feed I will save';
-        document.getElementById('s4LabelWater').textContent = 'Lifetime freshwater I will save';
-        document.getElementById('lifeLandSub').textContent =
-          `${life.chickens.toLocaleString()} chickens · ${life.burgers.toLocaleString()} beef burgers · ${(life.porkMeals + life.lambMeals).toLocaleString()} pork & lamb meals`;
-        document.getElementById('lifeMarineSub').textContent =
-          `${life.finfish.toLocaleString()} finfish · ${life.shellfish.toLocaleString()} shellfish`;
-        document.getElementById('lifeFlightsSub').textContent =
-          `Equal to ${Math.round(life.co2 / 0.9)} transatlantic flights`;
-        document.getElementById('lifeHabitatSub').textContent =
-          `${(life.landM2 / 10000).toFixed(1)} hectares returned to nature`;
-        document.getElementById('lifeGrainSub').textContent =
-          `${(life.grainKg / 1000).toFixed(1)} tonnes of animal feed`;
-        document.getElementById('lifeWaterSub').textContent =
-          `${(life.waterLitres / 2500000).toFixed(1)} Olympic swimming pools`;
-      }
+      const s4Lbls = isMeatMode ? L.s4Labels.meat : L.s4Labels.spared;
+      const s4SubArr = isMeatMode ? L.s4Subs.meat(life) : L.s4Subs.spared(life);
+      document.getElementById('s4KickerSub').textContent = isMeatMode
+        ? L.s4KickerSubMeat(CAN_HOVER)
+        : L.s4KickerSub(CAN_HOVER);
+      document.getElementById('lifetimeYearsText').textContent = L.s4Years(
+        isMeatMode ? expectancy.toFixed(1) : totalLifeYears.toFixed(1)
+      );
+      document.getElementById('lifetimeRangePrefix').innerHTML = isMeatMode
+        ? L.s4FromBirth
+        : L.s4FromAge(state.sinceAge);
+      document.getElementById('lifetimeVerbPhrase').textContent = isMeatMode
+        ? L.s4VerbMeat
+        : L.s4VerbSpared;
+
+      ['s4LabelLand', 's4LabelMarine', 's4LabelCo2', 's4LabelHabitat', 's4LabelGrain', 's4LabelWater'].forEach((id, i) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = s4Lbls[i];
+      });
+      ['lifeLandSub', 'lifeMarineSub', 'lifeFlightsSub', 'lifeHabitatSub', 'lifeGrainSub', 'lifeWaterSub'].forEach((id, i) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = s4SubArr[i];
+      });
 
       // Scene 4 Vegan / Mode toggle button
       const veganBtn = document.getElementById('veganCompareBtn');
@@ -2950,20 +4280,20 @@
 
       if (isMeatMode) {
         veganBtn.classList.remove('is-active-green');
-        veganBtnLabel.textContent = '← Switch back to my vegetarian / vegan path';
-        veganDelta.textContent = `Switching back spares ${lifeVeg.landAnimals.toLocaleString()} land animals & ${lifeVeg.co2.toFixed(1)} tonnes CO₂e`;
+        veganBtnLabel.textContent = L.veganBtn.meatReset;
+        veganDelta.textContent = L.veganBtn.meatDelta(lifeVeg.landAnimals.toLocaleString(), lifeVeg.co2.toFixed(1));
       } else if (state.diet === 'vegan') {
         veganBtn.classList.add('is-active-green');
-        veganBtnLabel.textContent = '✓ Viewing as vegan (click to compare vegetarian)';
-        veganDelta.textContent = `Vegan spares +${diffAnimals.toLocaleString()} more land animals & +${diffCo2} t CO₂e than vegetarian`;
+        veganBtnLabel.textContent = L.veganBtn.asVegan;
+        veganDelta.textContent = L.veganBtn.asVeganDelta(diffAnimals.toLocaleString(), diffCo2);
       } else if (state.previewVegan) {
         veganBtn.classList.add('is-active-green');
-        veganBtnLabel.textContent = '✓ Showing what this looks like as a vegan (click to reset)';
-        veganDelta.textContent = `+${diffAnimals.toLocaleString()} additional land animals & +${diffCo2} tonnes CO₂e spared as vegan`;
+        veganBtnLabel.textContent = L.veganBtn.previewVegan;
+        veganDelta.textContent = L.veganBtn.previewDelta(diffAnimals.toLocaleString(), diffCo2);
       } else {
         veganBtn.classList.remove('is-active-green');
-        veganBtnLabel.textContent = '→ What would this look like if I was vegan?';
-        veganDelta.textContent = `Going vegan spares +${diffAnimals.toLocaleString()} more animals & +${diffCo2} tonnes CO₂e over my life`;
+        veganBtnLabel.textContent = L.veganBtn.askVegan;
+        veganDelta.textContent = L.veganBtn.askDelta(diffAnimals.toLocaleString(), diffCo2);
       }
 
       // Scene 5: My Path, See as Vegan, See as a Meat Eater
@@ -2979,60 +4309,45 @@
       s5Target.bGrain = s5Life.grainKg;
       s5Target.bWater = s5Life.waterLitres;
 
-      const sexLabel = state.sex === 'man' ? 'Man' : (state.sex === 'woman' ? 'Woman' : 'Non-binary');
+      const sexLabel = L.sexNoun[state.sex] || L.sexNoun.man;
+      const dCapMap = L.dietCap(state.sex);
+      const dLabel = step5Diet === 'vegan' ? dCapMap.vegan : dCapMap.vegetarian;
+      const s5PhLbls = isMeatMode ? L.s5PhotoLabels.meat : L.s5PhotoLabels.spared;
+
+      ['bLabelLand', 'bLabelMarine', 'bLabelCo2', 'bLabelHabitat', 'bLabelGrain', 'bLabelWater'].forEach((id, i) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = s5PhLbls[i];
+      });
 
       if (isMeatMode) {
-        document.getElementById('finalMainHeading').textContent =
-          "If I'd stayed a meat eater";
+        document.getElementById('finalMainHeading').textContent = L.s5HeadingMeat;
         document.getElementById('finalSummaryTag').textContent =
-          `${sexLabel} · Age ${state.currentAge} · Standard Meat Diet from birth to ${expectancy.toFixed(1)} yrs`;
-        document.getElementById('bLabelLand').textContent = 'Land Animals Consumed';
-        document.getElementById('bLabelMarine').textContent = 'Marine Lives Consumed';
-        document.getElementById('bLabelCo2').textContent = 'CO₂e Emitted';
-        document.getElementById('bLabelHabitat').textContent = 'Habitat Occupied';
-        document.getElementById('bLabelGrain').textContent = 'Animal Feed Used';
-        document.getElementById('bLabelWater').textContent = 'Freshwater Used';
-        document.getElementById('col1Title').textContent = 'Animals & meals eaten · so far / lifetime';
-        document.getElementById('col2Title').textContent = 'Carbon, land & water used · so far / lifetime';
+          L.s5SummaryMeat(sexLabel, state.currentAge, expectancy.toFixed(1));
+        document.getElementById('col1Title').textContent = L.col1TitleMeat;
+        document.getElementById('col2Title').textContent = L.col2TitleMeat;
       } else {
-        const dLabel = step5Diet === 'vegan' ? 'Vegan' : 'Vegetarian';
-        document.getElementById('finalMainHeading').textContent =
-          'Everything I spare';
+        document.getElementById('finalMainHeading').textContent = L.s5HeadingSpared;
         document.getElementById('finalSummaryTag').textContent =
-          `${sexLabel} · Age ${state.currentAge} · ${dLabel} since ${state.sinceAge} (${yearsSoFar} yrs so far · ${totalLifeYears.toFixed(1)} yrs lifetime)`;
-        document.getElementById('bLabelLand').textContent = 'Land Animals I Spare';
-        document.getElementById('bLabelMarine').textContent = 'Marine Lives I Spare';
-        document.getElementById('bLabelCo2').textContent = 'CO₂e I Prevent';
-        document.getElementById('bLabelHabitat').textContent = 'Habitat I Spare';
-        document.getElementById('bLabelGrain').textContent = 'Animal Feed I Save';
-        document.getElementById('bLabelWater').textContent = 'Freshwater I Save';
-        document.getElementById('col1Title').textContent = 'Animals & meals spared · so far / lifetime';
-        document.getElementById('col2Title').textContent = 'Carbon, land & water saved · so far / lifetime';
+          L.s5SummarySpared(sexLabel, state.currentAge, dLabel, state.sinceAge, yearsSoFar, totalLifeYears.toFixed(1));
+        document.getElementById('col1Title').textContent = L.col1TitleSpared;
+        document.getElementById('col2Title').textContent = L.col2TitleSpared;
       }
 
       const beefLbs = Math.round(s5Life.burgers * 0.25);
-      document.getElementById('tblChickens').textContent =
-        `${s5SoFar.chickens.toLocaleString()} / ${s5Life.chickens.toLocaleString()} birds (${(s5Life.chickenMeals / 1000).toFixed(1)}k meals)`;
-      document.getElementById('tblCattle').textContent =
-        `${s5SoFar.burgers.toLocaleString()} / ${s5Life.burgers.toLocaleString()} burgers (${beefLbs.toLocaleString()} lbs beef)`;
-      document.getElementById('tblPigs').textContent =
-        `${s5SoFar.porkMeals.toLocaleString()} / ${s5Life.porkMeals.toLocaleString()} meals (${s5Life.pigs} whole pigs)`;
-      document.getElementById('tblSheep').textContent =
-        `${s5SoFar.lambMeals.toLocaleString()} / ${s5Life.lambMeals.toLocaleString()} meals (${s5Life.sheep} sheep/lambs)`;
-      document.getElementById('tblFinfish').textContent =
-        `${s5SoFar.finfish.toLocaleString()} / ${s5Life.finfish.toLocaleString()} fish`;
-      document.getElementById('tblShellfish').textContent =
-        `${s5SoFar.shellfish.toLocaleString()} / ${s5Life.shellfish.toLocaleString()} shellfish`;
-      document.getElementById('tblTotalAnimals').innerHTML =
-        `<strong>${s5SoFar.totalAnimals.toLocaleString()} / ${s5Life.totalAnimals.toLocaleString()} lives (${(s5Life.totalMeatMeals / 1000).toFixed(1)}k meals)</strong>`;
+      const tVals1 = L.tableVals1(s5SoFar, s5Life, beefLbs);
+      ['tblChickens', 'tblCattle', 'tblPigs', 'tblSheep', 'tblFinfish', 'tblShellfish'].forEach((id, i) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = tVals1[i];
+      });
+      document.getElementById('tblTotalAnimals').innerHTML = tVals1[6];
 
       document.getElementById('tblCo2').textContent = `${s5SoFar.co2.toFixed(1)} t / ${s5Life.co2.toFixed(1)} t`;
       document.getElementById('tblLand').textContent = `${Math.round(s5SoFar.landM2).toLocaleString()} m² / ${Math.round(s5Life.landM2).toLocaleString()} m²`;
       document.getElementById('tblGrain').textContent = `${Math.round(s5SoFar.grainKg).toLocaleString()} kg / ${Math.round(s5Life.grainKg).toLocaleString()} kg`;
       document.getElementById('tblWater').textContent = `${(s5SoFar.waterLitres / 1e6).toFixed(2)}M L / ${(s5Life.waterLitres / 1e6).toFixed(2)}M L`;
       document.getElementById('tblAnnualRate').textContent =
-        `${s5Life.annualLand.toLocaleString()} m² & ${s5Life.annualCo2.toFixed(2)} t CO₂e / yr`;
-      document.getElementById('tblExpectancy').textContent = `${expectancy.toFixed(1)} years (editable)`;
+        `${s5Life.annualLand.toLocaleString()} m² & ${s5Life.annualCo2.toFixed(2)} t CO₂e / ${L.yrSuffix}`;
+      document.getElementById('tblExpectancy').textContent = L.editableYears(expectancy.toFixed(1));
 
       // Sync bottom mode button active states
       document.querySelectorAll('[data-bottom-mode]').forEach((btn) => {
@@ -3142,6 +4457,19 @@
       });
     });
 
+    // Language selector (English / Français / Español / 日本語 / 中文)
+    document.querySelectorAll('.lang-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const lang = btn.getAttribute('data-lang');
+        if (!lang || !I18N[lang]) return;
+        state.lang = lang;
+        document.querySelectorAll('.lang-btn').forEach((b) => b.classList.toggle('active', b === btn));
+        applyStaticTranslations();
+        recalculateAll(false);
+        renderThread(smoothProgress, performance.now());
+      });
+    });
+
     // Copy & Share buttons
     function buildShareText(isLifetime = false) {
       const yearsSoFar = Math.max(0, state.currentAge - state.sinceAge);
@@ -3162,16 +4490,16 @@
       }
       const el = document.getElementById(labelId);
       if (el) {
-        el.textContent = '✓ Copied to clipboard';
+        el.textContent = t().copied;
         setTimeout(() => { el.textContent = defaultLabel; }, 2200);
       }
     }
 
     document.getElementById('copySoFarBtn')?.addEventListener('click', () => {
-      copyTextWithFeedback(buildShareText(false), 'copySoFarLabel', 'Copy my stats');
+      copyTextWithFeedback(buildShareText(false), 'copySoFarLabel', t().copySoFar);
     });
     document.getElementById('copyLifeBtn')?.addEventListener('click', () => {
-      copyTextWithFeedback(buildShareText(true), 'copyLifeLabel', 'Copy lifetime stats');
+      copyTextWithFeedback(buildShareText(true), 'copyLifeLabel', t().copyLife);
     });
 
     // Progress dots, chapter links and the sources link scroll to their part of the page
@@ -4200,7 +5528,8 @@
 
     function smoothstep(edge0, edge1, x) {
       const t = Math.min(1, Math.max(0, (x - edge0) / (edge1 - edge0)));
-      return t * t * (3 - 2 * t);
+      // Quintic smootherstep for softer, unhurried transitions
+      return t * t * t * (t * (t * 6 - 15) + 10);
     }
 
     function sceneEnvelope(p, in0, in1, out0, out1) {
@@ -4210,132 +5539,108 @@
       return 1 - smoothstep(out0, out1, p);
     }
 
+    // Expanded reading plateaus across 6000vh so every reading section stays on screen much longer
     const scenes = [
-      { id: 'scene0', in0: -0.01, in1: 0.00,  out0: 0.035, out1: 0.068 },
-      { id: 'scene1', in0: 0.135, in1: 0.162, out0: 0.220, out1: 0.252 },
-      { id: 'scene2', in0: 0.325, in1: 0.352, out0: 0.415, out1: 0.448 },
-      { id: 'scene3', in0: 0.525, in1: 0.552, out0: 0.640, out1: 0.672 },
-      { id: 'scene4', in0: 0.745, in1: 0.772, out0: 0.845, out1: 0.872 },
-      { id: 'scene5', in0: 0.942, in1: 0.968, out0: 1.01,  out1: 1.05 }
+      { id: 'scene0', in0: -0.01, in1: 0.00,  out0: 0.068, out1: 0.102 },
+      { id: 'scene1', in0: 0.125, in1: 0.155, out0: 0.275, out1: 0.305 },
+      { id: 'scene2', in0: 0.330, in1: 0.360, out0: 0.480, out1: 0.510 },
+      { id: 'scene3', in0: 0.535, in1: 0.565, out0: 0.690, out1: 0.720 },
+      { id: 'scene4', in0: 0.745, in1: 0.775, out0: 0.885, out1: 0.912 },
+      { id: 'scene5', in0: 0.952, in1: 0.975, out0: 1.01,  out1: 1.05 }
     ];
 
-    function setStaggerOpacity(id, op) {
-      const el = document.getElementById(id);
-      if (el) el.style.opacity = op.toFixed(4);
-    }
+    const lastSceneState = {};
 
     function applySceneOpacities(p) {
       const dotEls = document.querySelectorAll('.prog-dot');
-      const stageProg = document.querySelector('.stage-progress');
-      if (stageProg) {
-        stageProg.style.setProperty('--scroll-fill', `${(Math.min(1, Math.max(0, p)) * 100).toFixed(1)}%`);
+      const langSelector = document.getElementById('langSelector');
+      if (langSelector) {
+        langSelector.classList.toggle('is-hidden', p > 0.055);
       }
 
       scenes.forEach((s, idx) => {
         const el = document.getElementById(s.id);
         const op = sceneEnvelope(p, s.in0, s.in1, s.out0, s.out1);
-        el.style.opacity = op.toFixed(4);
 
         let yShift = 0;
         if (idx === 0) {
-          yShift = -12 * smoothstep(s.out0, s.out1, p);
+          yShift = -8 * smoothstep(s.out0, s.out1, p);
         } else if (idx === 5) {
-          yShift = (1 - smoothstep(s.in0, s.in1, p)) * 10;
+          yShift = (1 - smoothstep(s.in0, s.in1, p)) * 6;
         } else {
           if (p < s.in1) {
-            yShift = (1 - smoothstep(s.in0, s.in1, p)) * 12;
+            yShift = (1 - smoothstep(s.in0, s.in1, p)) * 7;
           } else if (p > s.out0) {
-            yShift = -smoothstep(s.out0, s.out1, p) * 10;
+            yShift = -smoothstep(s.out0, s.out1, p) * 6;
           }
         }
-        el.style.transform = `translate3d(0, ${yShift.toFixed(2)}px, 0)`;
 
-        if (op > 0.25) {
+        const opStr = op.toFixed(4);
+        const trStr = `translate3d(0, ${yShift.toFixed(2)}px, 0)`;
+        const prev = lastSceneState[s.id] || {};
+        if (prev.op !== opStr) {
+          el.style.opacity = opStr;
+          prev.op = opStr;
+        }
+        if (prev.tr !== trStr) {
+          el.style.transform = trStr;
+          prev.tr = trStr;
+        }
+        lastSceneState[s.id] = prev;
+
+        // Only enable hover/click interactivity when the scene is nearly fully opaque (prevents mid-fade photo flicker)
+        if (op > 0.82) {
           el.classList.add('is-interactive');
         } else {
           el.classList.remove('is-interactive');
+          if (op < 0.45 && (idx === 4 || idx === 5)) {
+            el.querySelectorAll('.is-flipped').forEach((card) => card.classList.remove('is-flipped'));
+          }
         }
         if (dotEls[idx]) {
           dotEls[idx].classList.toggle('active', op > 0.4);
         }
       });
 
-      // Scene 1: main text first, then the heading and note
-      setStaggerOpacity('s1Main', smoothstep(0.135, 0.162, p));
-      const s1MetaOp = smoothstep(0.150, 0.178, p);
-      setStaggerOpacity('s1MetaTop', s1MetaOp);
-      setStaggerOpacity('s1MetaBot', s1MetaOp);
-
-      // Scene 2: main text first, then the heading and note
-      setStaggerOpacity('s2Main', smoothstep(0.325, 0.352, p));
-      const s2MetaOp = smoothstep(0.340, 0.368, p);
-      setStaggerOpacity('s2MetaTop', s2MetaOp);
-      setStaggerOpacity('s2MetaBot', s2MetaOp);
-
-      // Scene 3 (p 0.525 to 0.672): heading, then each number in turn
-      setStaggerOpacity('s3Head', smoothstep(0.525, 0.550, p));
+      // Trigger number count-up glide when entering Scene 3, Scene 4, or Scene 5
+      const s3Active = p > 0.535 && p < 0.715;
       for (let i = 0; i < 6; i++) {
-        const startP = 0.542 + i * 0.006;
-        const cardOp = smoothstep(startP, startP + 0.016, p);
-        setStaggerOpacity(`s3Card${i}`, cardOp);
-
-        const isVis = cardOp > 0.12 && p < 0.665;
-        if (isVis && !s3CardVisible[i]) {
+        if (s3Active && !s3CardVisible[i]) {
           const key = s3Keys[i];
           s3Anim[key] = s3Target[key] * 0.18;
         }
-        s3CardVisible[i] = isVis;
+        s3CardVisible[i] = s3Active;
       }
-      setStaggerOpacity('s3Foot', smoothstep(0.578, 0.596, p));
 
-      // Scene 4 (p 0.745 to 0.872): heading, then each photo in turn
-      setStaggerOpacity('s4Head', smoothstep(0.745, 0.768, p));
+      const s4Active = p > 0.745 && p < 0.908;
       for (let i = 0; i < 6; i++) {
-        const startP = 0.760 + i * 0.005;
-        const cardOp = smoothstep(startP, startP + 0.015, p);
-        setStaggerOpacity(`s4Card${i}`, cardOp);
-
-        const isVis = cardOp > 0.12 && p < 0.868;
-        if (isVis && !s4CardVisible[i]) {
+        if (s4Active && !s4CardVisible[i]) {
           const key = s4Keys[i];
           s4Anim[key] = s4Target[key] * 0.18;
         }
-        s4CardVisible[i] = isVis;
+        s4CardVisible[i] = s4Active;
       }
-      setStaggerOpacity('s4Foot', smoothstep(0.792, 0.808, p));
 
-      // Fade the lifeline out completely (by p = 0.938) BEFORE Scene 5 begins at p = 0.942
+      // Fade the lifeline out completely (by p = 0.948) BEFORE Scene 5 begins at p = 0.952
       const lineZone = document.getElementById('lineZone');
-      const lineOpacity = 1 - smoothstep(0.910, 0.938, p);
+      const lineOpacity = 1 - smoothstep(0.924, 0.948, p);
       lineZone.style.opacity = lineOpacity.toFixed(4);
 
-      // Scene 5 (p 0.942 to 1.00): only begins after the lifeline has finished drawing and faded out.
-      // All elements inside Scene 5 fade in together cleanly between 0.942 and 0.968.
-      setStaggerOpacity('s5Head', smoothstep(0.940, 0.958, p));
+      const s5Active = p > 0.950;
       for (let i = 0; i < 6; i++) {
-        const startP = 0.944 + i * 0.002;
-        const photoOp = smoothstep(startP, startP + 0.014, p);
-        setStaggerOpacity(`s5Photo${i}`, photoOp);
-
-        const isVis = photoOp > 0.12;
-        if (isVis && !s5PhotoVisible[i]) {
+        if (s5Active && !s5PhotoVisible[i]) {
           const key = s5Keys[i];
           s5Anim[key] = s5Target[key] * 0.22;
         }
-        s5PhotoVisible[i] = isVis;
+        s5PhotoVisible[i] = s5Active;
       }
-      setStaggerOpacity('s5Col0', smoothstep(0.948, 0.964, p));
-      setStaggerOpacity('s5Col1', smoothstep(0.950, 0.966, p));
-      setStaggerOpacity('s5Col2', smoothstep(0.952, 0.967, p));
-      setStaggerOpacity('s5Foot', smoothstep(0.953, 0.968, p));
-      setStaggerOpacity('s5Colophon', smoothstep(0.954, 0.968, p));
 
       const s5ScrollBody = document.getElementById('s5ScrollBody');
       const s5ScrollInner = document.getElementById('s5ScrollInner');
       if (s5ScrollBody && s5ScrollInner) {
         const maxOverflow = Math.max(0, s5ScrollInner.scrollHeight - s5ScrollBody.clientHeight);
         if (maxOverflow > 2 && window.innerWidth <= 860) {
-          const panProgress = smoothstep(0.972, 0.996, p);
+          const panProgress = smoothstep(0.976, 0.996, p);
           const panY = -maxOverflow * panProgress;
           s5ScrollInner.style.transform = `translate3d(0, ${panY.toFixed(1)}px, 0)`;
         } else {
@@ -4344,7 +5649,7 @@
       }
 
       const scrollHint = document.getElementById('scrollHint');
-      scrollHint.style.opacity = p < 0.92 ? '1' : '0';
+      scrollHint.style.opacity = p < 0.93 ? '1' : '0';
     }
 
     /* The lifeline. In meat eater mode it stays on the original path. */
@@ -4397,8 +5702,9 @@
     function renderThread(p, timeMs) {
       ctx.clearRect(0, 0, cw, ch);
 
+      const L = t();
       const isMeatMode = state.bottomMode === 'meat';
-      const drawProgress = Math.min(1, Math.max(0, p / 0.895));
+      const drawProgress = Math.min(1, Math.max(0, p / 0.922));
       const uTip = drawProgress < 0.08
         ? Math.pow(drawProgress / 0.08, 1.35) * 0.08
         : drawProgress;
@@ -4422,35 +5728,35 @@
       const idleStrength = 1 - smoothstep(0.0, 0.10, p);
 
       const ringRadius1 = 9 + pulsePhase * (11 + idleStrength * 6);
-      const ringAlpha1 = (0.24 - pulsePhase * 0.18) * (0.45 + 0.55 * idleStrength);
+      const ringAlpha1 = (0.20 - pulsePhase * 0.15) * (0.45 + 0.55 * idleStrength);
       ctx.beginPath();
       ctx.arc(birthX, birthScreenY, ringRadius1, 0, Math.PI * 2);
-      ctx.strokeStyle = `rgba(20, 20, 19, ${ringAlpha1.toFixed(3)})`;
+      ctx.strokeStyle = `rgba(31, 30, 28, ${ringAlpha1.toFixed(3)})`;
       ctx.lineWidth = 1;
       ctx.stroke();
 
       if (idleStrength > 0.05) {
         const pulsePhase2 = (Math.sin(timeMs * 0.0032 - 1.2) + 1) * 0.5;
         const ringRadius2 = 7 + pulsePhase2 * 22;
-        const ringAlpha2 = (1 - pulsePhase2) * 0.18 * idleStrength;
+        const ringAlpha2 = (1 - pulsePhase2) * 0.15 * idleStrength;
         ctx.beginPath();
         ctx.arc(birthX, birthScreenY, ringRadius2, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(20, 20, 19, ${ringAlpha2.toFixed(3)})`;
+        ctx.strokeStyle = `rgba(31, 30, 28, ${ringAlpha2.toFixed(3)})`;
         ctx.lineWidth = 1;
         ctx.stroke();
       }
 
       ctx.beginPath();
-      ctx.arc(birthX, birthScreenY, 4.2, 0, Math.PI * 2);
-      ctx.fillStyle = '#141413';
+      ctx.arc(birthX, birthScreenY, 4.0, 0, Math.PI * 2);
+      ctx.fillStyle = '#1F1E1C';
       ctx.fill();
 
-      ctx.font = '400 10.5px "JetBrains Mono", monospace';
-      ctx.fillStyle = 'rgba(88, 86, 80, 0.80)';
+      ctx.font = '400 10.5px "JetBrains Mono", "PingFang SC", "Hiragino Sans", monospace';
+      ctx.fillStyle = 'rgba(94, 91, 84, 0.76)';
       ctx.textAlign = 'left';
       ctx.textBaseline = 'middle';
       if (cw >= 120) {
-        ctx.fillText('birth', birthX + 14, birthScreenY);
+        ctx.fillText(L.birth, birthX + 14, birthScreenY);
       }
 
       if (uTip <= 0.001) {
@@ -4460,9 +5766,9 @@
       const activeDiet = getStep4Diet();
       const activeColor = isMeatMode
         ? '#8E241B'
-        : (activeDiet === 'vegan' ? '#2B8A52' : '#1E5638');
+        : (activeDiet === 'vegan' ? '#2D8553' : '#235C3E');
 
-      // 2. Black line up to the turning point
+      // 2. Soft charcoal line up to the turning point
       const uBlackEnd = Math.min(uTip, U_SPLIT);
       const stepsBlack = Math.max(12, Math.ceil(uBlackEnd * 200));
       ctx.beginPath();
@@ -4473,8 +5779,8 @@
         if (i === 0) ctx.moveTo(x, y);
         else ctx.lineTo(x, y);
       }
-      ctx.strokeStyle = '#141413';
-      ctx.lineWidth = 1.85;
+      ctx.strokeStyle = '#1F1E1C';
+      ctx.lineWidth = 1.75;
       ctx.lineCap = 'round';
       ctx.lineJoin = 'round';
       ctx.stroke();
@@ -4496,8 +5802,8 @@
           else ctx.lineTo(x, y);
         }
         ctx.setLineDash([3, 5]);
-        ctx.strokeStyle = 'rgba(20, 20, 19, 0.20)';
-        ctx.lineWidth = 1.25;
+        ctx.strokeStyle = 'rgba(31, 30, 28, 0.18)';
+        ctx.lineWidth = 1.2;
         ctx.stroke();
         ctx.restore();
 
@@ -4511,10 +5817,10 @@
           if (i === 0) ctx.moveTo(x, y);
           else ctx.lineTo(x, y);
         }
-        ctx.shadowColor = isMeatMode ? 'rgba(142, 36, 27, 0.14)' : 'rgba(30, 86, 56, 0.14)';
+        ctx.shadowColor = isMeatMode ? 'rgba(142, 36, 27, 0.12)' : 'rgba(35, 92, 62, 0.12)';
         ctx.shadowBlur = 6;
         ctx.strokeStyle = activeColor;
-        ctx.lineWidth = 2.2;
+        ctx.lineWidth = 2.1;
         ctx.lineCap = 'round';
         ctx.lineJoin = 'round';
         ctx.stroke();
@@ -4522,12 +5828,12 @@
 
         // Turning point node (pin dot with warm paper core, no age number)
         ctx.beginPath();
-        ctx.arc(splitX, splitY, 4.6, 0, Math.PI * 2);
+        ctx.arc(splitX, splitY, 4.4, 0, Math.PI * 2);
         ctx.fillStyle = activeColor;
         ctx.fill();
         ctx.beginPath();
-        ctx.arc(splitX, splitY, 1.8, 0, Math.PI * 2);
-        ctx.fillStyle = '#F4F1EA';
+        ctx.arc(splitX, splitY, 1.75, 0, Math.PI * 2);
+        ctx.fillStyle = '#F5F2EB';
         ctx.fill();
       }
 
@@ -4537,38 +5843,38 @@
         const todayY = worldToScreenY(getWorldY(U_TODAY, totalWorldHeight));
 
         ctx.beginPath();
-        ctx.arc(todayX, todayY, 4.2, 0, Math.PI * 2);
-        ctx.fillStyle = '#F4F1EA';
+        ctx.arc(todayX, todayY, 4.0, 0, Math.PI * 2);
+        ctx.fillStyle = '#F5F2EB';
         ctx.fill();
-        ctx.lineWidth = 2;
+        ctx.lineWidth = 1.9;
         ctx.strokeStyle = activeColor;
         ctx.stroke();
 
         if (cw >= 120) {
-          ctx.font = '400 10.5px "JetBrains Mono", monospace';
-          ctx.fillStyle = 'rgba(88, 86, 80, 0.80)';
+          ctx.font = '400 10.5px "JetBrains Mono", "PingFang SC", "Hiragino Sans", monospace';
+          ctx.fillStyle = 'rgba(94, 91, 84, 0.76)';
           ctx.textAlign = 'left';
-          ctx.fillText('today', todayX + 12, todayY);
+          ctx.fillText(L.today, todayX + 12, todayY);
         }
       }
 
       // 5. Moving tip (pure breathing dot, no age markers)
       const tipX = getActivePathX(uTip, centerX, weaveAmp, isMeatMode);
       const tipY = worldToScreenY(tipWorldY);
-      const tipColor = uTip > U_SPLIT ? activeColor : '#141413';
+      const tipColor = uTip > U_SPLIT ? activeColor : '#1F1E1C';
 
       ctx.beginPath();
       ctx.arc(tipX, tipY, 7.5 + pulsePhase * 3.5, 0, Math.PI * 2);
       ctx.strokeStyle = uTip > U_SPLIT
         ? (isMeatMode
-            ? `rgba(142, 36, 27, ${(0.24 - pulsePhase * 0.12).toFixed(3)})`
-            : `rgba(43, 138, 82, ${(0.22 - pulsePhase * 0.12).toFixed(3)})`)
-        : `rgba(20, 20, 19, ${(0.20 - pulsePhase * 0.12).toFixed(3)})`;
+            ? `rgba(142, 36, 27, ${(0.22 - pulsePhase * 0.11).toFixed(3)})`
+            : `rgba(45, 133, 83, ${(0.20 - pulsePhase * 0.11).toFixed(3)})`)
+        : `rgba(31, 30, 28, ${(0.18 - pulsePhase * 0.10).toFixed(3)})`;
       ctx.lineWidth = 1;
       ctx.stroke();
 
       ctx.beginPath();
-      ctx.arc(tipX, tipY, 4.2, 0, Math.PI * 2);
+      ctx.arc(tipX, tipY, 4.0, 0, Math.PI * 2);
       ctx.fillStyle = tipColor;
       ctx.fill();
     }
@@ -4576,8 +5882,8 @@
     /* Animation loop */
     function animate(timeMs) {
       const diff = targetProgress - smoothProgress;
-      if (Math.abs(diff) > 0.00005) {
-        smoothProgress += diff * 0.092;
+      if (Math.abs(diff) > 0.00004) {
+        smoothProgress += diff * 0.088;
       } else {
         smoothProgress = targetProgress;
       }
@@ -4589,9 +5895,15 @@
       requestAnimationFrame(animate);
     }
 
-    // Initialize (supports ?p=0.60, ?mode=meat, ?modal=ig, ?ratio=stories, ?theme=2, ?modal=resources)
+    // Initialize (supports ?lang=fr|es|ja|zh, ?p=0.60, ?mode=meat, ?modal=ig, ?ratio=stories, ?theme=2, ?modal=resources)
     resizeCanvas();
     const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('lang') && I18N[urlParams.get('lang')]) {
+      state.lang = urlParams.get('lang');
+      document.querySelectorAll('.lang-btn').forEach((b) => {
+        b.classList.toggle('active', b.getAttribute('data-lang') === state.lang);
+      });
+    }
     if (urlParams.get('mode') === 'meat') {
       state.bottomMode = 'meat';
     }
@@ -4601,6 +5913,7 @@
     if (urlParams.has('theme')) {
       state.igThemeIndex = parseInt(urlParams.get('theme') || '0', 10);
     }
+    applyStaticTranslations();
     recalculateAll(false);
     if (urlParams.has('p')) {
       const initP = Math.min(1, Math.max(0, parseFloat(urlParams.get('p')) || 0));
@@ -4631,7 +5944,7 @@
     const startChapter = [...document.querySelectorAll('a[data-jump]')]
       .find((a) => a.getAttribute('href') === location.hash);
     const startP = startChapter ? parseFloat(startChapter.getAttribute('data-jump'))
-      : (location.hash === '#help-me-change' ? 0.98 : null);
+      : (location.hash === '#help-me-change' ? 0.985 : null);
     if (startP !== null && !urlParams.has('p')) {
       requestAnimationFrame(() => {
         const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
