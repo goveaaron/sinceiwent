@@ -1,11 +1,11 @@
 {
-  "name": "since i went.",
-  "short_name": "since i went.",
-  "description": "See what going vegetarian or vegan spares, so far and over your life.",
+  "name": "Since I Went. Lifetime Vegan and Vegetarian Impact Calculator",
+  "short_name": "Since I Went.",
+  "description": "Understand your impact on the world and see the animals, tons of CO2, square meters of forest, and liters of water saved since going vegetarian and vegan.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#F4F1EA",
+  "background_color": "#F5F2EB",
   "theme_color": "#1E5638",
   "categories": [
     "lifestyle",
@@ -15,25 +15,25 @@
   ],
   "icons": [
     {
-      "src": "/favicon-48.png",
+      "src": "/favicon-48.png?v=2",
       "sizes": "48x48",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/favicon-96.png",
+      "src": "/favicon-96.png?v=2",
       "sizes": "96x96",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/icon-192.png",
+      "src": "/icon-192.png?v=2",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/icon-512.png",
+      "src": "/icon-512.png?v=2",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"

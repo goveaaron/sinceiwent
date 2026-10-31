@@ -1,6 +1,6 @@
-# since i went.
+# Since I Went. Lifetime Vegan and Vegetarian Impact Calculator
 
-> A one-page calculator at https://sinceiwent.org. You enter your age and the age you went vegetarian or vegan, and it shows how many animals, and how much CO₂e, land, animal feed and water, you have spared so far and will spare over your life.
+> Understand your impact on the world and see the animals, tons of CO2, square meters of forest, and liters of water saved since going vegetarian and vegan. A one-page calculator at https://sinceiwent.org.
 
 ## Yearly figures used (per person, compared with a typical meat eater)
 
