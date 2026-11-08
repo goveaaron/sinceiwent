@@ -152,6 +152,8 @@
       padding: 0;
       background: transparent;
       border: none;
+      pointer-events: auto;
+      touch-action: pan-y manipulation;
       transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1), transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
@@ -299,19 +301,22 @@
       border-bottom-color: var(--active-accent-line);
     }
 
-    /* Scroll track and fixed stage */
+    /* Scroll track and sticky stage (sticky inside scroll-track so wheel & touch scroll chain natively everywhere) */
     .scroll-track {
       position: relative;
       width: 100%;
-      height: 6000vh;
+      height: 2600vh;
     }
 
     .viewport-stage {
-      position: fixed;
-      inset: 0;
+      position: sticky;
+      top: 0;
+      left: 0;
       width: 100%;
-      height: 100%;
+      height: 100vh;
+      height: 100dvh;
       overflow: hidden;
+      pointer-events: none;
       background-color: var(--bg);
       background-image:
         radial-gradient(ellipse at 48% 34%, rgba(255, 253, 250, 0.72) 0%, rgba(245, 242, 235, 0.28) 58%, rgba(228, 222, 210, 0.36) 100%);
@@ -402,7 +407,19 @@
     }
 
     .scene.is-interactive {
+      pointer-events: none;
+    }
+
+    .scene.is-interactive .inline-choice-group,
+    .scene.is-interactive .inline-number-ctrl,
+    .scene.is-interactive .choice-btn,
+    .scene.is-interactive .step-btn,
+    .scene.is-interactive .editable-age-input,
+    .scene.is-interactive .editorial-btn,
+    .scene.is-interactive .photo-metric-card,
+    .scene.is-interactive .source-note a {
       pointer-events: auto;
+      touch-action: pan-y manipulation;
     }
 
     .stagger-item {
@@ -1048,7 +1065,17 @@
     }
 
     .final-facts-scene.is-interactive {
+      pointer-events: none;
+    }
+
+    .final-facts-scene.is-interactive .mode-switch-btn,
+    .final-facts-scene.is-interactive .bottom-photo-card,
+    .final-facts-scene.is-interactive .editorial-btn,
+    .final-facts-scene.is-interactive .help-me-change-link,
+    .final-facts-scene.is-interactive .sources-list a,
+    .final-facts-scene.is-interactive .chapter-links a {
       pointer-events: auto;
+      touch-action: pan-y manipulation;
     }
 
     .final-facts-inner {
@@ -1717,6 +1744,8 @@
       gap: 15px;
       z-index: 10;
       padding: 8px 0 8px 14px;
+      pointer-events: auto;
+      touch-action: pan-y manipulation;
     }
 
     .prog-dot {
@@ -2076,10 +2105,8 @@
     <p style="position:fixed;z-index:99;left:0;right:0;bottom:24px;text-align:center;font:13px/1.5 'JetBrains Mono',monospace;color:#585650;">Turn on JavaScript to draw your line.</p>
   </noscript>
 
-  <!-- Scroll track -->
-  <div class="scroll-track" id="scrollTrack"></div>
-
-  <!-- Fixed stage -->
+  <!-- Scroll track wrapping sticky viewport stage so wheel/touch scroll always chains naturally to window -->
+  <div class="scroll-track" id="scrollTrack">
   <main class="viewport-stage">
 
     <!-- Paper texture -->
@@ -2145,7 +2172,7 @@
         <h2 class="statement-kicker" id="s1MetaTop"><span class="kicker-num" id="who-i-am">01</span> <span id="s1KickerText">who i am</span></h2>
         <p class="statement-body" id="s1Main">
           <span class="statement-line" id="s1Line1"><span id="s1Prefix">I am</span><span class="inline-choice-group" role="group" aria-label="Select identity"><button type="button" class="choice-btn active" data-sex="man" id="sexBtnMan">a man</button><span class="choice-slash">/</span><button type="button" class="choice-btn" data-sex="woman" id="sexBtnWoman">a woman</button><span class="choice-slash">/</span><button type="button" class="choice-btn" data-sex="nonbinary" id="sexBtnNb">non-binary</button></span><span id="s1Dot">.</span></span>
-          <span class="statement-line" id="s1Line2"><span id="s1TodayPrefix">Today I am</span><span class="inline-number-ctrl" title="Click -/+ or type your age directly"><button type="button" class="step-btn" id="ageMinus" aria-label="Decrease current age">−</button><input type="text" class="editable-age-input" id="currentAgeInput" value="27" aria-label="Current age" /><button type="button" class="step-btn" id="agePlus" aria-label="Increase current age">+</button></span><span id="s1AgeSuffix">years old.</span></span>
+          <span class="statement-line" id="s1Line2"><span id="s1TodayPrefix">Today I am</span><span class="inline-number-ctrl" title="Click -/+ or type your age directly"><button type="button" class="step-btn" id="ageMinus" aria-label="Decrease current age">−</button><input type="text" inputmode="numeric" class="editable-age-input" id="currentAgeInput" value="27" aria-label="Current age" /><button type="button" class="step-btn" id="agePlus" aria-label="Increase current age">+</button></span><span id="s1AgeSuffix">years old.</span></span>
         </p>
         <p class="statement-note" id="s1MetaBot">type your age or click − / + · scroll to continue</p>
       </section>
@@ -2155,7 +2182,7 @@
         <h2 class="statement-kicker" id="s2MetaTop"><span class="kicker-num" id="the-turning-point">02</span> <span id="s2KickerText">the turning point</span></h2>
         <p class="statement-body" id="s2Main">
           <span class="statement-line" id="s2Line1"><span id="s2NormalWrap"><span id="s2Prefix">Since I went</span><span class="inline-choice-group" role="group" aria-label="Select diet"><button type="button" class="choice-btn active-green" data-diet="vegetarian" id="dietBtnVeg">vegetarian</button><span class="choice-slash">/</span><button type="button" class="choice-btn" data-diet="vegan" id="dietBtnVegan">vegan</button></span><span id="s2PostDiet"></span></span><span id="s2MeatWrap" style="display:none;"><span id="s2MeatPrefix">Since I</span><strong id="s2MeatStrong" style="color:var(--active-accent);font-weight:500;">stayed a meat eater</strong></span></span>
-          <span class="statement-line" id="s2Line2"><span id="s2AgePrefix">at the age of</span><span class="inline-number-ctrl green-underline" title="Click -/+ or type the age directly"><button type="button" class="step-btn" id="sinceAgeMinus" aria-label="Decrease age of change">−</button><input type="text" class="editable-age-input green-text" id="sinceAgeInput" value="18" aria-label="Age of change" /><button type="button" class="step-btn" id="sinceAgePlus" aria-label="Increase age of change">+</button></span><span id="s2AgeSuffix">.</span></span>
+          <span class="statement-line" id="s2Line2"><span id="s2AgePrefix">at the age of</span><span class="inline-number-ctrl green-underline" title="Click -/+ or type the age directly"><button type="button" class="step-btn" id="sinceAgeMinus" aria-label="Decrease age of change">−</button><input type="text" inputmode="numeric" class="editable-age-input green-text" id="sinceAgeInput" value="18" aria-label="Age of change" /><button type="button" class="step-btn" id="sinceAgePlus" aria-label="Increase age of change">+</button></span><span id="s2AgeSuffix">.</span></span>
         </p>
         <p class="statement-note" id="s2MetaBot">9 years on this path so far</p>
       </section>
@@ -2254,7 +2281,7 @@
               <span id="s4LeadPrefix">Across my full life (</span><strong id="lifetimeYearsText">61.4 years</strong> <span id="lifetimeRangePrefix">from age <span id="lifetimeSinceAgeText">18</span></span> <span id="s4LeadTo">to</span>
               <span class="inline-number-ctrl green-underline" title="Click -/+ or type any final age">
                 <button type="button" class="step-btn" id="expMinus" aria-label="Decrease final age">−</button>
-                <input type="text" class="editable-age-input green-text wide" id="expectancyInput" value="79.4" aria-label="Final age" />
+                <input type="text" inputmode="decimal" class="editable-age-input green-text wide" id="expectancyInput" value="79.4" aria-label="Final age" />
                 <button type="button" class="step-btn" id="expPlus" aria-label="Increase final age">+</button>
               </span><span id="s4LeadClose">),</span> <span id="lifetimeVerbPhrase">this is what I will spare:</span>
             </p>
@@ -2639,6 +2666,7 @@
 
     <div class="scroll-hint" id="scrollHint">scroll ↓</div>
   </main>
+  </div>
 
   <!-- Share carousel pop-up -->
   <div class="modal-backdrop" id="igModalBackdrop" aria-hidden="true">
@@ -6792,13 +6820,14 @@
         if (el) el.textContent = formatS5Bottom(key, s5Anim[key]);
       });
 
-      // Smoothly roll Scene 4 sub-labels when toggling vegan preview or diet
+      // Smoothly roll Scene 4 sub-labels when toggling vegan preview, diet, age, or gender
       if (s4LifeTargetObj && s4LifeAnimObj) {
         let s4Changed = false;
-        for (const k of ['burgers', 'flights', 'tennis', 'pools']) {
+        const s4SubKeys = ['chickens', 'burgers', 'porkMeals', 'lambMeals', 'finfish', 'shellfish', 'co2', 'landM2', 'grainKg', 'waterLitres'];
+        for (const k of s4SubKeys) {
           const d = s4LifeTargetObj[k] - s4LifeAnimObj[k];
-          if (Math.abs(d) > 0.02) {
-            s4LifeAnimObj[k] += d * 0.12;
+          if (Math.abs(d) > 0.04) {
+            s4LifeAnimObj[k] += d * 0.14;
             s4Changed = true;
           } else if (s4LifeAnimObj[k] !== s4LifeTargetObj[k]) {
             s4LifeAnimObj[k] = s4LifeTargetObj[k];
@@ -6810,10 +6839,16 @@
           const isMeatMode = state.bottomMode === 'meat';
           const animLife = {
             ...s4LifeTargetObj,
+            chickens: Math.round(s4LifeAnimObj.chickens),
             burgers: Math.round(s4LifeAnimObj.burgers),
-            flights: Math.round(s4LifeAnimObj.flights),
-            tennis: +s4LifeAnimObj.tennis.toFixed(1),
-            pools: +s4LifeAnimObj.pools.toFixed(2)
+            porkMeals: Math.round(s4LifeAnimObj.porkMeals),
+            lambMeals: Math.round(s4LifeAnimObj.lambMeals),
+            finfish: Math.round(s4LifeAnimObj.finfish),
+            shellfish: Math.round(s4LifeAnimObj.shellfish),
+            co2: s4LifeAnimObj.co2,
+            landM2: s4LifeAnimObj.landM2,
+            grainKg: s4LifeAnimObj.grainKg,
+            waterLitres: s4LifeAnimObj.waterLitres
           };
           const s4SubArr = isMeatMode ? L.s4Subs.meat(animLife) : L.s4Subs.spared(animLife);
           ['lifeLandSub', 'lifeMarineSub', 'lifeFlightsSub', 'lifeHabitatSub', 'lifeGrainSub', 'lifeWaterSub'].forEach((id, i) => {
@@ -7165,9 +7200,21 @@
     }
 
     /* Controls, age inputs, modes and pop-ups */
+    // Helper to release focus from buttons/inputs inside the sticky stage so scroll is never trapped
+    function releaseStageFocus() {
+      const ae = document.activeElement;
+      if (ae && (ae.tagName === 'INPUT' || ae.tagName === 'BUTTON') && ae.closest('.viewport-stage')) {
+        ae.blur();
+      }
+    }
+    window.addEventListener('wheel', releaseStageFocus, { passive: true });
+    window.addEventListener('touchmove', releaseStageFocus, { passive: true });
+
     // Identity toggle (a man / a woman / non-binary): keep text on page, smoothly fade button color & update numbers
     document.querySelectorAll('[data-sex]').forEach((btn) => {
       btn.addEventListener('click', () => {
+        btn.blur();
+        releaseStageFocus();
         const nextSex = btn.getAttribute('data-sex');
         if (nextSex === state.sex) return;
         document.querySelectorAll('[data-sex]').forEach((b) => b.classList.toggle('active', b === btn));
@@ -7186,6 +7233,8 @@
 
     document.querySelectorAll('[data-diet]').forEach((btn) => {
       btn.addEventListener('click', () => {
+        btn.blur();
+        releaseStageFocus();
         const nextDiet = btn.getAttribute('data-diet');
         if (nextDiet === state.diet && state.bottomMode !== 'meat') return;
         state.diet = nextDiet;
@@ -7198,6 +7247,12 @@
     function bindTypeableAge(inputId, minusId, plusId, minVal, maxVal, getter, setter) {
       const inp = document.getElementById(inputId);
       inp.addEventListener('focus', () => inp.select());
+      inp.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === 'Escape') {
+          e.preventDefault();
+          inp.blur();
+        }
+      });
       inp.addEventListener('input', () => {
         const v = parseFloat(inp.value);
         if (!isNaN(v) && v >= minVal && v <= maxVal) {
@@ -7208,11 +7263,17 @@
       inp.addEventListener('blur', () => {
         recalculateAll(false);
       });
-      document.getElementById(minusId).addEventListener('click', () => {
+      const minusBtn = document.getElementById(minusId);
+      const plusBtn = document.getElementById(plusId);
+      minusBtn.addEventListener('click', () => {
+        minusBtn.blur();
+        releaseStageFocus();
         setter(Math.max(minVal, getter() - 1));
         recalculateAll(false);
       });
-      document.getElementById(plusId).addEventListener('click', () => {
+      plusBtn.addEventListener('click', () => {
+        plusBtn.blur();
+        releaseStageFocus();
         setter(Math.min(maxVal, getter() + 1));
         recalculateAll(false);
       });
@@ -8426,14 +8487,17 @@
 
         let yShift = 0;
         if (idx === 0) {
-          yShift = -8 * smoothstep(s.out0, s.out1, p);
+          yShift = -18 * Math.min(1, Math.max(0, p / s.out1));
         } else if (idx === 5) {
           yShift = 0;
         } else {
           if (p < s.in1) {
-            yShift = (1 - smoothstep(s.in0, s.in1, p)) * 7;
-          } else if (p > s.out0) {
-            yShift = -smoothstep(s.out0, s.out1, p) * 6;
+            yShift = 14 + (1 - smoothstep(s.in0, s.in1, p)) * 12;
+          } else if (p <= s.out0) {
+            const plateauT = (p - s.in1) / Math.max(0.001, s.out0 - s.in1);
+            yShift = 14 - plateauT * 28;
+          } else {
+            yShift = -14 - smoothstep(s.out0, s.out1, p) * 12;
           }
         }
 
@@ -8582,8 +8646,8 @@
 
     function getWeaveX(u, centerX, amp) {
       const envelope = Math.sin(Math.min(1, u * 3.5) * (Math.PI / 2));
-      const wave1 = Math.sin(u * Math.PI * 3.2) * amp * 0.68;
-      const wave2 = Math.sin(u * Math.PI * 7.0 + 0.8) * amp * 0.28;
+      const wave1 = Math.sin(u * Math.PI * 4.6) * amp * 0.72;
+      const wave2 = Math.sin(u * Math.PI * 8.2 + 0.8) * amp * 0.28;
       return centerX + (wave1 + wave2) * envelope;
     }
 
@@ -8617,9 +8681,9 @@
       const centerX = cw * 0.56;
       const weaveAmp = Math.min(52, cw * 0.16);
 
-      const startScreenY = ch * 0.46;
+      const startScreenY = ch * 0.42;
       const tipWorldY = getWorldY(uTip, totalWorldHeight);
-      const targetScreenTipY = ch * (0.46 + 0.18 * drawProgress);
+      const targetScreenTipY = ch * (0.30 + 0.42 * drawProgress);
       const cameraY = tipWorldY - (targetScreenTipY - startScreenY);
 
       const worldToScreenY = (wy) => startScreenY + (wy - cameraY);
@@ -8793,9 +8857,11 @@
 
     /* Animation loop */
     function animate(timeMs) {
+      requestAnimationFrame(animate);
+
       const diff = targetProgress - smoothProgress;
       if (Math.abs(diff) > 0.00004) {
-        smoothProgress += diff * 0.072;
+        smoothProgress += diff * 0.16;
       } else {
         smoothProgress = targetProgress;
       }
@@ -8803,8 +8869,6 @@
       applySceneOpacities(smoothProgress);
       updateAllTickers(timeMs);
       renderThread(smoothProgress, timeMs);
-
-      requestAnimationFrame(animate);
     }
 
     // Initialize (supports ?lang=fr|es|ja|zh, ?p=0.60, ?mode=meat, ?modal=ig, ?ratio=stories, ?theme=2, ?modal=resources)
@@ -8832,6 +8896,8 @@
       lockedQueryProgress = initP;
       targetProgress = initP;
       smoothProgress = initP;
+      const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      window.scrollTo(0, initP * maxScroll);
       recalculateAll(false);
       applySceneOpacities(smoothProgress);
       s3Keys.forEach((k) => { s3Anim[k] = s3Target[k]; });
