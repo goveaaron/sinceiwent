@@ -503,6 +503,7 @@
       border-radius: 50%;
       background: var(--active-accent);
       display: inline-block;
+      transition: background-color 0.45s cubic-bezier(0.22, 1, 0.36, 1);
       animation: livePulse 2s infinite ease-in-out;
     }
 
@@ -689,6 +690,7 @@
     .editable-age-input.green-text {
       color: var(--active-accent);
       font-weight: 500;
+      transition: color 0.45s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .editable-age-input.wide {
@@ -723,6 +725,7 @@
     .facts-lead strong {
       font-weight: 500;
       color: var(--active-accent);
+      transition: color 0.45s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .metrics-grid {
@@ -773,6 +776,7 @@
 
     .metric-number.accent-green {
       color: var(--active-accent);
+      transition: color 0.45s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .metric-unit {
@@ -1298,6 +1302,7 @@
 
     .fact-table td.val.accent-col {
       color: var(--active-accent);
+      transition: color 0.45s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .sources-list {
@@ -6710,6 +6715,11 @@
     const s5PhotoVisible = [false, false, false, false, false, false];
     const s5Keys = ['bLand', 'bMarine', 'bCo2', 'bHabitat', 'bGrain', 'bWater'];
 
+    let s5TableAnim = null;
+    let s5TableTarget = null;
+    let s4LifeAnimObj = null;
+    let s4LifeTargetObj = null;
+
     function formatS3RealTime(key, val) {
       // One extra decimal place so every number visibly ticks up.
       let decimals = 6;
@@ -6774,13 +6784,101 @@
         const curr = s5Anim[key];
         const diff = targ - curr;
         if (Math.abs(diff) > 0.05) {
-          s5Anim[key] = curr + diff * 0.065;
+          s5Anim[key] = curr + diff * 0.09;
         } else {
           s5Anim[key] = targ;
         }
         const el = document.querySelector(`[data-bmetric="${key}"]`);
         if (el) el.textContent = formatS5Bottom(key, s5Anim[key]);
       });
+
+      // Smoothly roll Scene 4 sub-labels when toggling vegan preview or diet
+      if (s4LifeTargetObj && s4LifeAnimObj) {
+        let s4Changed = false;
+        for (const k of ['burgers', 'flights', 'tennis', 'pools']) {
+          const d = s4LifeTargetObj[k] - s4LifeAnimObj[k];
+          if (Math.abs(d) > 0.02) {
+            s4LifeAnimObj[k] += d * 0.12;
+            s4Changed = true;
+          } else if (s4LifeAnimObj[k] !== s4LifeTargetObj[k]) {
+            s4LifeAnimObj[k] = s4LifeTargetObj[k];
+            s4Changed = true;
+          }
+        }
+        if (s4Changed) {
+          const L = t();
+          const isMeatMode = state.bottomMode === 'meat';
+          const animLife = {
+            ...s4LifeTargetObj,
+            burgers: Math.round(s4LifeAnimObj.burgers),
+            flights: Math.round(s4LifeAnimObj.flights),
+            tennis: +s4LifeAnimObj.tennis.toFixed(1),
+            pools: +s4LifeAnimObj.pools.toFixed(2)
+          };
+          const s4SubArr = isMeatMode ? L.s4Subs.meat(animLife) : L.s4Subs.spared(animLife);
+          ['lifeLandSub', 'lifeMarineSub', 'lifeFlightsSub', 'lifeHabitatSub', 'lifeGrainSub', 'lifeWaterSub'].forEach((id, i) => {
+            const el = document.getElementById(id);
+            if (el) el.textContent = s4SubArr[i];
+          });
+        }
+      }
+
+      // Smoothly roll Scene 5 table breakdown numbers when toggling My Path / See as Vegan / See as a Meat Eater
+      if (s5TableTarget && s5TableAnim) {
+        let tblChanged = false;
+        const numKeys = ['chickens', 'cattle', 'pigs', 'sheep', 'finfish', 'shellfish', 'landAnimals', 'marineAnimals', 'burgers', 'co2', 'landM2', 'grainKg', 'waterLitres'];
+        for (const group of ['soFar', 'life']) {
+          for (const k of numKeys) {
+            const targ = s5TableTarget[group][k];
+            const curr = s5TableAnim[group][k];
+            const d = targ - curr;
+            if (Math.abs(d) > 0.04) {
+              s5TableAnim[group][k] = curr + d * 0.14;
+              tblChanged = true;
+            } else if (curr !== targ) {
+              s5TableAnim[group][k] = targ;
+              tblChanged = true;
+            }
+          }
+        }
+        if (tblChanged) {
+          const L = t();
+          const animSoFar = {
+            ...s5TableTarget.soFar,
+            chickens: Math.round(s5TableAnim.soFar.chickens),
+            cattle: Math.max(0.1, +s5TableAnim.soFar.cattle.toFixed(1)),
+            pigs: Math.max(0.1, +s5TableAnim.soFar.pigs.toFixed(1)),
+            sheep: Math.max(0.1, +s5TableAnim.soFar.sheep.toFixed(1)),
+            finfish: Math.round(s5TableAnim.soFar.finfish),
+            shellfish: Math.round(s5TableAnim.soFar.shellfish),
+            landAnimals: Math.round(s5TableAnim.soFar.landAnimals),
+            marineAnimals: Math.round(s5TableAnim.soFar.marineAnimals)
+          };
+          const animLife = {
+            ...s5TableTarget.life,
+            chickens: Math.round(s5TableAnim.life.chickens),
+            cattle: Math.max(0.1, +s5TableAnim.life.cattle.toFixed(1)),
+            pigs: Math.max(0.1, +s5TableAnim.life.pigs.toFixed(1)),
+            sheep: Math.max(0.1, +s5TableAnim.life.sheep.toFixed(1)),
+            finfish: Math.round(s5TableAnim.life.finfish),
+            shellfish: Math.round(s5TableAnim.life.shellfish),
+            landAnimals: Math.round(s5TableAnim.life.landAnimals),
+            marineAnimals: Math.round(s5TableAnim.life.marineAnimals),
+            burgers: Math.round(s5TableAnim.life.burgers)
+          };
+          const beefLbs = Math.round(animLife.burgers * 0.25);
+          const tVals1 = L.tableVals1(animSoFar, animLife, beefLbs);
+          ['tblChickens', 'tblCattle', 'tblPigs', 'tblSheep', 'tblFinfish', 'tblShellfish'].forEach((id, i) => {
+            const el = document.getElementById(id);
+            if (el) el.textContent = tVals1[i];
+          });
+          document.getElementById('tblTotalAnimals').innerHTML = tVals1[6];
+          document.getElementById('tblCo2').textContent = `${s5TableAnim.soFar.co2.toFixed(1)} t / ${s5TableAnim.life.co2.toFixed(1)} t`;
+          document.getElementById('tblLand').textContent = `${Math.round(s5TableAnim.soFar.landM2).toLocaleString()} m² / ${Math.round(s5TableAnim.life.landM2).toLocaleString()} m²`;
+          document.getElementById('tblGrain').textContent = `${Math.round(s5TableAnim.soFar.grainKg).toLocaleString()} kg / ${Math.round(s5TableAnim.life.grainKg).toLocaleString()} kg`;
+          document.getElementById('tblWater').textContent = `${(s5TableAnim.soFar.waterLitres / 1e6).toFixed(2)}M L / ${(s5TableAnim.life.waterLitres / 1e6).toFixed(2)}M L`;
+        }
+      }
     }
 
     function recalculateAll(resetPreview = false) {
@@ -6841,6 +6939,10 @@
       s4Target.lifeLandArea = life.landM2;
       s4Target.lifeGrain = life.grainKg;
       s4Target.lifeWater = life.waterLitres;
+      s4LifeTargetObj = { ...life };
+      if (!s4LifeAnimObj) {
+        s4LifeAnimObj = { ...life };
+      }
 
       // Update inputs & text in Scenes 1, 2, 3, 4
       const curAgeIn = document.getElementById('currentAgeInput');
@@ -6988,18 +7090,51 @@
         document.getElementById('col2Title').textContent = L.col2TitleSpared;
       }
 
-      const beefLbs = Math.round(s5Life.burgers * 0.25);
-      const tVals1 = L.tableVals1(s5SoFar, s5Life, beefLbs);
+      s5TableTarget = {
+        soFar: { ...s5SoFar },
+        life: { ...s5Life }
+      };
+      if (!s5TableAnim) {
+        s5TableAnim = {
+          soFar: { ...s5SoFar },
+          life: { ...s5Life }
+        };
+      }
+      const curAnimSoFar = {
+        ...s5SoFar,
+        chickens: Math.round(s5TableAnim.soFar.chickens),
+        cattle: Math.max(0.1, +s5TableAnim.soFar.cattle.toFixed(1)),
+        pigs: Math.max(0.1, +s5TableAnim.soFar.pigs.toFixed(1)),
+        sheep: Math.max(0.1, +s5TableAnim.soFar.sheep.toFixed(1)),
+        finfish: Math.round(s5TableAnim.soFar.finfish),
+        shellfish: Math.round(s5TableAnim.soFar.shellfish),
+        landAnimals: Math.round(s5TableAnim.soFar.landAnimals),
+        marineAnimals: Math.round(s5TableAnim.soFar.marineAnimals)
+      };
+      const curAnimLife = {
+        ...s5Life,
+        chickens: Math.round(s5TableAnim.life.chickens),
+        cattle: Math.max(0.1, +s5TableAnim.life.cattle.toFixed(1)),
+        pigs: Math.max(0.1, +s5TableAnim.life.pigs.toFixed(1)),
+        sheep: Math.max(0.1, +s5TableAnim.life.sheep.toFixed(1)),
+        finfish: Math.round(s5TableAnim.life.finfish),
+        shellfish: Math.round(s5TableAnim.life.shellfish),
+        landAnimals: Math.round(s5TableAnim.life.landAnimals),
+        marineAnimals: Math.round(s5TableAnim.life.marineAnimals),
+        burgers: Math.round(s5TableAnim.life.burgers)
+      };
+      const beefLbs = Math.round(curAnimLife.burgers * 0.25);
+      const tVals1 = L.tableVals1(curAnimSoFar, curAnimLife, beefLbs);
       ['tblChickens', 'tblCattle', 'tblPigs', 'tblSheep', 'tblFinfish', 'tblShellfish'].forEach((id, i) => {
         const el = document.getElementById(id);
         if (el) el.textContent = tVals1[i];
       });
       document.getElementById('tblTotalAnimals').innerHTML = tVals1[6];
 
-      document.getElementById('tblCo2').textContent = `${s5SoFar.co2.toFixed(1)} t / ${s5Life.co2.toFixed(1)} t`;
-      document.getElementById('tblLand').textContent = `${Math.round(s5SoFar.landM2).toLocaleString()} m² / ${Math.round(s5Life.landM2).toLocaleString()} m²`;
-      document.getElementById('tblGrain').textContent = `${Math.round(s5SoFar.grainKg).toLocaleString()} kg / ${Math.round(s5Life.grainKg).toLocaleString()} kg`;
-      document.getElementById('tblWater').textContent = `${(s5SoFar.waterLitres / 1e6).toFixed(2)}M L / ${(s5Life.waterLitres / 1e6).toFixed(2)}M L`;
+      document.getElementById('tblCo2').textContent = `${s5TableAnim.soFar.co2.toFixed(1)} t / ${s5TableAnim.life.co2.toFixed(1)} t`;
+      document.getElementById('tblLand').textContent = `${Math.round(s5TableAnim.soFar.landM2).toLocaleString()} m² / ${Math.round(s5TableAnim.life.landM2).toLocaleString()} m²`;
+      document.getElementById('tblGrain').textContent = `${Math.round(s5TableAnim.soFar.grainKg).toLocaleString()} kg / ${Math.round(s5TableAnim.life.grainKg).toLocaleString()} kg`;
+      document.getElementById('tblWater').textContent = `${(s5TableAnim.soFar.waterLitres / 1e6).toFixed(2)}M L / ${(s5TableAnim.life.waterLitres / 1e6).toFixed(2)}M L`;
       document.getElementById('tblAnnualRate').textContent =
         `${s5Life.annualLand.toLocaleString()} m² & ${s5Life.annualCo2.toFixed(2)} t CO₂e / ${L.yrSuffix}`;
       document.getElementById('tblExpectancy').textContent = L.editableYears(expectancy.toFixed(1));
@@ -7012,7 +7147,7 @@
       fitStatementLines();
     }
 
-    /* Smooth cross-fade helper so switching languages, identities, diets or modes never jumps */
+    /* Smooth cross-fade helper used ONLY when switching languages */
     let crossfadeTimer = null;
     function transitionPageContent(updateFn, includeCanvas = false) {
       if (crossfadeTimer) clearTimeout(crossfadeTimer);
@@ -7030,21 +7165,19 @@
     }
 
     /* Controls, age inputs, modes and pop-ups */
-    // Identity toggle (a man / a woman / non-binary)
+    // Identity toggle (a man / a woman / non-binary): keep text on page, smoothly fade button color & update numbers
     document.querySelectorAll('[data-sex]').forEach((btn) => {
       btn.addEventListener('click', () => {
         const nextSex = btn.getAttribute('data-sex');
         if (nextSex === state.sex) return;
         document.querySelectorAll('[data-sex]').forEach((b) => b.classList.toggle('active', b === btn));
-        transitionPageContent(() => {
-          state.sex = nextSex;
-          state.finalAge = LIFE_EXPECTANCY_DEFAULTS[state.sex];
-          recalculateAll(false);
-        });
+        state.sex = nextSex;
+        state.finalAge = LIFE_EXPECTANCY_DEFAULTS[state.sex];
+        recalculateAll(false);
       });
     });
 
-    // Diet toggle
+    // Diet toggle (vegetarian / vegan): keep text on page, smoothly fade accent colors & glide numbers
     function setDietButtonState() {
       document.querySelectorAll('[data-diet]').forEach((b) => {
         b.classList.toggle('active-green', b.getAttribute('data-diet') === state.diet);
@@ -7057,9 +7190,7 @@
         if (nextDiet === state.diet && state.bottomMode !== 'meat') return;
         state.diet = nextDiet;
         setDietButtonState();
-        transitionPageContent(() => {
-          recalculateAll(true);
-        });
+        recalculateAll(true);
       });
     });
 
@@ -7113,34 +7244,30 @@
       }
     );
 
-    // Scene 4 vegan comparison / meat eater reset button.
+    // Scene 4 vegan comparison / meat eater reset button: keep text & photos on page, roll numbers & fade colors
     document.getElementById('veganCompareBtn').addEventListener('click', () => {
-      transitionPageContent(() => {
-        if (state.bottomMode === 'meat') {
-          state.bottomMode = 'mine';
-          state.previewVegan = false;
-        } else if (state.diet === 'vegan') {
-          state.diet = 'vegetarian';
-          state.previewVegan = false;
-          setDietButtonState();
-        } else {
-          state.previewVegan = !state.previewVegan;
-        }
-        recalculateAll(false);
-      });
+      if (state.bottomMode === 'meat') {
+        state.bottomMode = 'mine';
+        state.previewVegan = false;
+      } else if (state.diet === 'vegan') {
+        state.diet = 'vegetarian';
+        state.previewVegan = false;
+        setDietButtonState();
+      } else {
+        state.previewVegan = !state.previewVegan;
+      }
+      recalculateAll(false);
     });
 
-    // Scene 5 mode switchers (My Path / See as Vegan / See as a Meat Eater)
+    // Scene 5 mode switchers (My Path / See as Vegan / See as a Meat Eater): keep page anchored, roll stats & fade colors
     document.querySelectorAll('[data-bottom-mode]').forEach((btn) => {
       btn.addEventListener('click', () => {
         const nextMode = btn.getAttribute('data-bottom-mode');
         if (nextMode === state.bottomMode) return;
-        transitionPageContent(() => {
-          state.bottomMode = nextMode;
-          if (state.bottomMode === 'vegan') state.previewVegan = true;
-          if (state.bottomMode === 'mine') state.previewVegan = false;
-          recalculateAll(false);
-        });
+        state.bottomMode = nextMode;
+        if (state.bottomMode === 'vegan') state.previewVegan = true;
+        if (state.bottomMode === 'mine') state.previewVegan = false;
+        recalculateAll(false);
       });
     });
 
@@ -8541,9 +8668,17 @@
       }
 
       const activeDiet = getStep4Diet();
-      const activeColor = isMeatMode
-        ? '#8E241B'
-        : (activeDiet === 'vegan' ? '#2D8553' : '#235C3E');
+      const targetRgb = isMeatMode
+        ? [142, 36, 27]
+        : (activeDiet === 'vegan' ? [45, 133, 83] : [35, 92, 62]);
+      if (!window._threadColorRgb) {
+        window._threadColorRgb = [...targetRgb];
+      } else {
+        for (let c = 0; c < 3; c++) {
+          window._threadColorRgb[c] += (targetRgb[c] - window._threadColorRgb[c]) * 0.10;
+        }
+      }
+      const activeColor = `rgb(${Math.round(window._threadColorRgb[0])}, ${Math.round(window._threadColorRgb[1])}, ${Math.round(window._threadColorRgb[2])})`;
 
       // 2. Soft charcoal line up to the turning point
       const uBlackEnd = Math.min(uTip, U_SPLIT);
