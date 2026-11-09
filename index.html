@@ -6,7 +6,7 @@
   <title>Since I Went. Lifetime Vegan and Vegetarian Impact Calculator</title>
   <meta name="description" content="Understand your impact on the world and see the animals, tons of CO2, square meters of forest, and liters of water saved since going vegetarian and vegan." />
   <meta name="keywords" content="vegan calculator, vegetarian impact calculator, how many animals does a vegan save, since i went, vegan carbon footprint calculator, vegetarian vs vegan impact, lifetime animals saved" />
-  <meta name="theme-color" content="#1E5638" />
+  <meta name="theme-color" content="#F5F2EB" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
   <link rel="canonical" href="https://sinceiwent.org/" />
 
@@ -301,20 +301,36 @@
       border-bottom-color: var(--active-accent-line);
     }
 
-    /* Scroll track and sticky stage (sticky inside scroll-track so wheel & touch scroll chain natively everywhere) */
+    /* Scroll track and fixed 100lvh stage (eliminates Android Chrome bottom white bar when the search bar moves up) */
+    html::before {
+      content: '';
+      position: fixed;
+      top: -140px;
+      bottom: -140px;
+      left: 0;
+      right: 0;
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(ellipse at 48% 34%, rgba(255, 253, 250, 0.72) 0%, rgba(245, 242, 235, 0.28) 58%, rgba(228, 222, 210, 0.36) 100%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
     .scroll-track {
       position: relative;
       width: 100%;
       height: 2600vh;
+      height: 2600lvh;
     }
 
     .viewport-stage {
-      position: sticky;
+      position: fixed;
       top: 0;
       left: 0;
+      right: 0;
       width: 100%;
       height: 100vh;
-      height: 100dvh;
+      height: 100lvh;
       overflow: hidden;
       pointer-events: none;
       background-color: var(--bg);
@@ -322,16 +338,33 @@
         radial-gradient(ellipse at 48% 34%, rgba(255, 253, 250, 0.72) 0%, rgba(245, 242, 235, 0.28) 58%, rgba(228, 222, 210, 0.36) 100%);
       box-shadow: inset 0 0 120px rgba(31, 30, 28, 0.028);
       z-index: 1;
+      transform: translate3d(0, 0, 0);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
     }
 
     .paper-texture-layer {
-      position: absolute;
-      inset: 0;
+      position: fixed;
+      top: -140px;
+      bottom: -140px;
+      left: 0;
+      right: 0;
       pointer-events: none;
       z-index: 1;
       opacity: 0.85;
       background-repeat: repeat;
       background-size: 110px 110px;
+    }
+
+    @supports (height: 100lvh) and (height: 100svh) {
+      @media (hover: none) and (pointer: coarse) {
+        .scene {
+          padding-bottom: calc(100lvh - 100svh);
+        }
+        .final-facts-scene {
+          padding-bottom: calc(8px + (100lvh - 100svh));
+        }
+      }
     }
 
     /* Left column: the lifeline */
@@ -8667,21 +8700,33 @@
     let smoothProgress = 0;
     let lockedQueryProgress = null;
 
+    let lastWinW = window.innerWidth;
+    let lastWinH = window.innerHeight;
+
     function updateTargetScroll() {
       if (lockedQueryProgress !== null && window.scrollY === 0) {
         targetProgress = lockedQueryProgress;
         return;
       }
       lockedQueryProgress = null;
-      const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      const stageEl = document.querySelector('.viewport-stage');
+      const viewH = stageEl ? stageEl.clientHeight : window.innerHeight;
+      const maxScroll = Math.max(1, document.documentElement.scrollHeight - viewH);
       targetProgress = Math.min(1, Math.max(0, window.scrollY / maxScroll));
     }
 
     window.addEventListener('scroll', updateTargetScroll, { passive: true });
     window.addEventListener('resize', () => {
+      const nw = window.innerWidth;
+      const nh = window.innerHeight;
+      const isMobileBarShift = !CAN_HOVER && nw === lastWinW && Math.abs(nh - lastWinH) < 160;
+      lastWinW = nw;
+      lastWinH = nh;
       updateTargetScroll();
-      resizeCanvas();
-      fitStatementLines();
+      if (!isMobileBarShift) {
+        resizeCanvas();
+        fitStatementLines();
+      }
     });
 
     function smoothstep(edge0, edge1, x) {
@@ -8892,9 +8937,16 @@
       dpr = Math.min(window.devicePixelRatio || 1, 2.5);
       cw = rect.width;
       ch = rect.height;
-      canvas.width = Math.round(cw * dpr);
-      canvas.height = Math.round(ch * dpr);
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const targetW = Math.round(cw * dpr);
+      const targetH = Math.round(ch * dpr);
+      if (Math.abs(canvas.width - targetW) > 1 || Math.abs(canvas.height - targetH) > 1) {
+        canvas.width = targetW;
+        canvas.height = targetH;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        if (typeof renderThread === 'function') {
+          renderThread(smoothProgress, performance.now());
+        }
+      }
     }
 
     const U_SPLIT = 0.33;
